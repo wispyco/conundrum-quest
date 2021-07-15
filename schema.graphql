@@ -1,0 +1,27 @@
+type User {
+  email: String! @unique
+  hats: [DadHat]
+}
+
+type DadHat {
+  name: String!
+  image: String!
+  views: Int
+  loves: Int
+  owner: User!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  loginUser(input: LoginUserInput): String! @resolver(name: "login_user")
+  createUser(input: CreateUserInput): User! @resolver(name: "create_user")
+}
