@@ -25,3 +25,7 @@ type Mutation {
   loginUser(input: LoginUserInput): String! @resolver(name: "login_user")
   createUser(input: CreateUserInput): User! @resolver(name: "create_user")
 }
+
+type Query {
+  getHats: [DadHat!]
+}
