@@ -28,17 +28,6 @@ export default function Login() {
     console.log("LoginUserReturn >>>>> ", LoginUserReturn);
 
     document.cookie = `fauna_client=${LoginUserReturn.data.loginUser}`;
-
-    // axios
-    //   .post("../api/login", {
-    //     data,
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   };
 
   console.log(errors);

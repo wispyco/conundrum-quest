@@ -6,7 +6,10 @@ export const client = new faunadb.Client({
   secret: process.env.FAUNA_CLIENT_KEY,
 });
 
-// export const authClient = (secret) =>
-//   new faunadb.Client({
-//     secret,
-//   });
+export const authClient = (secret) => {
+  return new faunadb.Client({
+    secret,
+    domain: "db.us.fauna.com",
+    scheme: "https",
+  });
+};
