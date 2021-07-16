@@ -13,7 +13,7 @@ export default function Login() {
   useEffect(() => {
     // If a user is already logged in,
     // redirect to the home page automatically.
-    if (user) router.push("/");
+    if (user) router.push("/magic-verify");
   }, [user]);
 
   const login = useCallback(
@@ -24,7 +24,7 @@ export default function Login() {
         const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY);
         const didToken = await magic.auth.loginWithMagicLink({
           email,
-          redirectURI: "http://localhost:3000/profile",
+          redirectURI: "http://localhost:3000/magic-verify",
         });
 
         const res = await fetch("/api/login", {
@@ -37,7 +37,7 @@ export default function Login() {
         });
 
         if (res.status === 200) {
-          router.push("/");
+          router.push("/magic-verify");
         } else {
           throw new Error(await res.text());
         }

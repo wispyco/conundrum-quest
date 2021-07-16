@@ -5,6 +5,7 @@ import { gql, useQuery } from "@apollo/client";
 import useSWR from "swr";
 import { useEffect } from "react";
 import Layout from "../components/layout";
+import { useRouter } from "next/router";
 
 export const GET_DAD_HAT = gql`
   query FindUserByID($id: ID!) {
@@ -21,12 +22,35 @@ export const GET_DAD_HAT = gql`
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
+function useAuth() {
+  const { data: user, error, mutate } = useSWR("/api/user", fetcher);
+
+  const loading = user?.token === false || user === undefined;
+
+  return {
+    user,
+    loading,
+    error,
+  };
+}
+
 export default function Profile() {
-  const { data: user, error: userError } = useSWR("/api/user", fetcher);
+  const { user, loading } = useAuth();
+
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   console.log("window", window);
+  //   console.log(Object.keys(router.query)[0]);
+  //   if (Object.keys(router.query)[0] === "magic_credentials") {
+  //     router.push(profile);
+  //     // window.history.pushState({}, document.title, "/" + "profile");
+  //   }
+  // }, []);
 
   return (
     <Layout>
-      <main>{user && <Data user={user} />}</main>
+      <main>{loading ? "Loading..." : <Data user={user} />}</main>
     </Layout>
   );
 }
