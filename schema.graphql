@@ -6,9 +6,14 @@ type User {
 type DadHat {
   name: String!
   image: String!
+  owner: User!
+  rating: Rating @relation
+}
+
+type Rating {
   views: Int
   loves: Int
-  owner: User!
+  owner: DadHat
 }
 
 input LoginUserInput {
