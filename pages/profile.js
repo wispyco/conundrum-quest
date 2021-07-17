@@ -8,6 +8,7 @@ import Layout from "../components/layout";
 import { useRouter } from "next/router";
 import { magicClient } from "../lib/magic";
 import axios from "axios";
+import styled, { keyframes } from "styled-components";
 
 export const GET_DAD_HAT = gql`
   query FindUserByID($id: ID!) {
@@ -27,57 +28,29 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 function useAuth() {
   const { data: user, error, mutate } = useSWR("/api/user", fetcher);
 
-  // const loading = user?.token === false || user === undefined;
+  const loading = user?.token === false || user === undefined;
 
   return {
     user,
+    loading,
     error,
   };
 }
 
 export default function Profile() {
-  const router = useRouter();
   const { user, loading } = useAuth();
-  const [userState, setUserState] = useState(null);
-
-  const [magicState, setMagicState] = useState(false);
-
-  // if (router.query.magic_credential) {
-
-  // } else {
-
-  useEffect(async () => {
-    console.log("router query", router.query);
-
-    // if (JSON.stringify(router.query) === "{}") {
-    // } else {
-    axios
-      .get("/api/user")
-      .then(function (response) {
-        // handle success
-        console.log("response", response);
-        setUserState(response.data);
-        return response.data;
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-    // }
-  }, []);
 
   return (
     <Layout>
       <main>
-        {userState === null ||
-        userState === undefined ||
-        userState.token === false ? (
-          "Loading..."
+        {loading ? (
+          <ImageRotate>
+            <img src="/logo-3.png" />
+          </ImageRotate>
         ) : (
-          <Data user={userState} />
+          <>
+            <Data user={user} />
+          </>
         )}
       </main>
     </Layout>
@@ -89,9 +62,29 @@ const Data = ({ user }) => {
     variables: { id: user.id },
   });
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <h1>Loading Data...</h1>;
 
   if (error) return <h1>{error.message}</h1>;
 
   return <pre>{JSON.stringify(data, null, 2)}</pre>;
 };
+
+const rotation = keyframes`
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+`;
+
+const ImageRotate = styled.div`
+  width: 149px;
+  height: 149px;
+  left: 50%;
+  margin-left: -74.5px;
+  top: 25%;
+  position: fixed;
+
+  animation: ${rotation} 2s infinite linear;
+`;
