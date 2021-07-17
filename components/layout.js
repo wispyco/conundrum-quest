@@ -1,6 +1,9 @@
 import Head from "next/head";
 import { magicClient } from "../lib/magic";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import styled from "styled-components";
+import Link from "next/link";
 
 export default function Layout({ children }) {
   const Router = useRouter();
@@ -14,6 +17,23 @@ export default function Layout({ children }) {
       Router.push("/login-magic");
     });
   };
+
+  const [userMenu, setUserMenu] = useState(false);
+
+  async function test() {
+    const userMagic = await magicClient.user.isLoggedIn(); // => `false`
+
+    if (userMagic) {
+      // show user menu
+      setUserMenu(true);
+    } else {
+      // hide user menu
+      setUserMenu(false);
+    }
+  }
+
+  test();
+
   return (
     <>
       <Head>
@@ -25,9 +45,51 @@ export default function Layout({ children }) {
           type="text/javascript"
         ></script>
       </Head>
-      <img src="/logo-3.png" />
-      <button onClick={logout}>Logout</button>
-      <main>{children}</main>
+      <Link href="/">
+        <Logo src="/logo-3.png" />
+      </Link>
+      {userMenu && (
+        <UserMenu>
+          <button onClick={logout}>Logout</button>
+          <Link href="/profile">My StreetWear</Link>
+        </UserMenu>
+      )}
+      <Main>{children}</Main>
     </>
   );
 }
+
+const UserMenu = styled.div`
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  display: grid;
+  grid-row-gap: 10px;
+  button {
+    padding: 10px;
+    background: none;
+    border: 1px solid #000;
+    font-size: 16px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  a {
+    border: 1px solid #000;
+    padding: 10px;
+    font-size: 16px;
+  }
+`;
+
+const Logo = styled.img`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Main = styled.main`
+  margin-top: 50px;
+`;

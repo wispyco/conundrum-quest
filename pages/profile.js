@@ -14,6 +14,7 @@ import DadHats from "../components/DadHats";
 import UpdateProfile from "../components/UpdateProfile";
 import CreateDadHat from "../components/CreateDatHat";
 import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
+import Loading from "../components/Loading";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -32,19 +33,29 @@ function useAuth() {
 export default function Profile() {
   const { user, loading } = useAuth();
 
-  const [showCreateDadHat, setShowCreateDateHat] = useState(true);
+  const [showCreateDadHat, setShowCreateDadHat] = useState(true);
+
+  const show = () => {
+    setShowCreateDadHat(true);
+  };
 
   return (
     <Layout>
       <main>
         {loading ? (
-          <ImageRotate>
-            <img src="/logo-3.png" />
-          </ImageRotate>
+          <Loading />
         ) : (
           <>
             <Data user={user} />
-            {showCreateDadHat && <CreateDadHat user={user} />}
+            {showCreateDadHat ? (
+              <CreateDadHat
+                user={user}
+                setShowCreateDadHat={setShowCreateDadHat}
+              />
+            ) : (
+              <AddStreetWear onClick={show}>Add StreetWear</AddStreetWear>
+            )}
+
             <UpdateProfile user={user} />
           </>
         )}
@@ -70,22 +81,8 @@ const Data = ({ user }) => {
   );
 };
 
-const rotation = keyframes`
-  0% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-`;
-
-const ImageRotate = styled.div`
-  width: 149px;
-  height: 149px;
-  left: 50%;
-  margin-left: -74.5px;
-  top: 25%;
+const AddStreetWear = styled.button`
   position: fixed;
-
-  animation: ${rotation} 2s infinite linear;
+  bottom: 25px;
+  right: 25px;
 `;

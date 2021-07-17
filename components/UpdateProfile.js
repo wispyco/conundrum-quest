@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { UPDATE_USER } from "../gql/schema";
+import styled from "styled-components";
+import { GET_DAD_HATS_BY_USER_ID, UPDATE_USER } from "../gql/schema";
 
 const UpdateProfile = ({ user }) => {
   const [updateUser, { data: updateUserData, loading: saving }] = useMutation(
@@ -50,12 +51,23 @@ const UpdateProfile = ({ user }) => {
   console.log(errors);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="name" {...register("name", {})} />
+    <ProfileName>
+      <h3>Update your Profile Name</h3>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="text" placeholder="name" {...register("name", {})} />
 
-      <input type="submit" />
-    </form>
+        <input type="submit" />
+      </form>
+    </ProfileName>
   );
 };
 
 export default UpdateProfile;
+
+const ProfileName = styled.div`
+  position: absolute;
+  top: 0;
+  width: 300px;
+  left: 50%;
+  margin-left: -150px;
+`;

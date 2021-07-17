@@ -5,6 +5,8 @@ import { gql, useQuery } from "@apollo/client";
 import useSWR from "swr";
 import { useEffect } from "react";
 import Layout from "../components/layout";
+import DadHatsPublic from "../components/DadHatsPublic";
+import Loading from "../components/Loading";
 
 export const GET_DAD_HATS = gql`
   query GetHats {
@@ -14,7 +16,7 @@ export const GET_DAD_HATS = gql`
         image
         _id
         owner {
-          email
+          name
         }
       }
     }
@@ -43,9 +45,15 @@ const Data = ({ user }) => {
     variables: { id: user.id },
   });
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <Loading />;
 
   if (error) return <h1>{error.message}</h1>;
 
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  return (
+    <>
+      <DadHatsPublic data={data} />
+
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+    </>
+  );
 };

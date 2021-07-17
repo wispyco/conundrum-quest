@@ -61,13 +61,13 @@ const DadHatGrid = styled.section`
   display: grid;
   grid-template-columns: 525px 525px 525px;
   grid-row-gap: 25px;
-  margin: 0 auto;
+  margin: 150px auto;
   width: 1575px;
 `;
 
 const DadHatBox = styled.div`
   width: 500px;
-  height: 350px;
+  height: 600px;
   background-color: ${(props) => props.backgroundRandom};
   border-radius: 15px;
   padding: 15px;
@@ -81,7 +81,9 @@ const DadHatBox = styled.div`
   }
   img {
     border-radius: 30px;
-    height: 300px;
+    height: 500px;
+    width: 400px;
+    object-fit: cover;
     padding: 25px;
   }
 `;

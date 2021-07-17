@@ -2,9 +2,9 @@ import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { CREATE_DAD_HAT } from "../gql/schema";
+import { CREATE_DAD_HAT, GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
 
-const CreateDadHat = ({ user }) => {
+const CreateDadHat = ({ user, setShowCreateDadHat }) => {
   const [cloudLinks, setCloudLinks] = useState([]);
 
   const clickMe = () => {
@@ -79,6 +79,10 @@ const CreateDadHat = ({ user }) => {
   const onSubmit = async (data) => {
     console.log(data);
     console.log("user >>>>", user);
+    if (JSON.stringify(cloudLinks) === "[]") {
+      alert("you forgot your image");
+      return;
+    }
     const createDadHatResponse = await createDadHat({
       variables: {
         connect: user.id,
@@ -86,36 +90,42 @@ const CreateDadHat = ({ user }) => {
         image: cloudLinks[0],
       },
     }).catch(console.error);
+
+    setShowCreateDadHat(false);
   };
   console.log(errors);
 
+  const close = () => {
+    setShowCreateDadHat(false);
+  };
+
   return (
     <CreateWrap>
+      <button onClick={close}>X</button>
+      <h3>Add StreetWear</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="name" {...register("name", {})} />
 
+        <button
+          type="button"
+          onClick={clickMe}
+          id="upload_widget"
+          className="upload"
+        >
+          Choose Image
+        </button>
+
+        {JSON.stringify(cloudLinks) !== "[]" && (
+          <div className="imgPreview">
+            <button type="button" className="close" onClick={removeImage}>
+              X
+            </button>
+            <img src={cloudLinks[0]} />
+          </div>
+        )}
+
         <input type="submit" />
       </form>
-      {cloudLinks &&
-        cloudLinks.map((img, i) => {
-          return (
-            <div className="imgPreview" key={i}>
-              <button className="close" name={i} onClick={removeImage}>
-                X
-              </button>
-              <img src={img} />
-            </div>
-          );
-        })}
-
-      <button
-        type="button"
-        onClick={clickMe}
-        id="upload_widget"
-        className="upload"
-      >
-        Upload files
-      </button>
     </CreateWrap>
   );
 };
@@ -128,4 +138,37 @@ const CreateWrap = styled.div`
   bottom: 0;
   padding: 25px;
   background: #000;
+  width: 300px;
+  form {
+    input {
+      padding: 5px;
+    }
+    display: grid;
+    grid-row-gap: 35px;
+    .imgPreview {
+      width: 250px;
+      margin: 0 auto;
+      position: relative;
+      img {
+        margin: 0 auto;
+        display: block;
+      }
+      button {
+        top: -10px;
+        left: 40px;
+        // margin-left: -10px;
+        width: 25px;
+        position: absolute;
+      }
+    }
+  }
+  img {
+    width: 150px;
+  }
+  h3 {
+    color: #fff;
+  }
+  pre {
+    color: #fff;
+  }
 `;
