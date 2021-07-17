@@ -109,7 +109,36 @@ const CreateDadHat = ({ user }) => {
   };
 
   const [createDadHat, { data: createDadHatData, loading: saving }] =
-    useMutation(CREATE_DAD_HAT);
+    useMutation(CREATE_DAD_HAT, {
+      update(cache, { data }) {
+        // We use an update function here to write the
+        // new value of the GET_ALL_TODOS query.
+        const newDadHatResponse = data?.createDadHat;
+        console.log("newDadHatResponse", newDadHatResponse);
+        const existingDadHats = cache.readQuery({
+          query: GET_DAD_HATS_BY_USER_ID,
+          variables: { id: user.id },
+        });
+        console.log("existingDadHats", existingDadHats);
+
+        if (newDadHatResponse && existingDadHats) {
+          cache.writeQuery({
+            query: GET_DAD_HATS_BY_USER_ID,
+            variables: { id: user.id },
+            data: {
+              findUserByID: {
+                hats: {
+                  data: [
+                    ...existingDadHats?.findUserByID?.hats?.data,
+                    newDadHatResponse,
+                  ],
+                },
+              },
+            },
+          });
+        }
+      },
+    });
 
   const {
     register,
