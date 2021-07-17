@@ -1,17 +1,20 @@
 import { gql, useMutation } from "@apollo/client";
 import randomColor from "randomcolor";
+import React from "react";
 import styled from "styled-components";
+import { GET_DAD_HATS_BY_USER_ID } from "../pages/profile";
 
 export const DELETE_DAD_HAT = gql`
   mutation DeleteDadHat($id: ID!) {
     deleteDadHat(id: $id) {
       name
       image
+      _id
     }
   }
 `;
 
-export default function DadHats({ data }) {
+export default function DadHats({ data, user }) {
   const [deleteDadHat, { data: deleteDadHatData, loading: deleting }] =
     useMutation(DELETE_DAD_HAT);
 
@@ -19,6 +22,11 @@ export default function DadHats({ data }) {
     const deleteDadHatResponse = await deleteDadHat({
       variables: {
         id,
+      },
+      update(cache) {
+        const normalizedId = cache.identify({ id, __typename: "DadHat" });
+        cache.evict({ id: normalizedId });
+        cache.gc();
       },
     }).catch(console.error);
   };
@@ -28,7 +36,7 @@ export default function DadHats({ data }) {
       <DadHatGrid>
         {data?.findUserByID?.hats?.data.map((dadHat) => {
           return (
-            <>
+            <React.Fragment key={dadHat._id}>
               <DadHatBox
                 backgroundRandom={randomColor({
                   hue: "blue",
@@ -41,7 +49,7 @@ export default function DadHats({ data }) {
                   Delete Dad Hat ;(
                 </button>
               </DadHatBox>
-            </>
+            </React.Fragment>
           );
         })}
       </DadHatGrid>

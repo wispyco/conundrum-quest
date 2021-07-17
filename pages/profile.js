@@ -12,7 +12,7 @@ import styled, { keyframes } from "styled-components";
 import { useForm } from "react-hook-form";
 import DadHats from "../components/DadHats";
 
-export const GET_DAD_HAT = gql`
+export const GET_DAD_HATS_BY_USER_ID = gql`
   query FindUserByID($id: ID!) {
     findUserByID(id: $id) {
       _id
@@ -161,7 +161,7 @@ const CreateDadHat = ({ user }) => {
 };
 
 const Data = ({ user }) => {
-  const { loading, error, data } = useQuery(GET_DAD_HAT, {
+  const { loading, error, data } = useQuery(GET_DAD_HATS_BY_USER_ID, {
     variables: { id: user.id },
   });
 
@@ -171,7 +171,7 @@ const Data = ({ user }) => {
 
   return (
     <>
-      {data && <DadHats data={data} />}
+      {data && <DadHats user={user} data={data} />}
       <pre>{JSON.stringify(data?.findUserByID?.hats, null, 2)}</pre>
     </>
   );

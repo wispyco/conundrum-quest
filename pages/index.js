@@ -6,15 +6,13 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import Layout from "../components/layout";
 
-export const GET_DAD_HAT = gql`
+export const GET_DAD_HATS = gql`
   query GetHats {
     getHats {
       data {
         name
-        loves
         image
         _id
-        views
         owner {
           email
         }
@@ -41,7 +39,7 @@ export default function Home() {
 }
 
 const Data = ({ user }) => {
-  const { loading, error, data } = useQuery(GET_DAD_HAT, {
+  const { loading, error, data } = useQuery(GET_DAD_HATS, {
     variables: { id: user.id },
   });
 
