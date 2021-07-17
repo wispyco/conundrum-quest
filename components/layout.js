@@ -48,10 +48,14 @@ export default function Layout({ children }) {
       <Link href="/">
         <Logo src="/logo-3.png" />
       </Link>
-      {userMenu && (
+      {userMenu ? (
         <UserMenu>
           <button onClick={logout}>Logout</button>
           <Link href="/profile">My StreetWear</Link>
+        </UserMenu>
+      ) : (
+        <UserMenu>
+          <Link href="/login-magic">login / signup</Link>
         </UserMenu>
       )}
       <Main>{children}</Main>
