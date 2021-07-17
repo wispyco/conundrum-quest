@@ -1,3 +1,4 @@
+import Image from "next/image";
 import randomColor from "randomcolor";
 import React from "react";
 import styled from "styled-components";
@@ -20,7 +21,7 @@ export default function DadHatsPublic({ data }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
-                <img src={dadHat.image} />
+                <Image width="400" height="400" src={dadHat.image} />
                 <p>By:{dadHat?.owner?.name}</p>
               </DadHatBox>
             </React.Fragment>

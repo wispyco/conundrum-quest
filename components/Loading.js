@@ -1,9 +1,10 @@
+import Image from "next/image";
 import styled, { keyframes } from "styled-components";
 
 export default function Loading() {
   return (
     <ImageRotate>
-      <img src="/logo-1.png" />
+      <Image width="149" height="149" src="/logo-1.png" />
     </ImageRotate>
   );
 }

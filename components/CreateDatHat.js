@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -120,7 +121,7 @@ const CreateDadHat = ({ user, setShowCreateDadHat }) => {
             <button type="button" className="close" onClick={removeImage}>
               X
             </button>
-            <img src={cloudLinks[0]} />
+            <Image src={cloudLinks[0]} />
           </div>
         )}
 

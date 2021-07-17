@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
+import Image from "next/image";
 import randomColor from "randomcolor";
 import React from "react";
 import styled from "styled-components";
@@ -44,8 +45,12 @@ export default function DadHats({ data, user }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
-                <img src={dadHat.image} />
-                <button onClick={() => clickDeleteDadHat(dadHat._id)}>
+                <Image src={dadHat.image} />
+                <button
+                  width="400"
+                  height="500"
+                  onClick={() => clickDeleteDadHat(dadHat._id)}
+                >
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
               </DadHatBox>
