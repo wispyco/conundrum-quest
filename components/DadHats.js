@@ -91,23 +91,31 @@ export default function DadHats({ data, user }) {
 
   const [imgRef, setImgRef] = useState(null);
 
+  const [imageState, setImageState] = useState(null);
+
   function showMarkerArea(e) {
     console.log("e", e.target);
     if (imgRef.current !== null) {
       console.log(imgRef);
       // create a marker.js MarkerArea
       const markerArea = new markerjs2.MarkerArea(e.target);
+      markerArea.renderAtNaturalSize = false;
+      markerArea.renderHeight = 200;
+      markerArea.renderWidth = 100;
       console.log(markerArea);
+      // markerArea.settings.displayMode = "popup";
       // // attach an event handler to assign annotated image back to our image element
-      markerArea.addRenderEventListener((dataUrl) => {
+      markerArea.addRenderEventListener((dataUrl, state) => {
         if (imgRef) {
           setImgRef(dataUrl);
         }
+        setImageState(state);
       });
       // // launch marker.js
       markerArea.show();
     }
   }
+
   // finally, call the show() method and marker.js UI opens
 
   return (
@@ -123,6 +131,15 @@ export default function DadHats({ data, user }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
+                <Marker>
+                  {imageState?.markers.map((marker) => {
+                    return (
+                      <Ok top={marker.top} left={marker.left}>
+                        {marker.text}
+                      </Ok>
+                    );
+                  })}
+                </Marker>
                 <Image
                   // onLoadingComplete={(e) => imgRef(e.target.src)}
                   onLoad={(e) => {
@@ -147,6 +164,7 @@ export default function DadHats({ data, user }) {
           height="1200"
         ></Canvas> */}
       </DadHatGrid>
+      <pre>{JSON.stringify(imageState, null, 2)}</pre>
     </>
   );
 }
@@ -160,6 +178,7 @@ const DadHatGrid = styled.section`
 `;
 
 const DadHatBox = styled.div`
+  position: relative;
   width: 500px;
   height: 600px;
   background-color: ${(props) => props.backgroundRandom};
@@ -180,6 +199,34 @@ const DadHatBox = styled.div`
     object-fit: cover;
     padding: 25px;
   }
+  div {
+    display: none;
+  }
+  &:hover {
+    div {
+      display: block;
+      span {
+        border: 1px solid #fff;
+        padding: 5px;
+      }
+    }
+  }
+`;
+
+const Marker = styled.div`
+  position: relative;
+  z-index: 100;
+  color: #fff;
+  font-size: 16px;
+`;
+
+const Ok = styled.span`
+  position: absolute;
+  top: ${(props) => props.top}px;
+  left: - ${(props) => props.left}px};
+  z-index: 100;
+  color: #fff;
+  font-size: 16px;
 `;
 
 // const Canvas = styled.canvas`
