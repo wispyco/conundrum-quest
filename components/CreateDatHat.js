@@ -121,7 +121,7 @@ const CreateDadHat = ({ user, setShowCreateDadHat }) => {
             <button type="button" className="close" onClick={removeImage}>
               X
             </button>
-            <Image src={cloudLinks[0]} />
+            <Image width="100" height="100" src={cloudLinks[0]} />
           </div>
         )}
 

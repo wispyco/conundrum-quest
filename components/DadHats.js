@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import Image from "next/image";
 import randomColor from "randomcolor";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { GET_DAD_HATS_BY_USER_ID } from "../pages/profile";
 
@@ -32,6 +32,11 @@ export default function DadHats({ data, user }) {
     }).catch(console.error);
   };
 
+  useEffect(() => {
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+  }, []);
+
   return (
     <>
       <DadHatGrid>
@@ -53,6 +58,7 @@ export default function DadHats({ data, user }) {
             </React.Fragment>
           );
         })}
+        <Canvas id="canvas" width="800" height="1200"></Canvas>
       </DadHatGrid>
     </>
   );
@@ -87,4 +93,12 @@ const DadHatBox = styled.div`
     object-fit: cover;
     padding: 25px;
   }
+`;
+
+const Canvas = styled.canvas`
+  background: #f8f8f8;
+  padding: 0;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  display: block;
 `;
