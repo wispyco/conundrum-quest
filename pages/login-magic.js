@@ -13,7 +13,7 @@ export default function Login() {
   useEffect(() => {
     // If a user is already logged in,
     // redirect to the home page automatically.
-    if (user) router.push("/magic-verify");
+    if (user) router.push("/profile");
   }, [user]);
 
   const login = useCallback(
@@ -37,7 +37,7 @@ export default function Login() {
         });
 
         if (res.status === 200) {
-          router.push("/magic-verify");
+          router.push("/profile");
         } else {
           throw new Error(await res.text());
         }
