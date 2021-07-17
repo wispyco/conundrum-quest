@@ -20,6 +20,7 @@ const createApolloClient = (accessToken) => {
   return new ApolloClient({
     cache: new InMemoryCache({}),
     link,
+    connectToDevTools: true,
   });
 };
 

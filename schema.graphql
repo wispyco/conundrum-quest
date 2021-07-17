@@ -1,14 +1,20 @@
 type User {
-  email: String! @unique
+  email: String @unique
+  name: String
   hats: [DadHat] @relation
 }
 
 type DadHat {
   name: String!
   image: String!
+  owner: User!
+  rating: Rating @relation
+}
+
+type Rating {
   views: Int
   loves: Int
-  owner: User!
+  owner: DadHat
 }
 
 input LoginUserInput {
@@ -24,4 +30,8 @@ input CreateUserInput {
 type Mutation {
   loginUser(input: LoginUserInput): String! @resolver(name: "login_user")
   createUser(input: CreateUserInput): User! @resolver(name: "create_user")
+}
+
+type Query {
+  getHats: [DadHat!]
 }
