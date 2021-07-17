@@ -45,12 +45,8 @@ export default function DadHats({ data, user }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
-                <Image src={dadHat.image} />
-                <button
-                  width="400"
-                  height="500"
-                  onClick={() => clickDeleteDadHat(dadHat._id)}
-                >
+                <Image width="400" height="500" src={dadHat.image} />
+                <button onClick={() => clickDeleteDadHat(dadHat._id)}>
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
               </DadHatBox>

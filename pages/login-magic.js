@@ -24,7 +24,7 @@ export default function Login() {
         const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY);
         const didToken = await magic.auth.loginWithMagicLink({
           email,
-          redirectURI: "http://localhost:3000/magic-verify",
+          redirectURI: process.env.NEXT_PUBLIC_REDIRECT_URL,
         });
 
         const res = await fetch("/api/login", {
