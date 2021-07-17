@@ -11,32 +11,9 @@ import axios from "axios";
 import styled, { keyframes } from "styled-components";
 import { useForm } from "react-hook-form";
 import DadHats from "../components/DadHats";
-
-export const GET_DAD_HATS_BY_USER_ID = gql`
-  query FindUserByID($id: ID!) {
-    findUserByID(id: $id) {
-      _id
-      hats {
-        data {
-          name
-          image
-          _id
-        }
-      }
-    }
-  }
-`;
-
-export const CREATE_DAD_HAT = gql`
-  mutation CreateDadHat($connect: ID!, $name: String!, $image: String!) {
-    createDadHat(
-      data: { name: $name, image: $image, owner: { connect: $connect } }
-    ) {
-      name
-      image
-    }
-  }
-`;
+import UpdateProfile from "../components/UpdateProfile";
+import CreateDadHat from "../components/CreateDatHat";
+import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -55,6 +32,8 @@ function useAuth() {
 export default function Profile() {
   const { user, loading } = useAuth();
 
+  const [showCreateDadHat, setShowCreateDateHat] = useState(true);
+
   return (
     <Layout>
       <main>
@@ -65,129 +44,14 @@ export default function Profile() {
         ) : (
           <>
             <Data user={user} />
-            <CreateDadHat user={user} />
+            {showCreateDadHat && <CreateDadHat user={user} />}
+            <UpdateProfile user={user} />
           </>
         )}
       </main>
     </Layout>
   );
 }
-
-const CreateDadHat = ({ user }) => {
-  const [cloudLinks, setCloudLinks] = useState([]);
-
-  const clickMe = () => {
-    const isBrowser = typeof window !== "undefined";
-
-    if (!isBrowser) {
-      return;
-    }
-    console.log(window.cloudinary); //
-    let widget = window.cloudinary.createUploadWidget(
-      {
-        cloudName: `kitson-co`,
-        sources: ["local", "url"],
-        uploadPreset: `dadHats`,
-        maxFiles: 1,
-      },
-      (error, result) => {
-        if (!error && result && result.event === "success") {
-          // console.log(result.info.url)
-          // setCloudLinks([...cloudLinks, result.info.url])
-          setCloudLinks((state) => [...state, result.info.url]);
-        }
-      }
-    );
-    widget.open(); //
-  };
-
-  const removeImage = (e) => {
-    const arrayIndex = e.target.getAttribute("name");
-    // console.log(cloudLinks)
-    // console.log(cloudLinks[arrayIndex])
-    setCloudLinks(cloudLinks.filter((item) => item !== cloudLinks[arrayIndex]));
-  };
-
-  const [createDadHat, { data: createDadHatData, loading: saving }] =
-    useMutation(CREATE_DAD_HAT, {
-      update(cache, { data }) {
-        // We use an update function here to write the
-        // new value of the GET_ALL_TODOS query.
-        const newDadHatResponse = data?.createDadHat;
-        console.log("newDadHatResponse", newDadHatResponse);
-        const existingDadHats = cache.readQuery({
-          query: GET_DAD_HATS_BY_USER_ID,
-          variables: { id: user.id },
-        });
-        console.log("existingDadHats", existingDadHats);
-
-        if (newDadHatResponse && existingDadHats) {
-          cache.writeQuery({
-            query: GET_DAD_HATS_BY_USER_ID,
-            variables: { id: user.id },
-            data: {
-              findUserByID: {
-                hats: {
-                  data: [
-                    ...existingDadHats?.findUserByID?.hats?.data,
-                    newDadHatResponse,
-                  ],
-                },
-              },
-            },
-          });
-        }
-      },
-    });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = async (data) => {
-    console.log(data);
-    console.log("user >>>>", user);
-    const createDadHatResponse = await createDadHat({
-      variables: {
-        connect: user.id,
-        name: data.name,
-        image: cloudLinks[0],
-      },
-    }).catch(console.error);
-  };
-  console.log(errors);
-
-  return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="name" {...register("name", {})} />
-
-        <input type="submit" />
-      </form>
-      {cloudLinks &&
-        cloudLinks.map((img, i) => {
-          return (
-            <div className="imgPreview" key={i}>
-              <button className="close" name={i} onClick={removeImage}>
-                X
-              </button>
-              <img src={img} />
-            </div>
-          );
-        })}
-
-      <button
-        type="button"
-        onClick={clickMe}
-        id="upload_widget"
-        className="upload"
-      >
-        Upload files
-      </button>
-    </>
-  );
-};
 
 const Data = ({ user }) => {
   const { loading, error, data } = useQuery(GET_DAD_HATS_BY_USER_ID, {
@@ -201,7 +65,7 @@ const Data = ({ user }) => {
   return (
     <>
       {data && <DadHats user={user} data={data} />}
-      <pre>{JSON.stringify(data?.findUserByID?.hats, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(data?.findUserByID?.hats, null, 2)}</pre> */}
     </>
   );
 };

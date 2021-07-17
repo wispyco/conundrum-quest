@@ -46,7 +46,7 @@ export default function DadHats({ data, user }) {
                 <h2>{dadHat.name}</h2>
                 <img src={dadHat.image} />
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
-                  Delete Dad Hat ;(
+                  Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
               </DadHatBox>
             </React.Fragment>
@@ -59,25 +59,29 @@ export default function DadHats({ data, user }) {
 
 const DadHatGrid = styled.section`
   display: grid;
-  grid-template-columns: 325px 325px 325px 325px;
+  grid-template-columns: 525px 525px 525px;
+  grid-row-gap: 25px;
   margin: 0 auto;
-  width: 1300px;
+  width: 1575px;
 `;
 
 const DadHatBox = styled.div`
-  width: 300px;
-  height: 250px;
+  width: 500px;
+  height: 350px;
   background-color: ${(props) => props.backgroundRandom};
   border-radius: 15px;
   padding: 15px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
   h2 {
     margin: 0;
     padding: 0 20px;
     color: #fff;
   }
   img {
-    padding: 20px;
     border-radius: 30px;
-    width: 100%;
+    height: 300px;
+    padding: 25px;
   }
 `;

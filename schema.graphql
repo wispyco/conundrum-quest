@@ -1,5 +1,6 @@
 type User {
-  email: String! @unique
+  email: String @unique
+  name: String
   hats: [DadHat] @relation
 }
 

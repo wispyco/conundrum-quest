@@ -25,6 +25,7 @@ export default function Layout({ children }) {
           type="text/javascript"
         ></script>
       </Head>
+      <img src="/logo-3.png" />
       <button onClick={logout}>Logout</button>
       <main>{children}</main>
     </>
