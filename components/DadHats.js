@@ -1,9 +1,11 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useReactiveVar } from "@apollo/client";
+import { getOperationAST } from "graphql";
 import Image from "next/image";
 import randomColor from "randomcolor";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { GET_DAD_HATS_BY_USER_ID } from "../pages/profile";
+import * as markerjs2 from "markerjs2";
 
 export const DELETE_DAD_HAT = gql`
   mutation DeleteDadHat($id: ID!) {
@@ -32,10 +34,81 @@ export default function DadHats({ data, user }) {
     }).catch(console.error);
   };
 
-  useEffect(() => {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-  }, []);
+  // let elemLeft;
+  // let elemTop;
+
+  // useEffect(() => {
+  //   const canvas = document.getElementById("canvas");
+  //   const ctx = canvas.getContext("2d");
+
+  //   make_base(ctx);
+
+  //   elemLeft = canvas.offsetLeft;
+  //   elemTop = canvas.offsetTop;
+
+  //   // outlined square X: 50, Y: 35, width/height 50
+  //   ctx.beginPath();
+  //   ctx.strokeRect(50, 35, 50, 50);
+
+  //   // filled square X: 125, Y: 35, width/height 50
+  //   ctx.beginPath();
+  //   ctx.fillRect(125, 35, 50, 50);
+  // }, []);
+
+  // const clickedCanvas = (event) => {
+  //   var x = event.pageX - elemLeft,
+  //     y = event.pageY - elemTop;
+  //   console.log(x, y);
+  // };
+
+  // function make_base(ctx) {
+  //   const myImage = React.createElement(
+  //     "img",
+  //     {
+  //       src: "https://preview.redd.it/ay3so7lynqb71.jpg?width=640&crop=smart&auto=webp&s=292f9c36c3f3e09535f8046ba37da55556ccb66d",
+  //       // any other image attributes you need go here
+  //     },
+  //     null
+  //   );
+
+  //   ctx.drawImage(myImage, 0, 0);
+  // }
+
+  // useEffect(() => {
+  //   // create an instance of MarkerArea and pass the target image reference as a parameter
+  //   let markerArea = new markerjs2.MarkerArea(document.getElementById("myimg"));
+
+  //   // register an event listener for when user clicks OK/save in the marker.js UI
+  //   markerArea.addRenderEventListener((dataUrl) => {
+  //     // we are setting the markup result to replace our original image on the page
+  //     // but you can set a different image or upload it to your server
+  //     document.getElementById("myimg").src = dataUrl;
+  //   });
+  //   markerArea.show();
+  // }, []);
+
+  // const imgRef = useRef(null);
+
+  const [imgRef, setImgRef] = useState(null);
+
+  function showMarkerArea(e) {
+    console.log("e", e.target);
+    if (imgRef.current !== null) {
+      console.log(imgRef);
+      // create a marker.js MarkerArea
+      const markerArea = new markerjs2.MarkerArea(e.target);
+      console.log(markerArea);
+      // // attach an event handler to assign annotated image back to our image element
+      markerArea.addRenderEventListener((dataUrl) => {
+        if (imgRef) {
+          setImgRef(dataUrl);
+        }
+      });
+      // // launch marker.js
+      markerArea.show();
+    }
+  }
+  // finally, call the show() method and marker.js UI opens
 
   return (
     <>
@@ -50,7 +123,16 @@ export default function DadHats({ data, user }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
-                <Image width="400" height="500" src={dadHat.image} />
+                <Image
+                  // onLoadingComplete={(e) => imgRef(e.target.src)}
+                  onLoad={(e) => {
+                    setImgRef(e.target);
+                  }}
+                  onClick={(e) => showMarkerArea(e)}
+                  width="400"
+                  height="500"
+                  src={dadHat.image}
+                />
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
@@ -58,7 +140,12 @@ export default function DadHats({ data, user }) {
             </React.Fragment>
           );
         })}
-        <Canvas id="canvas" width="800" height="1200"></Canvas>
+        {/* <Canvas
+          onClick={clickedCanvas}
+          id="canvas"
+          width="800"
+          height="1200"
+        ></Canvas> */}
       </DadHatGrid>
     </>
   );
@@ -95,10 +182,10 @@ const DadHatBox = styled.div`
   }
 `;
 
-const Canvas = styled.canvas`
-  background: #f8f8f8;
-  padding: 0;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-  display: block;
-`;
+// const Canvas = styled.canvas`
+//   background: #f8f8f8;
+//   padding: 0;
+//   margin: 0 auto;
+//   margin-bottom: 1rem;
+//   display: block;
+// `;
