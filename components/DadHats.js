@@ -4,10 +4,9 @@ import Image from "next/image";
 import randomColor from "randomcolor";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { GET_DAD_HATS_BY_USER_ID } from "../pages/profile";
 import * as markerjs2 from "markerjs2";
 import { Markers } from "../gql/Markers";
-import { set } from "react-hook-form";
+import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
 
 export const DELETE_DAD_HAT = gql`
   mutation DeleteDadHat($id: ID!) {
@@ -153,23 +152,46 @@ export default function DadHats({ data, user }) {
 
         deepMergedDataCopy[i].markers = state.markers;
 
-        console.log(deepMergedDataCopy);
+        console.log(data?.findUserByID?.hats?.data, "mergedData");
+
+        // const final = deepMergedDataCopy[i].markers.map((item, j) => {
+        //   return { ...item, link: mergedData[i].markers[j].link };
+        // });
+
+        // console.log(final, "final");
+
+        var test = deepMergedDataCopy.map((item, i) => {
+          const array = item.markers.map((marker, j) => {
+            return {
+              ...marker,
+              link: data?.findUserByID?.hats?.data[i].markers[j].link,
+            };
+          });
+
+          if (JSON.stringify(array) === "[]") {
+            return { ...item };
+          } else {
+            return { ...item, markers: array };
+          }
+        });
+
+        console.log(test, "test");
 
         // let mergedDataCopy = test;
 
         // var sliced = mergedDataCopy.splice(i, 1);
 
-        setMergedData(deepMergedDataCopy);
+        setMergedData(test);
 
         const updateDadHatResponse = await updateDadHat({
           variables: {
             id: id,
             connect: user.id,
-            markers: Markers(deepMergedDataCopy[i].markers),
+            markers: Markers(test[i].markers),
           },
         }).catch(console.error);
 
-        console.log("jfksadkfas;lkjd", Markers(deepMergedDataCopy[i].markers));
+        console.log("jfksadkfas;lkjd", Markers(test[i].markers));
 
         console.log(updateDadHatResponse);
 
@@ -262,7 +284,14 @@ export default function DadHats({ data, user }) {
 
 const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
   const [updateDadHat, { data: updateDadHatData, loading: updating }] =
-    useMutation(UPDATE_DAD_HAT);
+    useMutation(UPDATE_DAD_HAT, {
+      refetchQueries: [
+        {
+          query: GET_DAD_HATS_BY_USER_ID,
+          variables: { id: user.id },
+        },
+      ],
+    });
 
   let deepMergedDataCopy = JSON.parse(JSON.stringify(mergedData));
 
@@ -272,6 +301,9 @@ const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
     console.log("deepMergedDataCopy >>>>>>", deepMergedDataCopy[i]);
 
     const insertLink = deepMergedDataCopy[i].markers.map((item) => {
+      console.log("item.text", item.text);
+      console.log("itemText", itemText);
+
       if (item.text === itemText) {
         return { ...item, link: link };
       }
@@ -291,6 +323,8 @@ const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
         markers: final,
       },
     }).catch(console.error);
+
+    setDadHatState(final);
   };
 
   const addLinkPopup = (itemText) => {
@@ -308,17 +342,18 @@ const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
     setBreakDownState((breakDown) => !breakDown);
   };
 
+  const [dadHatState, setDadHatState] = useState(dadHat.markers);
+
   return (
     <BreakDownWrap>
       <button onClick={toggleBreakDown}>Breakdown</button>
       {breakDownState && (
         <BreakDown>
-          {dadHat.markers.map((item) => {
+          {dadHatState.map((item) => {
             return (
               <>
+                <a href={item.link}>{item.text}</a>
                 <h2>
-                  {item.text}
-                  {item.link}
                   <button onClick={() => addLinkPopup(item.text)}>
                     Add Link
                   </button>
@@ -349,6 +384,9 @@ const BreakDown = styled.div`
   padding: 25px;
   border-radius: 15px;
   background: #fff;
+  a {
+    color: blue;
+  }
   h2,
   h1 {
     color: #000 !important;

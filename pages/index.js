@@ -15,6 +15,7 @@ export const GET_DAD_HATS = gql`
         markers {
           left
           height
+          link
           text
           color
           typeName

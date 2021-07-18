@@ -24,16 +24,18 @@ export default function DadHatsPublic({ data }) {
                 <Marker className="hover">
                   {dadHat?.markers.map((marker) => {
                     return (
-                      <Ok
-                        top={marker.top}
-                        left={marker.left}
-                        background={randomColor({
-                          hue: "orange",
-                          luminosity: "bright",
-                        })}
-                      >
-                        {marker.text}
-                      </Ok>
+                      <a href={marker.link}>
+                        <Ok
+                          top={marker.top}
+                          left={marker.left}
+                          background={randomColor({
+                            hue: "orange",
+                            luminosity: "bright",
+                          })}
+                        >
+                          {marker.text}
+                        </Ok>
+                      </a>
                     );
                   })}
                 </Marker>
