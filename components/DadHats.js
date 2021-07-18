@@ -70,21 +70,21 @@ export default function DadHats({ data, user }) {
         setImageState(state);
 
         // take the state
-        let test = JSON.parse(JSON.stringify(mergedData));
+        let deepMergedDataCopy = JSON.parse(JSON.stringify(mergedData));
 
-        console.log(test, "test");
+        console.log(deepMergedDataCopy, "deepMergedDataCopy");
 
-        console.log(test === mergedData);
+        console.log(deepMergedDataCopy === mergedData);
 
-        test[i].state = state;
+        deepMergedDataCopy[i].state = state;
 
-        console.log(test);
+        console.log(deepMergedDataCopy);
 
         // let mergedDataCopy = test;
 
         // var sliced = mergedDataCopy.splice(i, 1);
 
-        setMergedData(test);
+        setMergedData(deepMergedDataCopy);
 
         if (markerImageState.state) {
           setMarkerImageState((markerImageState) => [
@@ -99,8 +99,8 @@ export default function DadHats({ data, user }) {
 
       // // launch marker.js
       markerArea.show();
-      if (imageState) {
-        markerArea.restoreState(imageState);
+      if (mergedData[i]?.state) {
+        markerArea.restoreState(mergedData[i]?.state);
       }
     }
   }
@@ -120,7 +120,18 @@ export default function DadHats({ data, user }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
-                {markerImageState.map((item) => {
+                {marker && (
+                  <Marker className="hover">
+                    {dadHat?.state?.markers.map((marker) => {
+                      return (
+                        <Ok top={marker.top} left={marker.left}>
+                          {marker.text}
+                        </Ok>
+                      );
+                    })}
+                  </Marker>
+                )}
+                {/* {markerImageState.map((item) => {
                   <>
                     {item.id === i && (
                       <>
@@ -138,7 +149,7 @@ export default function DadHats({ data, user }) {
                       </>
                     )}
                   </>;
-                })}
+                })} */}
                 <div id={`image${i}`} className="wrap">
                   <Image
                     // onLoadingComplete={(e) => imgRef(e.target.src)}
@@ -155,6 +166,7 @@ export default function DadHats({ data, user }) {
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
               </DadHatBox>
+              {/* <pre>{JSON.stringify(mergedData[i]?.state, null, 2)}</pre> */}
             </React.Fragment>
           );
         })}
@@ -165,7 +177,7 @@ export default function DadHats({ data, user }) {
         })}
       </DadHatGrid>
       <pre>{JSON.stringify(mergedData, null, 2)}</pre>
-      <pre>{JSON.stringify(markerImageState, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(markerImageState, null, 2)}</pre> */}
     </>
   );
 }
