@@ -93,26 +93,37 @@ export default function DadHats({ data, user }) {
 
   const [imageState, setImageState] = useState(null);
 
-  function showMarkerArea(e) {
+  const [marker, setMarker] = useState(false);
+
+  function showMarkerArea(e, i) {
     console.log("e", e.target);
     if (imgRef.current !== null) {
       console.log(imgRef);
       // create a marker.js MarkerArea
       const markerArea = new markerjs2.MarkerArea(e.target);
-      markerArea.renderAtNaturalSize = false;
-      markerArea.renderHeight = 200;
-      markerArea.renderWidth = 100;
+      // markerArea.renderAtNaturalSize = false;
+      // markerArea.renderHeight = 200;
+      // markerArea.renderWidth = 100;
+
+      markerArea.targetRoot = document.getElementById(`image${i}`);
       console.log(markerArea);
+
       // markerArea.settings.displayMode = "popup";
       // // attach an event handler to assign annotated image back to our image element
       markerArea.addRenderEventListener((dataUrl, state) => {
         if (imgRef) {
           setImgRef(dataUrl);
         }
+        setMarker(true);
         setImageState(state);
       });
+      setMarker(false);
+
       // // launch marker.js
       markerArea.show();
+      if (imageState) {
+        markerArea.restoreState(imageState);
+      }
     }
   }
 
@@ -121,7 +132,7 @@ export default function DadHats({ data, user }) {
   return (
     <>
       <DadHatGrid>
-        {data?.findUserByID?.hats?.data.map((dadHat) => {
+        {data?.findUserByID?.hats?.data.map((dadHat, i) => {
           return (
             <React.Fragment key={dadHat._id}>
               <DadHatBox
@@ -131,25 +142,29 @@ export default function DadHats({ data, user }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
-                <Marker>
-                  {imageState?.markers.map((marker) => {
-                    return (
-                      <Ok top={marker.top} left={marker.left}>
-                        {marker.text}
-                      </Ok>
-                    );
-                  })}
-                </Marker>
-                <Image
-                  // onLoadingComplete={(e) => imgRef(e.target.src)}
-                  onLoad={(e) => {
-                    setImgRef(e.target);
-                  }}
-                  onClick={(e) => showMarkerArea(e)}
-                  width="400"
-                  height="500"
-                  src={dadHat.image}
-                />
+                {marker && (
+                  <Marker className="hover">
+                    {imageState?.markers.map((marker) => {
+                      return (
+                        <Ok top={marker.top} left={marker.left}>
+                          {marker.text}
+                        </Ok>
+                      );
+                    })}
+                  </Marker>
+                )}
+                <div id={`image${i}`} className="wrap">
+                  <Image
+                    // onLoadingComplete={(e) => imgRef(e.target.src)}
+                    onLoad={(e) => {
+                      setImgRef(e.target);
+                    }}
+                    onClick={(e) => showMarkerArea(e, i)}
+                    width="400"
+                    height="500"
+                    src={dadHat.image}
+                  />
+                </div>
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
@@ -187,6 +202,9 @@ const DadHatBox = styled.div`
   display: grid;
   align-items: center;
   justify-items: center;
+  // .wrap {
+  //   position: relative;
+  // }
   h2 {
     margin: 0;
     padding: 0 20px;
@@ -199,11 +217,27 @@ const DadHatBox = styled.div`
     object-fit: cover;
     padding: 25px;
   }
-  div {
+  div.hover {
     display: none;
+    width: 100%;
+  }
+  div.wrap {
+    display: block;
+    position: relative;
+    img {
+      position: relative;
+    }
+  }
+  .__markerjs2_ {
+    top: -35px !important;
+  }
+  .__markerjs2_ img {
+    padding: 0;
+    border-radius: 0;
   }
   &:hover {
-    div {
+    div.hover {
+      background: red;
       display: block;
       span {
         border: 1px solid #fff;
@@ -223,10 +257,11 @@ const Marker = styled.div`
 const Ok = styled.span`
   position: absolute;
   top: ${(props) => props.top}px;
-  left: - ${(props) => props.left}px};
+  left: ${(props) => props.left}px};
   z-index: 100;
   color: #fff;
   font-size: 16px;
+  background:red;
 `;
 
 // const Canvas = styled.canvas`
