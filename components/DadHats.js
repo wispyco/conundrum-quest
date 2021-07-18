@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { GET_DAD_HATS_BY_USER_ID } from "../pages/profile";
 import * as markerjs2 from "markerjs2";
 import { Markers } from "../gql/Markers";
+import { set } from "react-hook-form";
 
 export const DELETE_DAD_HAT = gql`
   mutation DeleteDadHat($id: ID!) {
@@ -65,19 +66,44 @@ export default function DadHats({ data, user }) {
     useMutation(DELETE_DAD_HAT);
 
   const [updateDadHat, { data: updateDadHatData, loading: updating }] =
-    useMutation(UPDATE_DAD_HAT);
+    useMutation(
+      UPDATE_DAD_HAT
+      //   , {
+      //   update(cache, { data: mutatedData }) {
+      //     const updateDadHatResponse = mutatedData?.updateDadHat;
+
+      //     if (updateDadHatResponse) {
+      //       cache.writeQuery({
+      //         query: GET_DAD_HATS_BY_USER_ID,
+      //         variables: { id: user.id },
+      //         data: {
+      //           findUserByID: {
+      //             hats: {
+      //               data: updateDadHatResponse,
+      //             },
+      //           },
+      //         },
+      //       });
+      //     }
+      //   },
+      // }
+    );
 
   const clickDeleteDadHat = async (id) => {
-    const deleteDadHatResponse = await deleteDadHat({
-      variables: {
-        id,
-      },
-      update(cache) {
-        const normalizedId = cache.identify({ id, __typename: "DadHat" });
-        cache.evict({ id: normalizedId });
-        cache.gc();
-      },
-    }).catch(console.error);
+    if (confirm("Are you sure you want to delete your streetwear?")) {
+      const deleteDadHatResponse = await deleteDadHat({
+        variables: {
+          id,
+        },
+        update(cache) {
+          const normalizedId = cache.identify({ id, __typename: "DadHat" });
+          cache.evict({ id: normalizedId });
+          cache.gc();
+        },
+      }).catch(console.error);
+    } else {
+      return;
+    }
   };
 
   const [imgRef, setImgRef] = useState(null);
@@ -103,6 +129,8 @@ export default function DadHats({ data, user }) {
       // markerArea.renderHeight = 200;
       // markerArea.renderWidth = 100;
 
+      markerArea.availableMarkerTypes = [markerjs2.TextMarker];
+
       markerArea.targetRoot = document.getElementById(`image${i}`);
       console.log(markerArea);
 
@@ -112,7 +140,7 @@ export default function DadHats({ data, user }) {
         if (imgRef) {
           setImgRef(dataUrl);
         }
-        setMarker(true);
+        // setMarker(true);
         setImageState(state);
 
         // take the state
@@ -122,7 +150,7 @@ export default function DadHats({ data, user }) {
 
         console.log(deepMergedDataCopy === mergedData);
 
-        deepMergedDataCopy[i].state = state;
+        deepMergedDataCopy[i].markers = state.markers;
 
         console.log(deepMergedDataCopy);
 
@@ -136,19 +164,11 @@ export default function DadHats({ data, user }) {
           variables: {
             id: id,
             connect: user.id,
-            markers: Markers(deepMergedDataCopy[i].state.markers),
-            // [
-            //   {
-            //     left: parseInt(deepMergedDataCopy[i].state.markers[0].left),
-            //   },
-            // ],
+            markers: Markers(deepMergedDataCopy[i].markers),
           },
         }).catch(console.error);
 
-        console.log(
-          "jfksadkfas;lkjd",
-          Markers(deepMergedDataCopy[i].state.markers)
-        );
+        console.log("jfksadkfas;lkjd", Markers(deepMergedDataCopy[i].markers));
 
         console.log(updateDadHatResponse);
 
@@ -161,7 +181,7 @@ export default function DadHats({ data, user }) {
           setMarkerImageState([{ id: i, state: state }]);
         }
       });
-      setMarker(false);
+      // setMarker(false);
 
       // // launch marker.js
       markerArea.show();
@@ -172,6 +192,8 @@ export default function DadHats({ data, user }) {
   }
 
   // finally, call the show() method and marker.js UI opens
+
+  const toggleBreakDown = () => {};
 
   return (
     <>
@@ -209,6 +231,7 @@ export default function DadHats({ data, user }) {
                     src={dadHat.image}
                   />
                 </div>
+                <DadHatBreakDown />
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
@@ -218,16 +241,52 @@ export default function DadHats({ data, user }) {
           );
         })}
       </DadHatGrid>
-      <DadHatGrid>
+      {/* <DadHatGrid>
         {markerImageState.map((item) => {
           return <>{item.id}</>;
         })}
-      </DadHatGrid>
-      <pre>{JSON.stringify(mergedData, null, 2)}</pre>
+      </DadHatGrid> */}
+      {/* <pre>{JSON.stringify(mergedData, null, 2)}</pre> */}
       {/* <pre>{JSON.stringify(markerImageState, null, 2)}</pre> */}
     </>
   );
 }
+
+const DadHatBreakDown = () => {
+  const [breakDownState, setBreakDownState] = useState(false);
+
+  const toggleBreakDown = () => {
+    setBreakDownState((breakDown) => !breakDown);
+  };
+
+  return (
+    <BreakDownWrap>
+      <button onClick={toggleBreakDown}>Breakdown</button>
+      {breakDownState && (
+        <BreakDown>
+          <h1>test</h1>
+        </BreakDown>
+      )}
+    </BreakDownWrap>
+  );
+};
+
+const BreakDownWrap = styled.div`
+  button {
+    z-index: 200;
+    position: relative;
+  }
+`;
+
+const BreakDown = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: red;
+  height: 600px;
+  z-index: 150;
+`;
 
 const DadHatGrid = styled.section`
   display: grid;
@@ -263,7 +322,7 @@ const DadHatBox = styled.div`
     padding: 25px;
   }
   div.hover {
-    display: none;
+    opacity: 0;
     width: 100%;
   }
   div.wrap {
@@ -275,6 +334,7 @@ const DadHatBox = styled.div`
   }
   .__markerjs2_ {
     top: -35px !important;
+    z-index: 200 !important;
   }
   .__markerjs2_ img {
     padding: 0;
@@ -282,8 +342,7 @@ const DadHatBox = styled.div`
   }
   &:hover {
     div.hover {
-      background: red;
-      display: block;
+      opacity: 1;
       span {
         border: 1px solid #fff;
         padding: 5px;

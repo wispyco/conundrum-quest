@@ -21,6 +21,22 @@ export default function DadHatsPublic({ data }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
+                <Marker className="hover">
+                  {dadHat?.markers.map((marker) => {
+                    return (
+                      <Ok
+                        top={marker.top}
+                        left={marker.left}
+                        background={randomColor({
+                          hue: "orange",
+                          luminosity: "bright",
+                        })}
+                      >
+                        {marker.text}
+                      </Ok>
+                    );
+                  })}
+                </Marker>
                 <Image width="400" height="400" src={dadHat.image} />
                 <p>By:{dadHat?.owner?.name}</p>
               </DadHatBox>
@@ -61,4 +77,34 @@ const DadHatBox = styled.div`
     object-fit: cover;
     padding: 25px;
   }
+  div.hover {
+    opacity: 0;
+    width: 100%;
+  }
+  &:hover {
+    div.hover {
+      opacity: 1;
+      span {
+        border: 1px solid #fff;
+        padding: 5px;
+      }
+    }
+  }
+`;
+
+const Marker = styled.div`
+  position: relative;
+  z-index: 100;
+  color: #fff;
+  font-size: 16px;
+`;
+
+const Ok = styled.span`
+  position: absolute;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px};
+  z-index: 100;
+  color: #fff;
+  font-size: 16px;
+  background:${(props) => props.background};
 `;

@@ -12,6 +12,35 @@ export const GET_DAD_HATS = gql`
   query GetHats {
     getHats {
       data {
+        markers {
+          left
+          height
+          text
+          color
+          typeName
+          rotationAngle
+          padding
+          width
+          top
+          fontFamily
+          state
+          containerTransformMatrix {
+            a
+            b
+            c
+            d
+            e
+            f
+          }
+          visualTransformMatrix {
+            a
+            b
+            c
+            d
+            e
+            f
+          }
+        }
         name
         image
         _id
