@@ -67,7 +67,15 @@ export default function DadHats({ data, user }) {
 
   const [updateDadHat, { data: updateDadHatData, loading: updating }] =
     useMutation(
-      UPDATE_DAD_HAT
+      UPDATE_DAD_HAT,
+      {
+        refetchQueries: [
+          {
+            query: GET_DAD_HATS_BY_USER_ID,
+            variables: { id: user.id },
+          },
+        ],
+      }
       //   , {
       //   update(cache, { data: mutatedData }) {
       //     const updateDadHatResponse = mutatedData?.updateDadHat;
@@ -164,7 +172,7 @@ export default function DadHats({ data, user }) {
           const array = item.markers.map((marker, j) => {
             return {
               ...marker,
-              link: data?.findUserByID?.hats?.data[i].markers[j].link,
+              link: data?.findUserByID?.hats?.data[i]?.markers[j]?.link,
             };
           });
 

@@ -49,6 +49,9 @@ export default function Profile() {
           </>
         ) : (
           <>
+            <Header1 className="move">
+              Click Image to add tags, then click breakdown to add Links
+            </Header1>
             <Data user={user} />
             {showCreateDadHat ? (
               <CreateDadHat
@@ -58,7 +61,6 @@ export default function Profile() {
             ) : (
               <AddStreetWear onClick={show}>Add Your Fit</AddStreetWear>
             )}
-
             <UpdateProfile user={user} />
           </>
         )}
