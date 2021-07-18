@@ -1,17 +1,21 @@
 import Head from "next/head";
 import { magicClient } from "../lib/magic";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import Script from "next/script";
+import useSWR from "swr";
+import { query } from "faunadb";
+
+const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Layout({ children }) {
   const Router = useRouter();
 
   const logout = () => {
     magicClient.user.logout().then(async (test) => {
-      console.log(await magicClient.user.isLoggedIn()); // => `false`
+      // console.log(await magicClient.user.isLoggedIn()); // => `false`
       const res = await fetch("/api/logout", {
         method: "GET",
       });
@@ -19,17 +23,54 @@ export default function Layout({ children }) {
     });
   };
 
+  const { data: cookie, error } = useSWR("/api/cookie", fetcher);
+
+  // function getCookie(name) {
+  //   var dc = document.cookie;
+  //   var prefix = name + "=";
+  //   var begin = dc.indexOf("; " + prefix);
+  //   if (begin == -1) {
+  //     begin = dc.indexOf(prefix);
+  //     if (begin != 0) return null;
+  //   } else {
+  //     begin += 2;
+  //     var end = document.cookie.indexOf(";", begin);
+  //     if (end == -1) {
+  //       end = dc.length;
+  //     }
+  //   }
+  //   // because unescape has been deprecated, replaced with decodeURI
+  //   //return unescape(dc.substring(begin + prefix.length, end));
+  //   return decodeURI(dc.substring(begin + prefix.length, end));
+  // }
+
   const [userMenu, setUserMenu] = useState(false);
+
+  // const cookie = getCookie("fauna_client");
+
+  useEffect(() => {
+    if (cookie?.token === false) {
+      console.log(Router);
+      if (Router.asPath === "/") {
+        setUserMenu(false);
+      } else {
+        magicClient.user.logout().then(async (test) => {
+          // console.log(await magicClient.user.isLoggedIn()); // => `false`
+          Router.push("/login-magic");
+        });
+      }
+    }
+  }, []);
 
   async function test() {
     const userMagic = await magicClient.user.isLoggedIn(); // => `false`
 
-    if (userMagic) {
+    if (userMagic === false || cookie.token === false) {
       // show user menu
-      setUserMenu(true);
+      setUserMenu(false);
     } else {
       // hide user menu
-      setUserMenu(false);
+      setUserMenu(true);
     }
   }
 

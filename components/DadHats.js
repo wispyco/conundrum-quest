@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { GET_DAD_HATS_BY_USER_ID } from "../pages/profile";
 import * as markerjs2 from "markerjs2";
+import { Markers } from "../gql/Markers";
 
 export const DELETE_DAD_HAT = gql`
   mutation DeleteDadHat($id: ID!) {
@@ -23,6 +24,35 @@ export const UPDATE_DAD_HAT = gql`
       id: $id
       data: { markers: $markers, owner: { connect: $connect } }
     ) {
+      markers {
+        state
+        containerTransformMatrix {
+          e
+          f
+          a
+          c
+          b
+          d
+        }
+        left
+        height
+        text
+        color
+        typeName
+        fontFamily
+        rotationAngle
+        padding
+        width
+        top
+        visualTransformMatrix {
+          e
+          f
+          a
+          c
+          b
+          d
+        }
+      }
       name
       image
       _id
@@ -106,13 +136,19 @@ export default function DadHats({ data, user }) {
           variables: {
             id: id,
             connect: user.id,
-            markers: [
-              {
-                left: parseInt(deepMergedDataCopy[i].state.markers[0].left),
-              },
-            ],
+            markers: Markers(deepMergedDataCopy[i].state.markers),
+            // [
+            //   {
+            //     left: parseInt(deepMergedDataCopy[i].state.markers[0].left),
+            //   },
+            // ],
           },
         }).catch(console.error);
+
+        console.log(
+          "jfksadkfas;lkjd",
+          Markers(deepMergedDataCopy[i].state.markers)
+        );
 
         console.log(updateDadHatResponse);
 
