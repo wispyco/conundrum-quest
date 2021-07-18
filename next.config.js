@@ -10,6 +10,6 @@ module.exports = {
   //   ];
   // },
   images: {
-    domains: ["res.cloudinary.com"],
+    domains: ["res.cloudinary.com", "preview.redd.it"],
   },
 };

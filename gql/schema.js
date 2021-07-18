@@ -7,6 +7,36 @@ export const GET_DAD_HATS_BY_USER_ID = gql`
       name
       hats {
         data {
+          markers {
+            left
+            height
+            text
+            color
+            typeName
+            rotationAngle
+            padding
+            width
+            link
+            top
+            fontFamily
+            state
+            containerTransformMatrix {
+              a
+              b
+              c
+              d
+              e
+              f
+            }
+            visualTransformMatrix {
+              a
+              b
+              c
+              d
+              e
+              f
+            }
+          }
           name
           image
           _id
@@ -17,7 +47,7 @@ export const GET_DAD_HATS_BY_USER_ID = gql`
 `;
 
 export const CREATE_DAD_HAT = gql`
-  mutation CreateDadHat($connect: ID!, $name: String!, $image: String!) {
+  mutation CreateDadHat($connect: ID!, $name: String, $image: String) {
     createDadHat(
       data: { name: $name, image: $image, owner: { connect: $connect } }
     ) {

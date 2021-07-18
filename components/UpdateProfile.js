@@ -66,7 +66,7 @@ export default UpdateProfile;
 
 const ProfileName = styled.div`
   position: absolute;
-  top: 0;
+  top: 50px;
   width: 300px;
   left: 50%;
   margin-left: -150px;
