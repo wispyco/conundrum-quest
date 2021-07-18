@@ -34,66 +34,18 @@ export default function DadHats({ data, user }) {
     }).catch(console.error);
   };
 
-  // let elemLeft;
-  // let elemTop;
-
-  // useEffect(() => {
-  //   const canvas = document.getElementById("canvas");
-  //   const ctx = canvas.getContext("2d");
-
-  //   make_base(ctx);
-
-  //   elemLeft = canvas.offsetLeft;
-  //   elemTop = canvas.offsetTop;
-
-  //   // outlined square X: 50, Y: 35, width/height 50
-  //   ctx.beginPath();
-  //   ctx.strokeRect(50, 35, 50, 50);
-
-  //   // filled square X: 125, Y: 35, width/height 50
-  //   ctx.beginPath();
-  //   ctx.fillRect(125, 35, 50, 50);
-  // }, []);
-
-  // const clickedCanvas = (event) => {
-  //   var x = event.pageX - elemLeft,
-  //     y = event.pageY - elemTop;
-  //   console.log(x, y);
-  // };
-
-  // function make_base(ctx) {
-  //   const myImage = React.createElement(
-  //     "img",
-  //     {
-  //       src: "https://preview.redd.it/ay3so7lynqb71.jpg?width=640&crop=smart&auto=webp&s=292f9c36c3f3e09535f8046ba37da55556ccb66d",
-  //       // any other image attributes you need go here
-  //     },
-  //     null
-  //   );
-
-  //   ctx.drawImage(myImage, 0, 0);
-  // }
-
-  // useEffect(() => {
-  //   // create an instance of MarkerArea and pass the target image reference as a parameter
-  //   let markerArea = new markerjs2.MarkerArea(document.getElementById("myimg"));
-
-  //   // register an event listener for when user clicks OK/save in the marker.js UI
-  //   markerArea.addRenderEventListener((dataUrl) => {
-  //     // we are setting the markup result to replace our original image on the page
-  //     // but you can set a different image or upload it to your server
-  //     document.getElementById("myimg").src = dataUrl;
-  //   });
-  //   markerArea.show();
-  // }, []);
-
-  // const imgRef = useRef(null);
-
   const [imgRef, setImgRef] = useState(null);
 
   const [imageState, setImageState] = useState(null);
+  const [markerImageState, setMarkerImageState] = useState([
+    { id: 0, state: null },
+  ]);
 
   const [marker, setMarker] = useState(false);
+
+  const [mergedData, setMergedData] = useState(data?.findUserByID?.hats?.data);
+
+  const [extendState, setExtendState] = useState({});
 
   function showMarkerArea(e, i) {
     console.log("e", e.target);
@@ -116,6 +68,32 @@ export default function DadHats({ data, user }) {
         }
         setMarker(true);
         setImageState(state);
+
+        // take the state
+        let test = JSON.parse(JSON.stringify(mergedData));
+
+        console.log(test, "test");
+
+        console.log(test === mergedData);
+
+        test[i].state = state;
+
+        console.log(test);
+
+        // let mergedDataCopy = test;
+
+        // var sliced = mergedDataCopy.splice(i, 1);
+
+        setMergedData(test);
+
+        if (markerImageState.state) {
+          setMarkerImageState((markerImageState) => [
+            ...markerImageState,
+            { id: i, state: state },
+          ]);
+        } else {
+          setMarkerImageState([{ id: i, state: state }]);
+        }
       });
       setMarker(false);
 
@@ -132,7 +110,7 @@ export default function DadHats({ data, user }) {
   return (
     <>
       <DadHatGrid>
-        {data?.findUserByID?.hats?.data.map((dadHat, i) => {
+        {mergedData.map((dadHat, i) => {
           return (
             <React.Fragment key={dadHat._id}>
               <DadHatBox
@@ -142,17 +120,25 @@ export default function DadHats({ data, user }) {
                 })}
               >
                 <h2>{dadHat.name}</h2>
-                {marker && (
-                  <Marker className="hover">
-                    {imageState?.markers.map((marker) => {
-                      return (
-                        <Ok top={marker.top} left={marker.left}>
-                          {marker.text}
-                        </Ok>
-                      );
-                    })}
-                  </Marker>
-                )}
+                {markerImageState.map((item) => {
+                  <>
+                    {item.id === i && (
+                      <>
+                        {marker && (
+                          <Marker className="hover">
+                            {item?.state?.markers.map((marker) => {
+                              return (
+                                <Ok top={marker.top} left={marker.left}>
+                                  {marker.text}
+                                </Ok>
+                              );
+                            })}
+                          </Marker>
+                        )}
+                      </>
+                    )}
+                  </>;
+                })}
                 <div id={`image${i}`} className="wrap">
                   <Image
                     // onLoadingComplete={(e) => imgRef(e.target.src)}
@@ -172,14 +158,14 @@ export default function DadHats({ data, user }) {
             </React.Fragment>
           );
         })}
-        {/* <Canvas
-          onClick={clickedCanvas}
-          id="canvas"
-          width="800"
-          height="1200"
-        ></Canvas> */}
       </DadHatGrid>
-      <pre>{JSON.stringify(imageState, null, 2)}</pre>
+      <DadHatGrid>
+        {markerImageState.map((item) => {
+          return <>{item.id}</>;
+        })}
+      </DadHatGrid>
+      <pre>{JSON.stringify(mergedData, null, 2)}</pre>
+      <pre>{JSON.stringify(markerImageState, null, 2)}</pre>
     </>
   );
 }
