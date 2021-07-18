@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { GET_DAD_HATS_BY_USER_ID, UPDATE_USER } from "../gql/schema";
+import { Header1 } from "../pages/profile";
 
 const UpdateProfile = ({ user }) => {
   const [updateUser, { data: updateUserData, loading: saving }] = useMutation(

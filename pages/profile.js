@@ -52,6 +52,10 @@ export default function Profile() {
             <Header1 className="move">
               Click Image to add tags, then click breakdown to add Links
             </Header1>
+            <Header1>
+              <b>Try a refresh if things arent working</b>
+            </Header1>
+
             <Data user={user} />
             {showCreateDadHat ? (
               <CreateDadHat
@@ -91,6 +95,9 @@ export const Header1 = styled.h1`
   font-weight: 100;
   letter-spacing: 2px;
   font-size: 22px;
+  b {
+    color: red;
+  }
 `;
 
 const AddStreetWear = styled.button`
