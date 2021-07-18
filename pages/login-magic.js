@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useUser, useIsMounted } from "../lib/hooks";
 import { Magic } from "magic-sdk";
 import { useRouter } from "next/router";
+import Layout from "../components/layout";
 
 export default function Login() {
   const router = useRouter();
@@ -60,9 +61,10 @@ export default function Login() {
   );
 
   return (
-    <>
+    <Layout>
       <form onSubmit={onSubmit}>
-        <h2>Log in</h2>
+        <h2>Log in / Signup </h2>
+        <h3>(No Password Necessary, just a magic link)</h3>
 
         <label htmlFor="email">
           Email<span aria-hidden={true}>*</span>
@@ -84,6 +86,8 @@ export default function Login() {
       <style jsx>{`
         form {
           padding: 3rem;
+          width: 600px;
+          margin: 0 auto;
         }
         h2 {
           margin-top: 0;
@@ -117,6 +121,6 @@ export default function Login() {
           margin: 1rem 0 0;
         }
       `}</style>
-    </>
+    </Layout>
   );
 }

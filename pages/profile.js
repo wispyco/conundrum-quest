@@ -86,6 +86,9 @@ const Data = ({ user }) => {
 
 export const Header1 = styled.h1`
   text-align: center;
+  font-weight: 100;
+  letter-spacing: 2px;
+  font-size: 22px;
 `;
 
 const AddStreetWear = styled.button`

@@ -8,6 +8,7 @@ import Script from "next/script";
 import useSWR from "swr";
 import { query } from "faunadb";
 import { Header1 } from "../pages/profile";
+import { GoogleFonts } from "next-google-fonts";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -25,25 +26,6 @@ export default function Layout({ children }) {
   };
 
   const { data: cookie, error } = useSWR("/api/cookie", fetcher);
-
-  // function getCookie(name) {
-  //   var dc = document.cookie;
-  //   var prefix = name + "=";
-  //   var begin = dc.indexOf("; " + prefix);
-  //   if (begin == -1) {
-  //     begin = dc.indexOf(prefix);
-  //     if (begin != 0) return null;
-  //   } else {
-  //     begin += 2;
-  //     var end = document.cookie.indexOf(";", begin);
-  //     if (end == -1) {
-  //       end = dc.length;
-  //     }
-  //   }
-  //   // because unescape has been deprecated, replaced with decodeURI
-  //   //return unescape(dc.substring(begin + prefix.length, end));
-  //   return decodeURI(dc.substring(begin + prefix.length, end));
-  // }
 
   const [userMenu, setUserMenu] = useState(false);
 
@@ -110,6 +92,7 @@ export default function Layout({ children }) {
         src="https://upload-widget.cloudinary.com/global/all.js"
         type="text/javascript"
       ></Script>
+      <GoogleFonts href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300;400;500;700&display=swap" />
       <Link href="/">
         <Logo src="/logo-3.png" />
       </Link>
@@ -140,13 +123,32 @@ export default function Layout({ children }) {
         </UserMenu>
       )}
       <Header1>StreetWear.cool</Header1>
-      <Header2>
-        A Kewl, Kool, Cool place to share WYWT, Link your Fit and more...
-      </Header2>
+      {Router.asPath === "/" && (
+        <>
+          <Header2>
+            A Kewl, Kool, Cool place to share WYWT, LinkUp your Fits and more...
+          </Header2>
+          <Header3>Hover on a fit to see where it came from</Header3>
+        </>
+      )}
       <Main>{children}</Main>
+      <Made href="https://wispy.co">
+        <Header2>
+          Made for fun by <span>Wispy Company</span> in The Great White North
+        </Header2>
+      </Made>
     </>
   );
 }
+
+const Made = styled.a`
+  margin-top: 50px;
+  display: block;
+  margin-bottom: 50px;
+  span {
+    color: blue;
+  }
+`;
 
 const Alpha = styled.span`
   position: fixed;
@@ -163,6 +165,19 @@ const Alpha = styled.span`
 
 const Header2 = styled.h2`
   text-align: center;
+  font-weight: 300;
+  font-size: 32px;
+  width: 600px;
+  margin: 0 auto;
+`;
+
+const Header3 = styled.h3`
+  text-align: center;
+  font-weight: 300;
+  font-size: 26px;
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
 `;
 
 const UserMenu = styled.div`
