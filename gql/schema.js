@@ -16,6 +16,7 @@ export const GET_DAD_HATS_BY_USER_ID = gql`
             rotationAngle
             padding
             width
+            link
             top
             fontFamily
             state

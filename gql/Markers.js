@@ -6,6 +6,7 @@ export const Markers = (array) => {
       fontFamily: obj.fontFamily,
       padding: parseInt(obj.padding),
       text: obj.text,
+      link: obj.link,
       left: parseInt(obj.left),
       top: parseInt(obj.top),
       width: parseInt(obj.width),

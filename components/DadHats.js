@@ -39,6 +39,7 @@ export const UPDATE_DAD_HAT = gql`
         height
         text
         color
+        link
         typeName
         fontFamily
         rotationAngle
@@ -212,9 +213,11 @@ export default function DadHats({ data, user }) {
                   <Marker className="hover">
                     {dadHat?.markers.map((marker) => {
                       return (
-                        <Ok top={marker.top} left={marker.left}>
-                          {marker.text}
-                        </Ok>
+                        <a href={marker.link}>
+                          <Ok top={marker.top} left={marker.left}>
+                            {marker.text}
+                          </Ok>
+                        </a>
                       );
                     })}
                   </Marker>
@@ -231,7 +234,12 @@ export default function DadHats({ data, user }) {
                     src={dadHat.image}
                   />
                 </div>
-                <DadHatBreakDown dadHat={dadHat} />
+                <DadHatBreakDown
+                  dadHat={dadHat}
+                  user={user}
+                  mergedData={mergedData}
+                  i={i}
+                />
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
@@ -252,7 +260,48 @@ export default function DadHats({ data, user }) {
   );
 }
 
-const DadHatBreakDown = ({ dadHat }) => {
+const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
+  const [updateDadHat, { data: updateDadHatData, loading: updating }] =
+    useMutation(UPDATE_DAD_HAT);
+
+  let deepMergedDataCopy = JSON.parse(JSON.stringify(mergedData));
+
+  const addLink = async (link, itemText) => {
+    let deepMergedDataCopy = JSON.parse(JSON.stringify(mergedData));
+
+    console.log("deepMergedDataCopy >>>>>>", deepMergedDataCopy[i]);
+
+    const insertLink = deepMergedDataCopy[i].markers.map((item) => {
+      if (item.text === itemText) {
+        return { ...item, link: link };
+      }
+      return item;
+    });
+
+    console.log(insertLink, "insertLink");
+
+    const final = Markers(insertLink);
+
+    console.log(final, "final");
+
+    const updateDadHatResponse = await updateDadHat({
+      variables: {
+        id: dadHat._id,
+        connect: user.id,
+        markers: final,
+      },
+    }).catch(console.error);
+  };
+
+  const addLinkPopup = (itemText) => {
+    let linkGotten = prompt("Please enter your Link");
+    if (linkGotten == null || linkGotten == "") {
+      return;
+    } else {
+      addLink(linkGotten, itemText);
+    }
+  };
+
   const [breakDownState, setBreakDownState] = useState(false);
 
   const toggleBreakDown = () => {
@@ -269,11 +318,15 @@ const DadHatBreakDown = ({ dadHat }) => {
               <>
                 <h2>
                   {item.text}
-                  <button>Add Link</button>
+                  {item.link}
+                  <button onClick={() => addLinkPopup(item.text)}>
+                    Add Link
+                  </button>
                 </h2>
               </>
             );
           })}
+          {/* <pre>{JSON.stringify(deepMergedDataCopy[i].markers, null, 2)}</pre> */}
         </BreakDown>
       )}
     </BreakDownWrap>
