@@ -221,7 +221,7 @@ export default function DadHats({ data, user }) {
   return (
     <>
       <DadHatGrid>
-        {mergedData.map((dadHat, i) => {
+        {data?.findUserByID?.hats?.data.map((dadHat, i) => {
           return (
             <React.Fragment key={dadHat._id}>
               <DadHatBox

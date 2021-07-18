@@ -103,7 +103,7 @@ const CreateDadHat = ({ user, setShowCreateDadHat }) => {
   return (
     <CreateWrap>
       <button onClick={close}>X</button>
-      <h3>Add StreetWear</h3>
+      <h3>Add Your Fit</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="name" {...register("name", {})} />
 

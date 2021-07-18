@@ -43,7 +43,10 @@ export default function Profile() {
     <Layout>
       <main>
         {loading ? (
-          <Loading />
+          <>
+            <Loading />
+            <Header1>SignUp to Add you Fit</Header1>
+          </>
         ) : (
           <>
             <Data user={user} />
@@ -53,7 +56,7 @@ export default function Profile() {
                 setShowCreateDadHat={setShowCreateDadHat}
               />
             ) : (
-              <AddStreetWear onClick={show}>Add StreetWear</AddStreetWear>
+              <AddStreetWear onClick={show}>Add Your Fit</AddStreetWear>
             )}
 
             <UpdateProfile user={user} />
@@ -80,6 +83,10 @@ const Data = ({ user }) => {
     </>
   );
 };
+
+const Header1 = styled.h1`
+  text-align: center;
+`;
 
 const AddStreetWear = styled.button`
   position: fixed;
