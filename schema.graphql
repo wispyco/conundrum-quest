@@ -5,10 +5,37 @@ type User {
 }
 
 type DadHat {
-  name: String!
-  image: String!
+  name: String
+  image: String
   owner: User!
+  markers: [Marker]
   rating: Rating @relation
+}
+
+type Marker @embedded {
+  left: Int
+  top: Int
+  text: String
+  color: String
+  fontFamily: String
+  padding: Int
+  width: Int
+  height: Int
+  rotationAngle: Int
+  typeName: String
+  state: String
+  dadHat: DadHat
+  visualTransformMatrix: VtM
+  containerTransformMatrix: VtM
+}
+
+type VtM @embedded {
+  a: Int
+  b: Int
+  c: Int
+  d: Int
+  e: Int
+  f: Int
 }
 
 type Rating {

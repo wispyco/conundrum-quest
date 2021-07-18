@@ -17,9 +17,25 @@ export const DELETE_DAD_HAT = gql`
   }
 `;
 
+export const UPDATE_DAD_HAT = gql`
+  mutation UpdateDadHat($id: ID!, $connect: ID!, $markers: [MarkerInput]) {
+    updateDadHat(
+      id: $id
+      data: { markers: $markers, owner: { connect: $connect } }
+    ) {
+      name
+      image
+      _id
+    }
+  }
+`;
+
 export default function DadHats({ data, user }) {
   const [deleteDadHat, { data: deleteDadHatData, loading: deleting }] =
     useMutation(DELETE_DAD_HAT);
+
+  const [updateDadHat, { data: updateDadHatData, loading: updating }] =
+    useMutation(UPDATE_DAD_HAT);
 
   const clickDeleteDadHat = async (id) => {
     const deleteDadHatResponse = await deleteDadHat({
@@ -41,13 +57,13 @@ export default function DadHats({ data, user }) {
     { id: 0, state: null },
   ]);
 
-  const [marker, setMarker] = useState(false);
+  const [marker, setMarker] = useState(true);
 
   const [mergedData, setMergedData] = useState(data?.findUserByID?.hats?.data);
 
   const [extendState, setExtendState] = useState({});
 
-  function showMarkerArea(e, i) {
+  function showMarkerArea(e, i, id) {
     console.log("e", e.target);
     if (imgRef.current !== null) {
       console.log(imgRef);
@@ -62,7 +78,7 @@ export default function DadHats({ data, user }) {
 
       // markerArea.settings.displayMode = "popup";
       // // attach an event handler to assign annotated image back to our image element
-      markerArea.addRenderEventListener((dataUrl, state) => {
+      markerArea.addRenderEventListener(async (dataUrl, state) => {
         if (imgRef) {
           setImgRef(dataUrl);
         }
@@ -86,6 +102,20 @@ export default function DadHats({ data, user }) {
 
         setMergedData(deepMergedDataCopy);
 
+        const updateDadHatResponse = await updateDadHat({
+          variables: {
+            id: id,
+            connect: user.id,
+            markers: [
+              {
+                left: parseInt(deepMergedDataCopy[i].state.markers[0].left),
+              },
+            ],
+          },
+        }).catch(console.error);
+
+        console.log(updateDadHatResponse);
+
         if (markerImageState.state) {
           setMarkerImageState((markerImageState) => [
             ...markerImageState,
@@ -99,8 +129,8 @@ export default function DadHats({ data, user }) {
 
       // // launch marker.js
       markerArea.show();
-      if (mergedData[i]?.state) {
-        markerArea.restoreState(mergedData[i]?.state);
+      if (mergedData[i]) {
+        markerArea.restoreState(mergedData[i]);
       }
     }
   }
@@ -122,7 +152,7 @@ export default function DadHats({ data, user }) {
                 <h2>{dadHat.name}</h2>
                 {marker && (
                   <Marker className="hover">
-                    {dadHat?.state?.markers.map((marker) => {
+                    {dadHat?.markers.map((marker) => {
                       return (
                         <Ok top={marker.top} left={marker.left}>
                           {marker.text}
@@ -131,32 +161,13 @@ export default function DadHats({ data, user }) {
                     })}
                   </Marker>
                 )}
-                {/* {markerImageState.map((item) => {
-                  <>
-                    {item.id === i && (
-                      <>
-                        {marker && (
-                          <Marker className="hover">
-                            {item?.state?.markers.map((marker) => {
-                              return (
-                                <Ok top={marker.top} left={marker.left}>
-                                  {marker.text}
-                                </Ok>
-                              );
-                            })}
-                          </Marker>
-                        )}
-                      </>
-                    )}
-                  </>;
-                })} */}
                 <div id={`image${i}`} className="wrap">
                   <Image
                     // onLoadingComplete={(e) => imgRef(e.target.src)}
                     onLoad={(e) => {
                       setImgRef(e.target);
                     }}
-                    onClick={(e) => showMarkerArea(e, i)}
+                    onClick={(e) => showMarkerArea(e, i, dadHat._id)}
                     width="400"
                     height="500"
                     src={dadHat.image}
