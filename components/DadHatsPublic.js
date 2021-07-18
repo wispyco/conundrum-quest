@@ -22,9 +22,9 @@ export default function DadHatsPublic({ data }) {
               >
                 <h2>{dadHat.name}</h2>
                 <Marker className="hover">
-                  {dadHat?.markers.map((marker) => {
+                  {dadHat?.markers.map((marker, i) => {
                     return (
-                      <a href={marker.link}>
+                      <a key={i} href={marker.link}>
                         <Ok
                           top={marker.top}
                           left={marker.left}

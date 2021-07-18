@@ -233,9 +233,9 @@ export default function DadHats({ data, user }) {
                 <h2>{dadHat.name}</h2>
                 {marker && (
                   <Marker className="hover">
-                    {dadHat?.markers.map((marker) => {
+                    {dadHat?.markers.map((marker, i) => {
                       return (
-                        <a href={marker.link}>
+                        <a key={i} href={marker.link}>
                           <Ok top={marker.top} left={marker.left}>
                             {marker.text}
                           </Ok>
@@ -349,16 +349,16 @@ const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
       <button onClick={toggleBreakDown}>Breakdown</button>
       {breakDownState && (
         <BreakDown>
-          {dadHatState.map((item) => {
+          {dadHatState.map((item, i) => {
             return (
-              <>
+              <React.Fragment key={i}>
                 <a href={item.link}>{item.text}</a>
                 <h2>
                   <button onClick={() => addLinkPopup(item.text)}>
                     Add Link
                   </button>
                 </h2>
-              </>
+              </React.Fragment>
             );
           })}
           {/* <pre>{JSON.stringify(deepMergedDataCopy[i].markers, null, 2)}</pre> */}

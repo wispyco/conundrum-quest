@@ -100,9 +100,11 @@ export default function Layout({ children }) {
       {userMenu ? (
         <UserMenu>
           <button onClick={logout}>Logout</button>
-          <a onMouseOver={wearH} onMouseOut={wearHB} href="/profile">
-            {wear ? "WDYWT" : "What Did You Wear Today?"}
-          </a>
+          <Link href="/profile">
+            <a onMouseOver={wearH} onMouseOut={wearHB}>
+              {wear ? "WDYWT" : "What Did You Wear Today?"}
+            </a>
+          </Link>
           <a onMouseOver={faceOff} onMouseOut={faceOffB} href="">
             {soon ? "Sick Fit Game" : "Coming Soon"}
           </a>
@@ -112,9 +114,11 @@ export default function Layout({ children }) {
       ) : (
         <UserMenu>
           <Link href="/login-magic">login / signup</Link>
-          <a onMouseOver={wearH} onMouseOut={wearHB} href="/profile">
-            {wear ? "WDYWT" : "What Did You Wear Today?"}
-          </a>
+          <Link href="/profile">
+            <a onMouseOver={wearH} onMouseOut={wearHB}>
+              {wear ? "WDYWT" : "What Did You Wear Today?"}
+            </a>
+          </Link>
           <a onMouseOver={faceOff} onMouseOut={faceOffB} href="">
             {soon ? "Sick Fit Game" : "Coming Soon"}
           </a>
