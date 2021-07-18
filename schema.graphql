@@ -16,6 +16,7 @@ type Marker @embedded {
   left: Int
   top: Int
   text: String
+  link: String
   color: String
   fontFamily: String
   padding: Int

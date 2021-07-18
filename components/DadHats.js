@@ -231,7 +231,7 @@ export default function DadHats({ data, user }) {
                     src={dadHat.image}
                   />
                 </div>
-                <DadHatBreakDown />
+                <DadHatBreakDown dadHat={dadHat} />
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
                   Delete {data?.findUserByID?.name} Dad Hat ;(
                 </button>
@@ -252,7 +252,7 @@ export default function DadHats({ data, user }) {
   );
 }
 
-const DadHatBreakDown = () => {
+const DadHatBreakDown = ({ dadHat }) => {
   const [breakDownState, setBreakDownState] = useState(false);
 
   const toggleBreakDown = () => {
@@ -264,7 +264,16 @@ const DadHatBreakDown = () => {
       <button onClick={toggleBreakDown}>Breakdown</button>
       {breakDownState && (
         <BreakDown>
-          <h1>test</h1>
+          {dadHat.markers.map((item) => {
+            return (
+              <>
+                <h2>
+                  {item.text}
+                  <button>Add Link</button>
+                </h2>
+              </>
+            );
+          })}
         </BreakDown>
       )}
     </BreakDownWrap>
@@ -283,7 +292,14 @@ const BreakDown = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  background: red;
+  border: 1px solid #000;
+  padding: 25px;
+  border-radius: 15px;
+  background: #fff;
+  h2,
+  h1 {
+    color: #000 !important;
+  }
   height: 600px;
   z-index: 150;
 `;
