@@ -7,6 +7,7 @@ import Link from "next/link";
 import Script from "next/script";
 import useSWR from "swr";
 import { query } from "faunadb";
+import { Header1 } from "../pages/profile";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -112,6 +113,7 @@ export default function Layout({ children }) {
       <Link href="/">
         <Logo src="/logo-3.png" />
       </Link>
+      <Alpha>In Alpha</Alpha>
       {userMenu ? (
         <UserMenu>
           <button onClick={logout}>Logout</button>
@@ -137,10 +139,31 @@ export default function Layout({ children }) {
           <a href="">Feedback</a>
         </UserMenu>
       )}
+      <Header1>StreetWear.cool</Header1>
+      <Header2>
+        A Kewl, Kool, Cool place to share WYWT, Link your Fit and more...
+      </Header2>
       <Main>{children}</Main>
     </>
   );
 }
+
+const Alpha = styled.span`
+  position: fixed;
+  top: 125px;
+  left: 30px;
+  border: 1px solid yellow;
+  background: orange;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 30px;
+  z-index: 200;
+  padding: 5px;
+`;
+
+const Header2 = styled.h2`
+  text-align: center;
+`;
 
 const UserMenu = styled.div`
   position: fixed;
@@ -170,6 +193,7 @@ const Logo = styled.img`
   position: fixed;
   top: 0px;
   left: 0px;
+  z-index: 190;
   &:hover {
     cursor: pointer;
   }

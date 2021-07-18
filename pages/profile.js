@@ -84,7 +84,7 @@ const Data = ({ user }) => {
   );
 };
 
-const Header1 = styled.h1`
+export const Header1 = styled.h1`
   text-align: center;
 `;
 
