@@ -274,7 +274,7 @@ export default function DadHats({ data, user }) {
                   i={i}
                 />
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
-                  Delete {data?.findUserByID?.name} Dad Hat ;(
+                  Delete {data?.findUserByID?.name} Fit ;(
                 </button>
               </DadHatBox>
               {/* <pre>{JSON.stringify(mergedData[i]?.state, null, 2)}</pre> */}
@@ -282,6 +282,11 @@ export default function DadHats({ data, user }) {
           );
         })}
       </DadHatGrid>
+      <Video autoPlay loop muted>
+        <source src="/explain.mov" />
+        {/* <source src="/catlyDemo.ogg" /> */}
+        Your browser does not support the HTML5 Video element.
+      </Video>
       {/* <DadHatGrid>
         {markerImageState.map((item) => {
           return <>{item.id}</>;
@@ -357,7 +362,7 @@ const DadHatBreakDown = ({ dadHat, user, allData, i }) => {
 
   return (
     <BreakDownWrap>
-      <button onClick={toggleBreakDown}>Breakdown</button>
+      <button onClick={toggleBreakDown}>Add Links Toggle</button>
       {breakDownState && (
         <BreakDown>
           {dadHat?.markers.map((item, i) => {
@@ -374,7 +379,7 @@ const DadHatBreakDown = ({ dadHat, user, allData, i }) => {
           })}
         </BreakDown>
       )}
-      {i === 7 && <pre>{JSON.stringify(dadHat?.markers, null, 2)}</pre>}
+      {/* {i === 7 && <pre>{JSON.stringify(dadHat?.markers, null, 2)}</pre>} */}
     </BreakDownWrap>
   );
 };
@@ -384,6 +389,15 @@ const BreakDownWrap = styled.div`
     z-index: 200;
     position: relative;
   }
+`;
+
+const Video = styled.video`
+  width: 1200px;
+  margin: 0 auto;
+  display: block;
+  border: 15px solid #062600;
+  margin-top: 50px;
+  border-radius: 10px;
 `;
 
 const BreakDown = styled.div`
