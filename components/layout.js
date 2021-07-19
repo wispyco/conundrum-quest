@@ -106,7 +106,7 @@ export default function Layout({ children }) {
             </a>
           </Link>
           <a onMouseOver={faceOff} onMouseOut={faceOffB} href="">
-            {soon ? "Sick Fit Game" : "Coming Soon"}
+            {soon ? "Fit Battle" : "Coming Soon"}
           </a>
           <a href="">Were Open Source, see our naked code</a>
           <a href="">Feedback</a>
@@ -120,7 +120,7 @@ export default function Layout({ children }) {
             </a>
           </Link>
           <a onMouseOver={faceOff} onMouseOut={faceOffB} href="">
-            {soon ? "Sick Fit Game" : "Coming Soon"}
+            {soon ? "Fit Battle" : "Coming Soon"}
           </a>
           <a href="">Were Open Source, see our naked code</a>
           <a href="">Feedback</a>
