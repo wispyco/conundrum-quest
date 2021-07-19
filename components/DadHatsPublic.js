@@ -11,44 +11,47 @@ export default function DadHatsPublic({ data }) {
         <div className="mobile">
           <Header1>We are not mobile friendly yet, sorry</Header1>
         </div>
-        {data?.getHats?.data.map((dadHat) => {
-          return (
-            <React.Fragment key={dadHat._id}>
-              <DadHatBox
-                backgroundRandom={randomColor({
-                  hue: "orange",
-                  luminosity: "light",
-                })}
-                color={randomColor({
-                  hue: "orange",
-                  luminosity: "dark",
-                })}
-              >
-                <h2>{dadHat.name}</h2>
-                <Marker className="hover">
-                  {dadHat?.markers.map((marker, i) => {
-                    return (
-                      <a key={i} href={marker.link}>
-                        <Ok
-                          top={marker.top}
-                          left={marker.left}
-                          background={randomColor({
-                            hue: "orange",
-                            luminosity: "bright",
-                          })}
-                        >
-                          {marker.text}
-                        </Ok>
-                      </a>
-                    );
+        {data?.getHats?.data
+          .slice(0)
+          .reverse()
+          .map((dadHat) => {
+            return (
+              <React.Fragment key={dadHat._id}>
+                <DadHatBox
+                  backgroundRandom={randomColor({
+                    hue: "orange",
+                    luminosity: "light",
                   })}
-                </Marker>
-                <Image width="400" height="400" src={dadHat.image} />
-                <p>By:{dadHat?.owner?.name}</p>
-              </DadHatBox>
-            </React.Fragment>
-          );
-        })}
+                  color={randomColor({
+                    hue: "orange",
+                    luminosity: "dark",
+                  })}
+                >
+                  <h2>{dadHat.name}</h2>
+                  <Marker className="hover">
+                    {dadHat?.markers.map((marker, i) => {
+                      return (
+                        <a key={i} href={marker.link}>
+                          <Ok
+                            top={marker.top}
+                            left={marker.left}
+                            background={randomColor({
+                              hue: "orange",
+                              luminosity: "bright",
+                            })}
+                          >
+                            {marker.text}
+                          </Ok>
+                        </a>
+                      );
+                    })}
+                  </Marker>
+                  <Image width="400" height="400" src={dadHat.image} />
+                  <p>By:{dadHat?.owner?.name}</p>
+                </DadHatBox>
+              </React.Fragment>
+            );
+          })}
       </DadHatGrid>
     </>
   );
