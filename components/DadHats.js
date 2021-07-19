@@ -284,7 +284,7 @@ export default function DadHats({ data, user }) {
       </DadHatGrid>
       <Video autoPlay loop muted>
         <source src="/explain.mov" />
-        {/* <source src="/catlyDemo.ogg" /> */}
+        <source src="/explain.ogg" />
         Your browser does not support the HTML5 Video element.
       </Video>
       {/* <DadHatGrid>
