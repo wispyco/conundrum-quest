@@ -95,6 +95,8 @@ export const Header1 = styled.h1`
   font-weight: 100;
   letter-spacing: 2px;
   font-size: 22px;
+  width: 50%;
+  margin: 0 auto;
   b {
     color: red;
   }

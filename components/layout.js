@@ -220,4 +220,5 @@ const Logo = styled.img`
 
 const Main = styled.main`
   margin-top: 50px;
+  width: ;
 `;
