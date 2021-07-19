@@ -152,7 +152,9 @@ export default function DadHats({ data, user }) {
         setImageState(state);
 
         // take the state
-        let deepMergedDataCopy = JSON.parse(JSON.stringify(mergedData));
+        let deepMergedDataCopy = JSON.parse(
+          JSON.stringify(data?.findUserByID?.hats?.data)
+        );
 
         console.log(deepMergedDataCopy, "deepMergedDataCopy");
 
