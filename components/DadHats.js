@@ -270,6 +270,7 @@ export default function DadHats({ data, user }) {
                   dadHat={dadHat}
                   user={user}
                   mergedData={mergedData}
+                  allData={data?.findUserByID?.hats?.data}
                   i={i}
                 />
                 <button onClick={() => clickDeleteDadHat(dadHat._id)}>
@@ -292,7 +293,7 @@ export default function DadHats({ data, user }) {
   );
 }
 
-const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
+const DadHatBreakDown = ({ dadHat, user, allData, i }) => {
   const [updateDadHat, { data: updateDadHatData, loading: updating }] =
     useMutation(UPDATE_DAD_HAT, {
       refetchQueries: [
@@ -303,10 +304,10 @@ const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
       ],
     });
 
-  let deepMergedDataCopy = JSON.parse(JSON.stringify(mergedData));
+  let deepMergedDataCopy = JSON.parse(JSON.stringify(allData));
 
   const addLink = async (link, itemText) => {
-    let deepMergedDataCopy = JSON.parse(JSON.stringify(mergedData));
+    let deepMergedDataCopy = JSON.parse(JSON.stringify(allData));
 
     console.log("deepMergedDataCopy >>>>>>", deepMergedDataCopy[i]);
 
@@ -352,14 +353,14 @@ const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
     setBreakDownState((breakDown) => !breakDown);
   };
 
-  const [dadHatState, setDadHatState] = useState(dadHat.markers);
+  const [dadHatState, setDadHatState] = useState(dadHat?.markers);
 
   return (
     <BreakDownWrap>
       <button onClick={toggleBreakDown}>Breakdown</button>
       {breakDownState && (
         <BreakDown>
-          {dadHatState.map((item, i) => {
+          {dadHat?.markers.map((item, i) => {
             return (
               <React.Fragment key={i}>
                 <a href={item.link}>{item.text}</a>
@@ -371,9 +372,9 @@ const DadHatBreakDown = ({ dadHat, user, mergedData, i }) => {
               </React.Fragment>
             );
           })}
-          {/* <pre>{JSON.stringify(deepMergedDataCopy[i].markers, null, 2)}</pre> */}
         </BreakDown>
       )}
+      {i === 7 && <pre>{JSON.stringify(dadHat?.markers, null, 2)}</pre>}
     </BreakDownWrap>
   );
 };
