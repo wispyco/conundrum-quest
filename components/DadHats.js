@@ -7,6 +7,7 @@ import styled from "styled-components";
 import * as markerjs2 from "markerjs2";
 import { Markers } from "../gql/Markers";
 import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
+import { Header1 } from "../pages/profile";
 
 export const DELETE_DAD_HAT = gql`
   mutation DeleteDadHat($id: ID!) {
@@ -231,6 +232,9 @@ export default function DadHats({ data, user }) {
   return (
     <>
       <DadHatGrid>
+        <div className="mobile">
+          <Header1>We are not mobile friendly yet, sorry</Header1>
+        </div>
         {data?.findUserByID?.hats?.data.map((dadHat, i) => {
           return (
             <React.Fragment key={dadHat._id}>
@@ -393,6 +397,9 @@ const BreakDownWrap = styled.div`
 
 const Video = styled.video`
   width: 1200px;
+  @media (max-width: 1350px) {
+    width: 90%;
+  }
   margin: 0 auto;
   display: block;
   border: 15px solid #062600;
@@ -423,6 +430,28 @@ const BreakDown = styled.div`
 const DadHatGrid = styled.section`
   display: grid;
   grid-template-columns: 525px 525px 525px;
+  @media (max-width: 1600px) {
+    grid-template-columns: 525px 525px;
+    width: 1050px;
+    margin: 150px auto;
+  }
+  @media (max-width: 1350px) {
+    grid-template-columns: 1fr;
+    width: 525px;
+  }
+  .mobile {
+    display: none;
+    @media (max-width: 600px) {
+      display: block;
+      position: fixed;
+      width: 100%;
+      height: 25vh;
+      background: #fff;
+      z-index: 300;
+      top: 0;
+      left: 0;
+    }
+  }
   grid-row-gap: 25px;
   margin: 150px auto;
   width: 1575px;

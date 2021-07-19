@@ -2,11 +2,15 @@ import Image from "next/image";
 import randomColor from "randomcolor";
 import React from "react";
 import styled from "styled-components";
+import { Header1 } from "../pages/profile";
 
 export default function DadHatsPublic({ data }) {
   return (
     <>
       <DadHatGrid>
+        <div className="mobile">
+          <Header1>We are not mobile friendly yet, sorry</Header1>
+        </div>
         {data?.getHats?.data.map((dadHat) => {
           return (
             <React.Fragment key={dadHat._id}>
@@ -56,6 +60,28 @@ const DadHatGrid = styled.section`
   grid-row-gap: 25px;
   margin: 0 auto;
   width: 1575px;
+  @media (max-width: 1600px) {
+    grid-template-columns: 525px 525px;
+    width: 1050px;
+    margin: 150px auto;
+  }
+  @media (max-width: 1350px) {
+    grid-template-columns: 1fr;
+    width: 525px;
+  }
+  .mobile {
+    display: none;
+    @media (max-width: 600px) {
+      display: block;
+      position: fixed;
+      width: 100%;
+      height: 25vh;
+      background: #fff;
+      z-index: 300;
+      top: 0;
+      left: 0;
+    }
+  }
 `;
 
 const DadHatBox = styled.div`
