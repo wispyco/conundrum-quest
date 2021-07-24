@@ -21,7 +21,7 @@ export default function Layout({ children }) {
       const res = await fetch("/api/logout", {
         method: "GET",
       });
-      Router.push("/login-magic");
+      Router.push("/login-magic-public");
     });
   };
 
@@ -39,7 +39,7 @@ export default function Layout({ children }) {
       } else {
         magicClient.user.logout().then(async (test) => {
           // console.log(await magicClient.user.isLoggedIn()); // => `false`
-          Router.push("/login-magic");
+          Router.push("/login-magic-public");
         });
       }
     }
@@ -117,7 +117,7 @@ export default function Layout({ children }) {
         </UserMenu>
       ) : (
         <UserMenu>
-          <Link href="/login-magic">login / signup</Link>
+          <Link href="/login-magic-public">login / signup</Link>
           <Link href="/profile">
             <a onMouseOver={wearH} onMouseOut={wearHB}>
               {wear ? "WDYWT" : "What Did You Wear Today?"}

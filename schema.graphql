@@ -11,7 +11,7 @@ enum UserRole {
   # Moderator | Able to review, edit and accept Quests
   MODERATOR
   # Knights | Able to view quests, Join them, Submit Quests and nominate a Hero
-  KNIGHTS
+  KNIGHT
   # Hero | Able to edit their profile, or delete themself from a Quest
   HERO
 }
@@ -28,7 +28,7 @@ type Quest {
   knights: [Knight] @relation
 }
 
-type Knight{
+type Knight {
   name: String
   avatar: String
   twitter: String
@@ -45,7 +45,7 @@ type Hero {
   quest: Quest
 }
 
-type Invite{
+type Invite {
   inviteCode: Int!
   email: String!
   role: UserRole!

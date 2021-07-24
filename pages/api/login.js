@@ -9,8 +9,6 @@ const handlers = {
       req.headers.authorization
     );
 
-    console.log('req.inviteCode',req.inviteCode)
-
     magic.token.validate(didToken);
     const { email, issuer } = await magic.users.getMetadataByToken(didToken);
 
@@ -18,31 +16,31 @@ const handlers = {
 
     const userModel = new UserModel();
     // We auto-detect signups if `getUserByEmail` resolves to `undefined`
+    let user;
 
-      const invited = await userModel.getInvite(email);
+    if (await userModel.getUserByEmail(email)) {
+      user = await userModel.getUserByEmail(email);
+    } else {
+      let invited;
+      let inviteCodeSent;
 
-      console.log('invited >>>>>>>> ',invited)
-
-      let user
-
-      console.log('invited.inviteCode',invited.data.inviteCode)
-
-      if (invited.data.inviteCode ===  123456 && invited.data.role === "ADMIN"){
-
-        user =
-        (await userModel.getUserByEmail(email)) ??
-        (await userModel.createUser(email, invited.data.role));
+      if (req.body.inviteCode !== undefined) {
+        invited = await userModel.getInvite(email);
+        inviteCodeSent = true;
+      } else {
+        inviteCodeSent = false;
       }
 
-      else {
-        user = null
+      if (inviteCodeSent) {
+        if (invited.data.inviteCode === req.body.inviteCode) {
+          user = await userModel.createUser(email, invited.data.role);
+        }
+      } else {
+        user = await userModel.createUser(email, "KNIGHT");
       }
-
-
+    }
 
     const token = await userModel.obtainFaunaDBToken(user);
-
-    console.log("token, is it there", token);
 
     await createSession(res, { token, email, issuer });
 
