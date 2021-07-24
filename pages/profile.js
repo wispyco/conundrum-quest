@@ -16,11 +16,16 @@ import CreateDadHat from "../components/CreateDatHat";
 import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
 import Loading from "../components/Loading";
 import CreateInvite from "../components/CreateInvite";
+import ViewInvites from "../components/ViewInvites";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 function useAuth() {
-  const { data: user, error, mutate } = useSWR("/api/user", fetcher);
+  const {
+    data: user,
+    error,
+    mutate,
+  } = useSWR("/api/user", fetcher, { refreshInterval: 3 });
 
   const loading = user?.token === false || user === undefined;
 
@@ -32,7 +37,7 @@ function useAuth() {
 }
 
 export default function Profile() {
-  const { user, loading } = useAuth();
+  const { user, loading, error } = useAuth();
 
   // const [showCreateDadHat, setShowCreateDadHat] = useState(true);
 
@@ -41,6 +46,8 @@ export default function Profile() {
   // };
 
   console.log("user >>>>>>", user);
+
+  if (error) return <h1>{error.message}</h1>;
 
   return (
     <Layout>
@@ -52,10 +59,23 @@ export default function Profile() {
           </>
         ) : (
           <>
+            <h1>Current User</h1>
             <pre>{JSON.stringify(user, null, 2)}</pre>
-            <CreateInviteWrap>
-              <CreateInvite />
-            </CreateInviteWrap>
+            {user.role === "ADMIN" && (
+              <>
+                <CreateInviteWrap>
+                  <CreateInvite />
+                </CreateInviteWrap>
+                <ViewInvitesWrap>
+                  <ViewInvites />
+                </ViewInvitesWrap>
+              </>
+            )}
+            {user.role === "KNIGHT" && (
+              <>
+                <h1>Welcome young Knight</h1>
+              </>
+            )}
 
             {/* <Data user={user} />
             {showCreateDadHat ? (
@@ -102,6 +122,8 @@ export const Header1 = styled.h1`
     color: red;
   }
 `;
+
+const ViewInvitesWrap = styled.div``;
 
 const CreateInviteWrap = styled.div`
   form {

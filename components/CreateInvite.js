@@ -4,7 +4,9 @@ import { CREATE_INVITE } from "../gql/schema";
 
 export default function CreateInvite() {
   const [createInvite, { data: createInviteData, loading: saving }] =
-    useMutation(CREATE_INVITE);
+    useMutation(CREATE_INVITE, {
+      refetchQueries: { query: "GET_INVITES" },
+    });
 
   const {
     register,

@@ -28,11 +28,11 @@ export default function MagicVerify() {
       },
     });
 
-    console.log('res.status >>>>>>>',res.status)
+    console.log("res.status >>>>>>>", res.status);
 
     if (res.status === 200) {
       // Set the UserContext to the now logged in user
-      let userMetadata = await magicClient.user.getMetadata();
+      // let userMetadata = await magicClient.user.getMetadata();
       // await setUser(userMetadata);
       router.push("/profile");
     }

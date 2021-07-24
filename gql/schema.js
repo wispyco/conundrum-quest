@@ -12,3 +12,16 @@ export const CREATE_INVITE = gql`
     }
   }
 `;
+
+export const GET_INVITES = gql`
+  query GetInvites {
+    getInvites {
+      data {
+        email
+        role
+        _id
+        inviteCode
+      }
+    }
+  }
+`;

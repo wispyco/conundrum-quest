@@ -64,4 +64,5 @@ type Invite {
 
 type Query {
   getQuests: [Quest!]
+  getInvites: [Invite!]
 }
