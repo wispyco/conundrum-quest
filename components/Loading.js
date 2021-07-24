@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 export default function Loading() {
   return (
     <ImageRotate>
-      <Image width="149" height="149" src="/logo-1.png" />
+      <Image width="50" height="62.48" src="/logo-3.png" />
     </ImageRotate>
   );
 }
@@ -19,11 +19,10 @@ const rotation = keyframes`
 `;
 
 const ImageRotate = styled.div`
-  width: 149px;
-  height: 149px;
+  width: 50px;
   left: 50%;
-  margin-left: -74.5px;
-  top: 25%;
+  margin-left: -25px;
+  top: 35%;
   position: fixed;
 
   animation: ${rotation} 2s infinite linear;

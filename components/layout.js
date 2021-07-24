@@ -64,30 +64,14 @@ export default function Layout({ children }) {
     test();
   });
 
-  const [soon, setSoon] = useState(true);
-
-  const faceOff = () => {
-    setSoon(false);
-  };
-  const faceOffB = () => {
-    setSoon(true);
-  };
-  const [wear, setWear] = useState(true);
-
-  const wearH = () => {
-    setWear(false);
-  };
-  const wearHB = () => {
-    setWear(true);
-  };
-
   return (
     <>
       <Head>
-        <title>StreetWear.cool</title>
+        <title>Conundrum Quest</title>
         <meta
           name="description"
-          content="A Cool Kewl Place to Share Streetwear and Fashion"
+          content="A place to see the world’s hardest problems. 
+          And who’s working on them."
         />
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:image" content="/logo-3.png" />
@@ -105,38 +89,31 @@ export default function Layout({ children }) {
         <UserMenu>
           <button onClick={logout}>Logout</button>
           <Link href="/profile">
-            <a onMouseOver={wearH} onMouseOut={wearHB}>
-              {wear ? "WDYWT" : "What Did You Wear Today?"}
-            </a>
+            {/* <a onMouseOver={wearH} onMouseOut={wearHB}> */}
+            My Profile
+            {/* </a> */}
           </Link>
-          <a onMouseOver={faceOff} onMouseOut={faceOffB} href="">
-            {soon ? "Fit Battle" : "Coming Soon"}
-          </a>
+
           <a href="">Were Open Source, see our naked code</a>
           <a href="">Feedback</a>
         </UserMenu>
       ) : (
         <UserMenu>
           <Link href="/login-magic-public">login / signup</Link>
-          <Link href="/profile">
-            <a onMouseOver={wearH} onMouseOut={wearHB}>
-              {wear ? "WDYWT" : "What Did You Wear Today?"}
-            </a>
-          </Link>
-          <a onMouseOver={faceOff} onMouseOut={faceOffB} href="">
-            {soon ? "Fit Battle" : "Coming Soon"}
-          </a>
+
           <a href="">Were Open Source, see our naked code</a>
           <a href="">Feedback</a>
         </UserMenu>
       )}
-      <Header1>StreetWear.cool</Header1>
+      <Header1>Conundrum Quest</Header1>
       {Router.asPath === "/" && (
         <>
           <Header2>
-            A Kewl, Kool, Cool place to share WYWT, LinkUp your Fits and more...
+            A place to see the world’s hardest problems. And who’s working on
+            them.
           </Header2>
-          <Header3>Hover on a fit to see where it came from</Header3>
+          <Header3>You can add a problem or Join one.</Header3>
+          <Header3>We just call them Conundrum Quests</Header3>
         </>
       )}
       <Main>{children}</Main>
@@ -160,8 +137,8 @@ const Made = styled.a`
 
 const Alpha = styled.span`
   position: fixed;
-  top: 125px;
-  left: 30px;
+  top: 40px;
+  left: 85px;
   border: 1px solid yellow;
   background: orange;
   color: #fff;
@@ -214,8 +191,9 @@ const UserMenu = styled.div`
 
 const Logo = styled.img`
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 25px;
+  left: 25px;
+  width: 50px;
   z-index: 190;
   &:hover {
     cursor: pointer;
@@ -224,5 +202,7 @@ const Logo = styled.img`
 
 const Main = styled.main`
   margin-top: 50px;
-  width: ;
+  width: 90%;
+  margin: 0 auto;
+  padding: 150px;
 `;

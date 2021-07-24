@@ -15,6 +15,7 @@ import UpdateProfile from "../components/UpdateProfile";
 import CreateDadHat from "../components/CreateDatHat";
 import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
 import Loading from "../components/Loading";
+import CreateInvite from "../components/CreateInvite";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -33,11 +34,13 @@ function useAuth() {
 export default function Profile() {
   const { user, loading } = useAuth();
 
-  const [showCreateDadHat, setShowCreateDadHat] = useState(true);
+  // const [showCreateDadHat, setShowCreateDadHat] = useState(true);
 
-  const show = () => {
-    setShowCreateDadHat(true);
-  };
+  // const show = () => {
+  //   setShowCreateDadHat(true);
+  // };
+
+  console.log("user >>>>>>", user);
 
   return (
     <Layout>
@@ -45,18 +48,16 @@ export default function Profile() {
         {loading ? (
           <>
             <Loading />
-            <Header1>SignUp to Add you Fit</Header1>
+            <Header1>SignUp</Header1>
           </>
         ) : (
           <>
-            <Header1 className="move">
-              Click Image to add tags, then click breakdown to add Links
-            </Header1>
-            <Header1>
-              <b>Try a refresh if things arent working</b>
-            </Header1>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
+            <CreateInviteWrap>
+              <CreateInvite />
+            </CreateInviteWrap>
 
-            <Data user={user} />
+            {/* <Data user={user} />
             {showCreateDadHat ? (
               <CreateDadHat
                 user={user}
@@ -65,7 +66,7 @@ export default function Profile() {
             ) : (
               <AddStreetWear onClick={show}>Add Your Fit</AddStreetWear>
             )}
-            <UpdateProfile user={user} />
+            <UpdateProfile user={user} /> */}
           </>
         )}
       </main>
@@ -73,22 +74,22 @@ export default function Profile() {
   );
 }
 
-const Data = ({ user }) => {
-  const { loading, error, data } = useQuery(GET_DAD_HATS_BY_USER_ID, {
-    variables: { id: user.id },
-  });
+// const Data = ({ user }) => {
+//   const { loading, error, data } = useQuery(GET_DAD_HATS_BY_USER_ID, {
+//     variables: { id: user.id },
+//   });
 
-  if (loading) return <h1>Loading Data...</h1>;
+//   if (loading) return <h1>Loading Data...</h1>;
 
-  if (error) return <h1>{error.message}</h1>;
+//   if (error) return <h1>{error.message}</h1>;
 
-  return (
-    <>
-      {data && <DadHats user={user} data={data} />}
-      {/* <pre>{JSON.stringify(data?.findUserByID?.hats, null, 2)}</pre> */}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {data && <DadHats user={user} data={data} />}
+//       {/* <pre>{JSON.stringify(data?.findUserByID?.hats, null, 2)}</pre> */}
+//     </>
+//   );
+// };
 
 export const Header1 = styled.h1`
   text-align: center;
@@ -102,8 +103,21 @@ export const Header1 = styled.h1`
   }
 `;
 
-const AddStreetWear = styled.button`
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
+const CreateInviteWrap = styled.div`
+  form {
+    width: 50%;
+    margin: 0 auto;
+    display: grid;
+    grid-row-gap: 20px;
+    input,
+    select {
+      padding: 10px;
+    }
+  }
 `;
+
+// const AddStreetWear = styled.button`
+//   position: fixed;
+//   bottom: 25px;
+//   right: 25px;
+// `;

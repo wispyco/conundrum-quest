@@ -2,17 +2,18 @@ type User {
   email: String @unique
   name: String
   quests: [Quest] @relation
+  jobs: [Job] @relation
   role: UserRole!
 }
 
 enum UserRole {
-  # Admin | Able to edit & delete Quests and Users & add Invites
+  # Admin | Able to edit, post & delete Quests and Users & add Invites, Accept Job
   ADMIN
   # Moderator | Able to review, edit and accept Quests
   MODERATOR
-  # Knights | Able to view quests, Join them, Submit Quests and nominate a Hero
+  # Knights | Able to view quests, Join them, Submit Quests, nominate a Hero, Post to Job board
   KNIGHT
-  # Hero | Able to edit their profile, or delete themself from a Quest
+  # Hero | Able to edit their profile, or delete themself from a Quest, nominate a Peer, or post to Job Board
   HERO
 }
 
@@ -22,7 +23,7 @@ type Quest {
   heros: [Hero] @relation
   image: String
   owner: User!
-  # Need to figure out how to do this as default faulse not in the users query
+  # need to set permissions that only MODERATOR could not set
   isAccepted: Boolean
   isBeingReviewed: Boolean
   knights: [Knight] @relation
@@ -43,6 +44,16 @@ type Hero {
   twitter: String
   avatar: String
   quest: Quest
+}
+
+type Job {
+  name: String
+  website: String
+  description: String
+  # need to set permissions that only ADMIN could not set
+  isAccepted: Boolean
+  isBeingReviewed: Boolean
+  owner: User!
 }
 
 type Invite {
