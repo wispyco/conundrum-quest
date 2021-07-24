@@ -18,7 +18,7 @@ export default function Login() {
   }, [user]);
 
   const login = useCallback(
-    async (email) => {
+    async (email, inviteCode) => {
       if (isMounted() && errorMsg) setErrorMsg(undefined);
 
       try {
@@ -34,7 +34,8 @@ export default function Login() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${didToken}`,
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email, inviteCode }),
+          
         });
 
         if (res.status === 200) {
@@ -55,7 +56,7 @@ export default function Login() {
       e.preventDefault();
       if (isLoggingIn) return;
       setIsLoggingIn(true);
-      login(e.currentTarget.email.value).then(() => setIsLoggingIn(false));
+      login(e.currentTarget.email.value, e.currentTarget.inviteCode.value).then(() => setIsLoggingIn(false));
     },
     [login, isLoggingIn]
   );
@@ -75,6 +76,12 @@ export default function Login() {
           required
           placeholder="hello@magic.link"
         />
+        <input 
+          type="text"
+          name="inviteCode"
+          required
+          placeholder="6 digit code"
+          />
 
         <button disabled={isLoggingIn} type="submit">
           Sign Up / Login

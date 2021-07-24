@@ -9,6 +9,8 @@ const handlers = {
       req.headers.authorization
     );
 
+    console.log('req.inviteCode',req.inviteCode)
+
     magic.token.validate(didToken);
     const { email, issuer } = await magic.users.getMetadataByToken(didToken);
 
