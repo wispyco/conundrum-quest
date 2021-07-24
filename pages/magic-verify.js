@@ -20,13 +20,15 @@ export default function MagicVerify() {
 
   // Send token to server to validate
   const authenticateWithServer = async (didToken) => {
-    let res = await fetch("/api/login", {
+    let res = await fetch("/api/login-verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + didToken,
       },
     });
+
+    console.log('res.status >>>>>>>',res.status)
 
     if (res.status === 200) {
       // Set the UserContext to the now logged in user

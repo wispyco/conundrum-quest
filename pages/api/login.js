@@ -16,9 +16,28 @@ const handlers = {
 
     const userModel = new UserModel();
     // We auto-detect signups if `getUserByEmail` resolves to `undefined`
-    const user =
-      (await userModel.getUserByEmail(email)) ??
-      (await userModel.createUser(email));
+
+      const invited = await userModel.getInvite(email);
+
+      console.log('invited >>>>>>>> ',invited)
+
+      let user
+
+      console.log('invited.inviteCode',invited.data.inviteCode)
+
+      if (invited.data.inviteCode ===  123456 && invited.data.role === "ADMIN"){
+
+        user =
+        (await userModel.getUserByEmail(email)) ??
+        (await userModel.createUser(email, invited.data.role));
+      }
+
+      else {
+        user = null
+      }
+
+
+
     const token = await userModel.obtainFaunaDBToken(user);
 
     console.log("token, is it there", token);

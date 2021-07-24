@@ -1,65 +1,56 @@
 type User {
   email: String @unique
   name: String
-  hats: [DadHat] @relation
+  quests: [Quest] @relation
+  role: UserRole!
 }
 
-type DadHat {
+enum UserRole {
+  # Admin | Able to edit & delete Quests and Users & add Invites
+  ADMIN
+  # Moderator | Able to review, edit and accept Quests
+  MODERATOR
+  # Knights | Able to view quests, Join them, Submit Quests and nominate a Hero
+  KNIGHTS
+  # Hero | Able to edit their profile, or delete themself from a Quest
+  HERO
+}
+
+type Quest {
   name: String
+  description: String
+  heros: [Hero] @relation
   image: String
   owner: User!
-  markers: [Marker]
-  rating: Rating @relation
+  # Need to figure out how to do this as default faulse not in the users query
+  isAccepted: Boolean
+  isBeingReviewed: Boolean
+  knights: [Knight] @relation
 }
 
-type Marker @embedded {
-  left: Int
-  top: Int
-  text: String
-  link: String
-  color: String
-  fontFamily: String
-  padding: Int
-  width: Int
-  height: Int
-  rotationAngle: Int
-  typeName: String
-  state: String
-  dadHat: DadHat
-  visualTransformMatrix: VtM
-  containerTransformMatrix: VtM
+type Knight{
+  name: String
+  avatar: String
+  twitter: String
+  website: String
+  quest: Quest
 }
 
-type VtM @embedded {
-  a: Int
-  b: Int
-  c: Int
-  d: Int
-  e: Int
-  f: Int
+type Hero {
+  name: String
+  description: String
+  website: String
+  twitter: String
+  avatar: String
+  quest: Quest
 }
 
-type Rating {
-  views: Int
-  loves: Int
-  owner: DadHat
-}
-
-input LoginUserInput {
+type Invite{
+  inviteCode: Int!
   email: String!
-  password: String!
-}
-
-input CreateUserInput {
-  email: String!
-  password: String!
-}
-
-type Mutation {
-  loginUser(input: LoginUserInput): String! @resolver(name: "login_user")
-  createUser(input: CreateUserInput): User! @resolver(name: "create_user")
+  role: UserRole!
 }
 
 type Query {
-  getHats: [DadHat!]
+  getQuests: [Quest!]
 }
