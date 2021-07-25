@@ -1,11 +1,6 @@
 import useSWR from "swr";
-import { useState } from "react";
 import Layout from "../../../components/layout";
 import Loading from "../../../components/Loading";
-import CreateInvite from "../../../components/CreateInvite";
-import ViewInvites from "../../../components/ViewInvites";
-import CreateQuest from "../../../components/CreateQuest";
-import QuestsProfile from "../../../components/QuestsProfile";
 import styled from "styled-components";
 import EditQuest from "../../../components/EditQuest";
 import { GET_QUEST_BY_ID } from "../../../gql/schema";

@@ -20,6 +20,7 @@ import ViewInvites from "../../components/ViewInvites";
 import CreateQuest from "../../components/CreateQuest";
 import QuestsProfile from "../../components/QuestsProfile";
 import QuestsStatusEdit from "../../components/QuestsStatusEdit";
+import Nominations from "../../components/Nominations";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -92,6 +93,7 @@ export default function Profile() {
                 <QuestsWrap>
                   <QuestsProfile user={user} />
                 </QuestsWrap>
+                  <Nominations  user={user}/>
               </>
             )}
             {user.role === "MODERATOR" && (
@@ -122,11 +124,11 @@ export default function Profile() {
 
 export const Header1 = styled.h1`
   text-align: center;
-  font-weight: 100;
+  font-weight: 900;
   letter-spacing: 2px;
-  font-size: 22px;
+  font-size: 42px;
   width: 50%;
-  margin: 0 auto;
+  margin: 25px auto;
   b {
     color: red;
   }

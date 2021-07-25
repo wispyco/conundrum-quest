@@ -44,6 +44,7 @@ type Knight {
   website: String
   quest: Quest @relation(name: "quest_knights")
   owner: User!
+  heros: [Hero]
 }
 
 type Hero {
@@ -52,6 +53,8 @@ type Hero {
   website: String
   twitter: String
   avatar: String
+  wikipedia: String
+  knight: Knight
   quest: Quest @relation(name: "quest_heros")
   owner: User
   isAccepted: Boolean

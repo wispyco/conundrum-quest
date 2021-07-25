@@ -112,8 +112,7 @@ export default function Layout({ children }) {
             A place to see the world’s hardest problems. And who’s working on
             them.
           </Header2>
-          <Header3>You can add a problem or Join one.</Header3>
-          <Header3>We just call them Conundrum Quests</Header3>
+          <Header3>You can add a Quest or Join one.</Header3>
         </>
       )}
       <Main>{children}</Main>

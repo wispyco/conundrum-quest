@@ -100,9 +100,7 @@ export const UPDATE_QUEST = gql`
         isBeingReviewed: $isBeingReviewed
         image: $image
         category: $category
-        knights: {
-          create: [{ name: $knightName, owner: { connect: $knightConnect } }]
-        }
+        knights: { connect: $knightConnect }
       }
     ) {
       name
@@ -233,6 +231,7 @@ export const GET_QUEST_BY_ID = gql`
           name
           avatar
           description
+          wikipedia
           _id
           isAccepted
           isBeingReviewed
@@ -247,6 +246,52 @@ export const DELETE_QUEST_BY_ID = gql`
   mutation ($id: ID!) {
     deleteQuest(id: $id) {
       name
+    }
+  }
+`;
+
+export const CREATE_HERO = gql`
+  mutation (
+    $name: String
+    $isAccepted: Boolean
+    $isBeingReviewed: Boolean
+    $description: String
+    $questConnect: ID!
+    $wikipedia: String
+    $knightConnect: ID!
+  ) {
+    createHero(
+      data: {
+        name: $name
+        isAccepted: $isAccepted
+        isBeingReviewed: $isBeingReviewed
+        description: $description
+        wikipedia: $wikipedia
+        knight: { connect: $knightConnect }
+        quest: { connect: $questConnect }
+      }
+    ) {
+      name
+    }
+  }
+`;
+
+export const GET_HEROS_BY_USER_ID = gql`
+  query ($id: ID!) {
+    findUserByID(id: $id) {
+      quests {
+        data {
+          heros {
+            data {
+              name
+              description
+              isAccepted
+              isBeingReviewed
+              wikipedia
+            }
+          }
+        }
+      }
     }
   }
 `;
