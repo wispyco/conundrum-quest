@@ -23,14 +23,14 @@ import QuestsStatusEdit from "../../components/QuestsStatusEdit";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
-// function useAuth() {
-//   const {
-//     data: user,
-//     error,
-//     mutate,
-//   } = useSWR("/api/user", fetcher, { refreshInterval: 3 });
 function useAuth() {
-  const { data: user, error, mutate } = useSWR("/api/user", fetcher);
+  const {
+    data: user,
+    error,
+    mutate,
+  } = useSWR("/api/user", fetcher, { refreshInterval: 3 });
+  // function useAuth() {
+  //   const { data: user, error, mutate } = useSWR("/api/user", fetcher);
 
   const loading = user?.token === false || user === undefined;
 
@@ -113,40 +113,12 @@ export default function Profile() {
                 </QuestsWrap>
               </>
             )}
-
-            {/* <Data user={user} />
-            {showCreateDadHat ? (
-              <CreateDadHat
-                user={user}
-                setShowCreateDadHat={setShowCreateDadHat}
-              />
-            ) : (
-              <AddStreetWear onClick={show}>Add Your Fit</AddStreetWear>
-            )}
-            <UpdateProfile user={user} /> */}
           </>
         )}
       </main>
     </Layout>
   );
 }
-
-// const Data = ({ user }) => {
-//   const { loading, error, data } = useQuery(GET_DAD_HATS_BY_USER_ID, {
-//     variables: { id: user.id },
-//   });
-
-//   if (loading) return <h1>Loading Data...</h1>;
-
-//   if (error) return <h1>{error.message}</h1>;
-
-//   return (
-//     <>
-//       {data && <DadHats user={user} data={data} />}
-//       {/* <pre>{JSON.stringify(data?.findUserByID?.hats, null, 2)}</pre> */}
-//     </>
-//   );
-// };
 
 export const Header1 = styled.h1`
   text-align: center;

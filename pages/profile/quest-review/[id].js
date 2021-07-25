@@ -81,7 +81,7 @@ export default function ProfileReviewQuest() {
             )}
             {user.role === "MODERATOR" && (
               <>
-                <h1>Edit this Quest</h1>
+                <h1>Edit this Quest Moderator</h1>
                 <EditQuestWrap>
                   <EditQuestMod data={data} Router={Router} user={user} />
                 </EditQuestWrap>

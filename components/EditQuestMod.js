@@ -10,26 +10,6 @@ export default function EditQuestMod({ user, data, Router }) {
   const [updateQuest, { data: updateQuestData, loading: saving }] =
     useMutation(UPDATE_QUEST);
 
-  let isAcceptedA;
-  let isBeingReviewedA;
-
-  console.log("data.findQuestByID.isAccepted", data.findQuestByID.isAccepted);
-  console.log(
-    "data.findQuestByID.isBeingReviewed",
-    data.findQuestByID.isBeingReviewed
-  );
-
-  if (data.findQuestByID.isAccepted) {
-    isAcceptedA = "0";
-  } else {
-    isAcceptedA = "1";
-  }
-  if (data.findQuestByID.isBeingReviewed) {
-    isBeingReviewedA = "0";
-  } else {
-    isBeingReviewedA = "1";
-  }
-
   const {
     register,
     handleSubmit,
@@ -39,46 +19,15 @@ export default function EditQuestMod({ user, data, Router }) {
       name: data.findQuestByID.name,
       description: data.findQuestByID.description,
       category: data.findQuestByID.category,
-      heroName: data.findQuestByID.heroName,
-      heroDescription: data.findQuestByID.heroDescription,
-      heroWebsite: data.findQuestByID.heroWebsite,
-      heroTwitter: data.findQuestByID.heroTwitter,
-      isAccepted: isAcceptedA,
-      isBeingReviewed: isBeingReviewedA,
+      isBeingReviewed: JSON.stringify(data.findQuestByID.isBeingReviewed),
+      isAccepted: JSON.stringify(data.findQuestByID.isAccepted),
     },
   });
   const onSubmit = async (data) => {
-    const {
-      name,
-      description,
-      heroName,
-      heroDescription,
-      heroWebsite,
-      heroTwitter,
-      category,
-      isAccepted,
-      isBeingReviewed,
-    } = data;
+    const { name, description, category, isBeingReviewed, isAccepted } = data;
 
-    let isAcceptedSet;
-    let isBeingReviewedSet;
-
-    if (isAccepted === "0") {
-      isAcceptedSet = false;
-    } else {
-      isAcceptedSet = true;
-    }
-    if (isBeingReviewed === "0") {
-      isBeingReviewedSet = false;
-    } else {
-      isBeingReviewedSet = true;
-    }
-
-    console.log("isAccepted", isAccepted);
-    console.log("isAcceptedSet", isAcceptedSet);
-
-    console.log("isBeingReviewed", isBeingReviewed);
-    console.log("isBeingReviewedSet", isBeingReviewedSet);
+    const isBeingReviewedSet = isBeingReviewed === "true";
+    const isAcceptedSet = isAccepted === "true";
 
     const updateQuestResponse = await updateQuest({
       variables: {
@@ -87,20 +36,20 @@ export default function EditQuestMod({ user, data, Router }) {
         name: name,
         description: description,
         image: "https://google.com",
-        heroName: heroName,
+        // heroName: heroName,
         isAccepted: isAcceptedSet,
         isBeingReviewed: isBeingReviewedSet,
-        heroDescription: heroDescription,
-        heroWebsite: heroWebsite,
-        heroTwitter: heroTwitter,
-        heroAvatar: "https://google.com",
+        // heroDescription: heroDescription,
+        // heroWebsite: heroWebsite,
+        // heroTwitter: heroTwitter,
+        // heroAvatar: "https://google.com",
         knightName: user.name,
         knightConnect: user.id,
         category: category,
       },
     }).catch(console.error);
 
-    // Router.push("/profile");
+    Router.push("/profile");
   };
   console.log(errors);
 
@@ -129,16 +78,19 @@ export default function EditQuestMod({ user, data, Router }) {
           </option>
         </select>
         <h2>In Review</h2>
-        <select {...register("isAccepted", {})}>
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
+        Not reviewing yet
+        <input
+          {...register("isBeingReviewed", {})}
+          type="radio"
+          value="false"
+        />
+        Reviewing
+        <input {...register("isBeingReviewed", {})} type="radio" value="true" />
         <h2>Is Accepted</h2>
-        <select {...register("isBeingReviewed", {})}>
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-
+        Not Accepted
+        <input {...register("isAccepted", {})} type="radio" value="false" />
+        Accepted
+        <input {...register("isAccepted", {})} type="radio" value="true" />
         <input type="submit" />
       </Form>
     </>

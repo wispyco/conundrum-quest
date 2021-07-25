@@ -30,6 +30,8 @@ const QuestCard = ({ quest }) => {
   return (
     <Card>
       <h1>{quest?.name}</h1>
+      <p>{quest.isBeingReviewed ? "Is in Review" : "Waiting to be Reviewed"}</p>
+      <p>{quest.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}</p>
       <Link href={`profile/quest-edit/${quest._id}`}>View Quest</Link>
     </Card>
   );
