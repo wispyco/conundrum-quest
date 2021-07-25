@@ -32,13 +32,9 @@ export const CREATE_QUEST = gql`
     $description: String
     $ownerConnect: ID!
     $image: String
-    $heroName: String
-    $heroDescription: String
-    $heroWebsite: String
-    $heroTwitter: String
-    $heroAvatar: String
     $knightName: String
     $knightConnect: ID!
+    $category: Category
   ) {
     createQuest(
       data: {
@@ -48,19 +44,7 @@ export const CREATE_QUEST = gql`
         isAccepted: false
         isBeingReviewed: false
         image: $image
-        heros: {
-          create: [
-            {
-              isAccepted: false
-              isBeingReviewed: false
-              name: $heroName
-              description: $heroDescription
-              website: $heroWebsite
-              twitter: $heroTwitter
-              avatar: $heroAvatar
-            }
-          ]
-        }
+        category: $category
         knights: {
           create: [{ name: $knightName, owner: { connect: $knightConnect } }]
         }
@@ -105,6 +89,7 @@ export const GET_QUESTS_BY_USER_ID = gql`
           _id
           isAccepted
           isBeingReviewed
+          category
           knights {
             data {
               website
@@ -162,6 +147,41 @@ export const GET_QUESTS = gql`
             isBeingReviewed
             twitter
           }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_QUEST_BY_ID = gql`
+  query ($id: ID!) {
+    findQuestByID(id: $id) {
+      name
+      image
+      description
+      _id
+      isAccepted
+      isBeingReviewed
+      category
+      knights {
+        data {
+          website
+          name
+          avatar
+          _id
+          twitter
+        }
+      }
+      heros {
+        data {
+          website
+          name
+          avatar
+          description
+          _id
+          isAccepted
+          isBeingReviewed
+          twitter
         }
       }
     }

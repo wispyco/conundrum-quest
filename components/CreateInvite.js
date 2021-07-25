@@ -30,8 +30,8 @@ export default function CreateInvite() {
       <input type="text" placeholder="email" {...register("email", {})} />
       <select {...register("role", {})}>
         <option value="ADMIN">ADMIN</option>
-        <option value="MODERATOR"> MODERATOR</option>
-        <option value="HERO"> HERO</option>
+        <option value="MODERATOR">MODERATOR</option>
+        <option value="HERO">HERO</option>
       </select>
 
       <input type="submit" />

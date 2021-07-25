@@ -1,24 +1,24 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import { useRouter } from "next/router";
-import { magicClient } from "../lib/magic";
+import { magicClient } from "../../lib/magic";
 import axios from "axios";
 import styled, { keyframes } from "styled-components";
 import { useForm } from "react-hook-form";
-import DadHats from "../components/DadHats";
-import UpdateProfile from "../components/UpdateProfile";
-import CreateDadHat from "../components/CreateDatHat";
-import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
-import Loading from "../components/Loading";
-import CreateInvite from "../components/CreateInvite";
-import ViewInvites from "../components/ViewInvites";
-import CreateQuest from "../components/CreateQuest";
-import QuestsProfile from "../components/QuestsProfile";
+import DadHats from "../../components/DadHats";
+import UpdateProfile from "../../components/UpdateProfile";
+import CreateDadHat from "../../components/CreateDatHat";
+import { GET_DAD_HATS_BY_USER_ID } from "../../gql/schema";
+import Loading from "../../components/Loading";
+import CreateInvite from "../../components/CreateInvite";
+import ViewInvites from "../../components/ViewInvites";
+import CreateQuest from "../../components/CreateQuest";
+import QuestsProfile from "../../components/QuestsProfile";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 

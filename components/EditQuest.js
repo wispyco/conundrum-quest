@@ -1,45 +1,26 @@
-import { useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { CREATE_QUEST, GET_QUESTS_BY_USER_ID } from "../gql/schema";
+import { GET_QUEST_BY_ID } from "../gql/schema";
+import Loading from "./Loading";
 
-export default function CreateQuest({ user, clickedAddQuest }) {
-  const [createQuest, { data: createQuestData, loading: saving }] = useMutation(
-    CREATE_QUEST,
-    {
-      update(cache, { data }) {
-        // We use an update function here to write the
-        // new value of the GET_ALL_TODOS query.
-        const newQuestResponse = data?.createQuest;
-        const existingQuests = cache.readQuery({
-          query: GET_QUESTS_BY_USER_ID,
-          variables: { id: user.id },
-        });
-        if (newQuestResponse && existingQuests) {
-          cache.writeQuery({
-            query: GET_QUESTS_BY_USER_ID,
-            variables: { id: user.id },
-            data: {
-              findUserByID: {
-                quests: {
-                  data: [
-                    ...existingQuests?.findUserByID?.quests?.data,
-                    newQuestResponse,
-                  ],
-                },
-              },
-            },
-          });
-        }
-      },
-    }
-  );
-
+export default function EditQuest({ user, data }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: data.findQuestByID.name,
+      description: data.findQuestByID.description,
+      category: data.findQuestByID.category,
+      heroName: data.findQuestByID.heroName,
+      heroDescription: data.findQuestByID.heroDescription,
+      heroWebsite: data.findQuestByID.heroWebsite,
+      heroTwitter: data.findQuestByID.heroTwitter,
+    },
+  });
   const onSubmit = async (data) => {
     const {
       name,
@@ -57,10 +38,10 @@ export default function CreateQuest({ user, clickedAddQuest }) {
         name: name,
         description: description,
         image: "https://google.com",
-        // heroName: heroName,
-        // heroDescription: heroDescription,
-        // heroWebsite: heroWebsite,
-        // heroTwitter: heroTwitter,
+        heroName: heroName,
+        heroDescription: heroDescription,
+        heroWebsite: heroWebsite,
+        heroTwitter: heroTwitter,
         heroAvatar: "https://google.com",
         knightName: user.name,
         knightConnect: user.id,
@@ -74,6 +55,7 @@ export default function CreateQuest({ user, clickedAddQuest }) {
 
   return (
     <>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h2>Title</h2>
         <input
@@ -95,30 +77,9 @@ export default function CreateQuest({ user, clickedAddQuest }) {
             Technology Infrastructure + Artificial Intelligence
           </option>
         </select>
-        {/* <h2>Hero</h2>
-        <input
-          type="text"
-          placeholder="Hero Name"
-          {...register("heroName", {})}
-        />
-        <h2>Hero Bio</h2>
-        <textarea placeholder="Hero Bio" {...register("heroDescription", {})} />
-        <h2>Hero Website</h2>
-        <input
-          type="text"
-          placeholder="Hero Website"
-          {...register("heroWebsite", {})}
-        />
-        <h2>Hero Twitter</h2>
-        <input
-          type="text"
-          placeholder="Hero Twitter"
-          {...register("heroTwitter", {})}
-        /> */}
 
         <input type="submit" />
       </Form>
-      <pre>{JSON.stringify(createQuestData, null, 2)}</pre>
     </>
   );
 }

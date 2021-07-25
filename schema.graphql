@@ -28,7 +28,13 @@ type Quest {
   # need to set permissions that only MODERATOR could not set
   isAccepted: Boolean
   isBeingReviewed: Boolean
-  knights: [Knight] @relation (name: "quest_knights")
+  knights: [Knight] @relation(name: "quest_knights")
+  category: Category
+}
+
+enum Category {
+  SUSTAINABILITY_HUMAN_DEVELOPMENT
+  TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE
 }
 
 type Knight {
