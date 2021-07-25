@@ -2,7 +2,7 @@ type User {
   email: String @unique
   name: String
   quests: [Quest] @relation
-  knight: Knight @relation
+  knight: Knight
   jobs: [Job] @relation
   role: UserRole!
 }
