@@ -11,6 +11,7 @@ import EditQuest from "../../../components/EditQuest";
 import { GET_QUEST_BY_ID } from "../../../gql/schema";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
+import EditQuestMod from "../../../components/EditQuestMod";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -30,7 +31,7 @@ function useAuth() {
   };
 }
 
-export default function Profile() {
+export default function ProfileReviewQuest() {
   const { user, loading, error } = useAuth();
 
   // const [showCreateDadHat, setShowCreateDadHat] = useState(true);
@@ -75,6 +76,14 @@ export default function Profile() {
                 <h1>Edit this Quest</h1>
                 <EditQuestWrap>
                   <EditQuest data={data} Router={Router} user={user} />
+                </EditQuestWrap>
+              </>
+            )}
+            {user.role === "MODERATOR" && (
+              <>
+                <h1>Edit this Quest</h1>
+                <EditQuestWrap>
+                  <EditQuestMod data={data} Router={Router} user={user} />
                 </EditQuestWrap>
               </>
             )}

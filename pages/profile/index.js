@@ -19,15 +19,18 @@ import CreateInvite from "../../components/CreateInvite";
 import ViewInvites from "../../components/ViewInvites";
 import CreateQuest from "../../components/CreateQuest";
 import QuestsProfile from "../../components/QuestsProfile";
+import QuestsStatusEdit from "../../components/QuestsStatusEdit";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
+// function useAuth() {
+//   const {
+//     data: user,
+//     error,
+//     mutate,
+//   } = useSWR("/api/user", fetcher, { refreshInterval: 3 });
 function useAuth() {
-  const {
-    data: user,
-    error,
-    mutate,
-  } = useSWR("/api/user", fetcher, { refreshInterval: 3 });
+  const { data: user, error, mutate } = useSWR("/api/user", fetcher);
 
   const loading = user?.token === false || user === undefined;
 
@@ -88,6 +91,25 @@ export default function Profile() {
                 )}
                 <QuestsWrap>
                   <QuestsProfile user={user} />
+                </QuestsWrap>
+              </>
+            )}
+            {user.role === "MODERATOR" && (
+              <>
+                <h1>Welcome Mod {user.name}</h1>
+                <button onClick={clickedAddQuest}>
+                  {!addQuest ? "Add a Quest" : "X"}
+                </button>
+                {addQuest && (
+                  <CreateQuestWrap>
+                    <CreateQuest
+                      clickedAddQuest={clickedAddQuest}
+                      user={user}
+                    />
+                  </CreateQuestWrap>
+                )}
+                <QuestsWrap>
+                  <QuestsStatusEdit user={user} />
                 </QuestsWrap>
               </>
             )}

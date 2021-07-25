@@ -87,6 +87,8 @@ export const UPDATE_QUEST = gql`
     $knightName: String
     $knightConnect: ID!
     $category: Category
+    $isAccepted: Boolean
+    $isBeingReviewed: Boolean
   ) {
     updateQuest(
       id: $id
@@ -94,8 +96,8 @@ export const UPDATE_QUEST = gql`
         name: $name
         description: $description
         owner: { connect: $ownerConnect }
-        isAccepted: false
-        isBeingReviewed: false
+        isAccepted: $isAccepted
+        isBeingReviewed: $isBeingReviewed
         image: $image
         category: $category
         knights: {
@@ -237,6 +239,14 @@ export const GET_QUEST_BY_ID = gql`
           twitter
         }
       }
+    }
+  }
+`;
+
+export const DELETE_QUEST_BY_ID = gql`
+  mutation ($id: ID!) {
+    deleteQuest(id: $id) {
+      name
     }
   }
 `;

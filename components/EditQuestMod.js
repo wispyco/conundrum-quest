@@ -6,9 +6,29 @@ import styled from "styled-components";
 import { GET_QUEST_BY_ID, UPDATE_QUEST } from "../gql/schema";
 import Loading from "./Loading";
 
-export default function EditQuest({ user, data, Router }) {
+export default function EditQuestMod({ user, data, Router }) {
   const [updateQuest, { data: updateQuestData, loading: saving }] =
     useMutation(UPDATE_QUEST);
+
+  let isAcceptedA;
+  let isBeingReviewedA;
+
+  console.log("data.findQuestByID.isAccepted", data.findQuestByID.isAccepted);
+  console.log(
+    "data.findQuestByID.isBeingReviewed",
+    data.findQuestByID.isBeingReviewed
+  );
+
+  if (data.findQuestByID.isAccepted) {
+    isAcceptedA = "0";
+  } else {
+    isAcceptedA = "1";
+  }
+  if (data.findQuestByID.isBeingReviewed) {
+    isBeingReviewedA = "0";
+  } else {
+    isBeingReviewedA = "1";
+  }
 
   const {
     register,
@@ -23,6 +43,8 @@ export default function EditQuest({ user, data, Router }) {
       heroDescription: data.findQuestByID.heroDescription,
       heroWebsite: data.findQuestByID.heroWebsite,
       heroTwitter: data.findQuestByID.heroTwitter,
+      isAccepted: isAcceptedA,
+      isBeingReviewed: isBeingReviewedA,
     },
   });
   const onSubmit = async (data) => {
@@ -34,7 +56,29 @@ export default function EditQuest({ user, data, Router }) {
       heroWebsite,
       heroTwitter,
       category,
+      isAccepted,
+      isBeingReviewed,
     } = data;
+
+    let isAcceptedSet;
+    let isBeingReviewedSet;
+
+    if (isAccepted === "0") {
+      isAcceptedSet = false;
+    } else {
+      isAcceptedSet = true;
+    }
+    if (isBeingReviewed === "0") {
+      isBeingReviewedSet = false;
+    } else {
+      isBeingReviewedSet = true;
+    }
+
+    console.log("isAccepted", isAccepted);
+    console.log("isAcceptedSet", isAcceptedSet);
+
+    console.log("isBeingReviewed", isBeingReviewed);
+    console.log("isBeingReviewedSet", isBeingReviewedSet);
 
     const updateQuestResponse = await updateQuest({
       variables: {
@@ -42,10 +86,10 @@ export default function EditQuest({ user, data, Router }) {
         ownerConnect: user.id,
         name: name,
         description: description,
-        isAccepted: false,
-        isBeingReviewed: false,
         image: "https://google.com",
         heroName: heroName,
+        isAccepted: isAcceptedSet,
+        isBeingReviewed: isBeingReviewedSet,
         heroDescription: heroDescription,
         heroWebsite: heroWebsite,
         heroTwitter: heroTwitter,
@@ -56,7 +100,7 @@ export default function EditQuest({ user, data, Router }) {
       },
     }).catch(console.error);
 
-    Router.push("/profile");
+    // Router.push("/profile");
   };
   console.log(errors);
 
@@ -83,6 +127,16 @@ export default function EditQuest({ user, data, Router }) {
           <option value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE">
             Technology Infrastructure + Artificial Intelligence
           </option>
+        </select>
+        <h2>In Review</h2>
+        <select {...register("isAccepted", {})}>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <h2>Is Accepted</h2>
+        <select {...register("isBeingReviewed", {})}>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
         </select>
 
         <input type="submit" />

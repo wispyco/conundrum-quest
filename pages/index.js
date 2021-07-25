@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import Layout from "../components/layout";
 import DadHatsPublic from "../components/DadHatsPublic";
 import Loading from "../components/Loading";
+import { GET_QUESTS } from "../gql/schema";
+import styled from "styled-components";
+import Link from "next/link";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -26,9 +29,7 @@ export default function Home() {
 }
 
 const Data = ({ user }) => {
-  const { loading, error, data } = useQuery(GET_DAD_HATS, {
-    variables: { id: user.id },
-  });
+  const { loading, error, data } = useQuery(GET_QUESTS);
 
   if (loading) return <Loading />;
 
@@ -36,9 +37,52 @@ const Data = ({ user }) => {
 
   return (
     <>
-      <DadHatsPublic data={data} />
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      <QuestCardGrid>
+        {data?.getQuests?.data.map((quest) => {
+          return <>{quest.isAccepted && <QuestCard quest={quest} />}</>;
+        })}
+      </QuestCardGrid>
+      {/* <DadHatsPublic data={data} /> */}
 
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </>
   );
 };
+
+const QuestCard = ({ quest }) => {
+  return (
+    <Card>
+      <h1>{quest?.name}</h1>
+      <Link href={`quest/${quest._id}`}>View Quest</Link>
+    </Card>
+  );
+};
+
+const Card = styled.div`
+  width: 500px;
+  border: 1px solid #000;
+  padding: 0 25px 25px 25px;
+  border-radius: 30px;
+  h1 {
+    font-weight: 300;
+    height: 150px;
+  }
+  a {
+    border: 1px solid aqua;
+    border-radius: 30px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+`;
+
+const QuestCardGrid = styled.div`
+  display: grid;
+  grid-template-columns: 500px 500px;
+  grid-column-gap: 50px;
+  width: 1100px;
+  margin: 0 auto;
+`;

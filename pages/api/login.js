@@ -18,25 +18,34 @@ const handlers = {
     // We auto-detect signups if `getUserByEmail` resolves to `undefined`
     let user;
 
+    console.log("test");
+
     if (await userModel.getUserByEmail(email)) {
       user = await userModel.getUserByEmail(email);
+
+      console.log(user, "user");
     } else {
       let invited;
       let inviteCodeSent;
 
       if (req.body.inviteCode !== undefined) {
         invited = await userModel.getInvite(email);
+        console.log("invited", invited);
         inviteCodeSent = true;
       } else {
         inviteCodeSent = false;
       }
 
       if (inviteCodeSent) {
-        if (invited.data.inviteCode === req.body.inviteCode) {
-          user = await userModel.createUser(email, invited.data.role);
+        if (invited.data.inviteCode === parseInt(req.body.inviteCode)) {
+          user = await userModel.createUser(
+            email,
+            invited.data.role,
+            req.body.name
+          );
         }
       } else {
-        user = await userModel.createUser(email, "KNIGHT");
+        user = await userModel.createUser(email, "KNIGHT", req.body.name);
       }
     }
 
