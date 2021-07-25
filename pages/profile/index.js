@@ -41,14 +41,6 @@ function useAuth() {
 export default function Profile() {
   const { user, loading, error } = useAuth();
 
-  // const [showCreateDadHat, setShowCreateDadHat] = useState(true);
-
-  // const show = () => {
-  //   setShowCreateDadHat(true);
-  // };
-
-  console.log("user >>>>>>", user);
-
   const [addQuest, setAddQuest] = useState(false);
 
   const clickedAddQuest = () => {
@@ -67,8 +59,8 @@ export default function Profile() {
           </>
         ) : (
           <>
-            <h1>Current User</h1>
-            <pre>{JSON.stringify(user, null, 2)}</pre>
+            <h1>Account Email: {user.email}</h1>
+            {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
             {user.role === "ADMIN" && (
               <>
                 <CreateInviteWrap>
@@ -81,7 +73,7 @@ export default function Profile() {
             )}
             {user.role === "KNIGHT" && (
               <>
-                <h1>Welcome young Knight</h1>
+                <h1>Welcome Knight {user.name}</h1>
                 <button onClick={clickedAddQuest}>
                   {!addQuest ? "Add a Quest" : "X"}
                 </button>

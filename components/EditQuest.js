@@ -1,11 +1,15 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import Router from "next/dist/server/router";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { GET_QUEST_BY_ID } from "../gql/schema";
+import { GET_QUEST_BY_ID, UPDATE_QUEST } from "../gql/schema";
 import Loading from "./Loading";
 
-export default function EditQuest({ user, data }) {
+export default function EditQuest({ user, data, Router }) {
+  const [updateQuest, { data: updateQuestData, loading: saving }] =
+    useMutation(UPDATE_QUEST);
+
   const {
     register,
     handleSubmit,
@@ -32,8 +36,9 @@ export default function EditQuest({ user, data }) {
       category,
     } = data;
 
-    const createQuestResponse = await createQuest({
+    const updateQuestResponse = await updateQuest({
       variables: {
+        id: Router.query.id,
         ownerConnect: user.id,
         name: name,
         description: description,
@@ -49,7 +54,7 @@ export default function EditQuest({ user, data }) {
       },
     }).catch(console.error);
 
-    clickedAddQuest();
+    Router.push("/profile");
   };
   console.log(errors);
 

@@ -16,10 +16,12 @@ export default function QuestsProfile({ user }) {
   return (
     <>
       <h1>Your Quests</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-      {data?.findUserByID?.quests?.data.map((quest) => {
-        return <QuestCard quest={quest} />;
-      })}
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      <QuestCardGrid>
+        {data?.findUserByID?.quests?.data.map((quest) => {
+          return <QuestCard quest={quest} />;
+        })}
+      </QuestCardGrid>
     </>
   );
 }
@@ -28,15 +30,19 @@ const QuestCard = ({ quest }) => {
   return (
     <Card>
       <h1>{quest?.name}</h1>
-      <Link href={`profile/quest/${quest._id}`}>View Quest</Link>
+      <Link href={`profile/quest-edit/${quest._id}`}>View Quest</Link>
     </Card>
   );
 };
 
 const Card = styled.div`
   width: 500px;
+  border: 1px solid #000;
+  padding: 0 25px 25px 25px;
+  border-radius: 30px;
   h1 {
     font-weight: 300;
+    height: 150px;
   }
   a {
     border: 1px solid aqua;
@@ -47,4 +53,12 @@ const Card = styled.div`
     display: block;
     margin: 0 auto;
   }
+`;
+
+const QuestCardGrid = styled.div`
+  display: grid;
+  grid-template-columns: 500px 500px;
+  grid-column-gap: 50px;
+  width: 1100px;
+  margin: 0 auto;
 `;

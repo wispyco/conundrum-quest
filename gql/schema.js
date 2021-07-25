@@ -77,6 +77,59 @@ export const CREATE_QUEST = gql`
     }
   }
 `;
+export const UPDATE_QUEST = gql`
+  mutation (
+    $id: ID!
+    $name: String
+    $description: String
+    $ownerConnect: ID!
+    $image: String
+    $knightName: String
+    $knightConnect: ID!
+    $category: Category
+  ) {
+    updateQuest(
+      id: $id
+      data: {
+        name: $name
+        description: $description
+        owner: { connect: $ownerConnect }
+        isAccepted: false
+        isBeingReviewed: false
+        image: $image
+        category: $category
+        knights: {
+          create: [{ name: $knightName, owner: { connect: $knightConnect } }]
+        }
+      }
+    ) {
+      name
+      isAccepted
+      image
+      description
+      _id
+      isBeingReviewed
+      knights {
+        data {
+          website
+          name
+          avatar
+          _id
+        }
+      }
+      heros {
+        data {
+          website
+          name
+          avatar
+          description
+          _id
+          twitter
+        }
+      }
+    }
+  }
+`;
 
 export const GET_QUESTS_BY_USER_ID = gql`
   query ($id: ID!) {

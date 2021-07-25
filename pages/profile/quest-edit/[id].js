@@ -74,11 +74,7 @@ export default function Profile() {
               <>
                 <h1>Edit this Quest</h1>
                 <EditQuestWrap>
-                  <EditQuest
-                    getLoading={getLoading}
-                    data={data}
-                    getError={getError}
-                  />
+                  <EditQuest data={data} Router={Router} user={user} />
                 </EditQuestWrap>
               </>
             )}
