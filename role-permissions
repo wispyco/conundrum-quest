@@ -9,3 +9,45 @@ Lambda(
 
   )
 )
+
+mutation {
+  createQuest(data:{
+    name:"test",
+    description:"test",
+    owner:{connect:"305026144618414151"}
+    isAccepted:false,
+    isBeingReviewed: false,
+    image:"https://google.com/image.png",
+    heros:{create:[{name: "Anders",description: "test",website: "https://www.google.com",twitter: "https://twitter.com",avatar: "https://image.com"}]},
+    knights: {create:[{name:"anders",owner:{connect:"305026144618414151"}}]}
+  }){
+    name
+    isAccepted
+    image
+    description
+    _id
+    isBeingReviewed
+    knights{
+      data{
+        website
+        name
+        avatar
+        _id
+      }
+    }
+    heros{
+      data{
+        website
+        name
+        avatar
+        description
+        _id
+        twitter
+      }
+    }
+  }
+}
+
+{
+  "authorization": "Bearer fnEEO7Ue4bAASAQ7nZpoEABIMQSKtLQuhFB3vMoiFed-I2qMjFA"
+}
