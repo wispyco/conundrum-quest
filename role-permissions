@@ -1,0 +1,11 @@
+#KNIGHT CREATE QUEST
+
+Lambda(
+  "values",
+  And(
+    Equals(Identity(), Select(["data", "owner"], Var("values"))),
+    Equals(false, Select(["data", "isAccepted"], Var("values"))),
+    Equals(false, Select(["data", "isBeingReviewed"], Var("values")))
+
+  )
+)

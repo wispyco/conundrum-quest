@@ -2,6 +2,7 @@ type User {
   email: String @unique
   name: String
   quests: [Quest] @relation
+  knight: Knight @relation
   jobs: [Job] @relation
   role: UserRole!
 }
@@ -35,6 +36,7 @@ type Knight {
   twitter: String
   website: String
   quest: Quest
+  owner: User! @relation
 }
 
 type Hero {
