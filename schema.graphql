@@ -1,9 +1,10 @@
 type User {
   email: String @unique
   name: String
-  quests: [Quest] @relation
-  knight: Knight
-  jobs: [Job] @relation
+  quests: [Quest] @relation(name: "user_quests")
+  #knight: Knight @relation(name: "user_knight")
+  #hero: Hero @relation(name:"user_hero")
+  jobs: [Job] @relation(name: "user_jobs")
   role: UserRole!
 }
 
@@ -21,13 +22,13 @@ enum UserRole {
 type Quest {
   name: String
   description: String
-  heros: [Hero] @relation
+  heros: [Hero] @relation(name: "quest_heros")
   image: String
-  owner: User!
+  owner: User! @relation(name: "user_quests")
   # need to set permissions that only MODERATOR could not set
   isAccepted: Boolean
   isBeingReviewed: Boolean
-  knights: [Knight] @relation
+  knights: [Knight] @relation (name: "quest_knights")
 }
 
 type Knight {
@@ -35,8 +36,8 @@ type Knight {
   avatar: String
   twitter: String
   website: String
-  quest: Quest
-  owner: User! @relation
+  quest: Quest @relation(name: "quest_knights")
+  owner: User!
 }
 
 type Hero {
@@ -45,7 +46,10 @@ type Hero {
   website: String
   twitter: String
   avatar: String
-  quest: Quest
+  quest: Quest @relation(name: "quest_heros")
+  owner: User
+  isAccepted: Boolean
+  isBeingReviewed: Boolean
 }
 
 type Job {
@@ -55,7 +59,7 @@ type Job {
   # need to set permissions that only ADMIN could not set
   isAccepted: Boolean
   isBeingReviewed: Boolean
-  owner: User!
+  owner: User! @relation(name: "user_jobs")
 }
 
 type Invite {

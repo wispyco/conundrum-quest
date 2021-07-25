@@ -17,6 +17,7 @@ import { GET_DAD_HATS_BY_USER_ID } from "../gql/schema";
 import Loading from "../components/Loading";
 import CreateInvite from "../components/CreateInvite";
 import ViewInvites from "../components/ViewInvites";
+import CreateQuest from "../components/CreateQuest";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -74,6 +75,9 @@ export default function Profile() {
             {user.role === "KNIGHT" && (
               <>
                 <h1>Welcome young Knight</h1>
+                <CreateQuestWrap>
+                  <CreateQuest user={user} />
+                </CreateQuestWrap>
               </>
             )}
 
@@ -137,6 +141,8 @@ const CreateInviteWrap = styled.div`
     }
   }
 `;
+
+const CreateQuestWrap = styled.div``
 
 // const AddStreetWear = styled.button`
 //   position: fixed;
