@@ -18,6 +18,7 @@ import Loading from "../components/Loading";
 import CreateInvite from "../components/CreateInvite";
 import ViewInvites from "../components/ViewInvites";
 import CreateQuest from "../components/CreateQuest";
+import QuestsProfile from "../components/QuestsProfile";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -48,6 +49,12 @@ export default function Profile() {
 
   console.log("user >>>>>>", user);
 
+  const [addQuest, setAddQuest] = useState(false);
+
+  const clickedAddQuest = () => {
+    setAddQuest((clicked) => !clicked);
+  };
+
   if (error) return <h1>{error.message}</h1>;
 
   return (
@@ -75,9 +82,21 @@ export default function Profile() {
             {user.role === "KNIGHT" && (
               <>
                 <h1>Welcome young Knight</h1>
-                <CreateQuestWrap>
-                  <CreateQuest user={user} />
-                </CreateQuestWrap>
+                <button onClick={clickedAddQuest}>
+                  {!addQuest ? "Add a Quest" : "X"}
+                </button>
+
+                {addQuest && (
+                  <CreateQuestWrap>
+                    <CreateQuest
+                      clickedAddQuest={clickedAddQuest}
+                      user={user}
+                    />
+                  </CreateQuestWrap>
+                )}
+                <QuestsWrap>
+                  <QuestsProfile user={user} />
+                </QuestsWrap>
               </>
             )}
 
@@ -142,7 +161,9 @@ const CreateInviteWrap = styled.div`
   }
 `;
 
-const CreateQuestWrap = styled.div``
+const CreateQuestWrap = styled.div``;
+
+const QuestsWrap = styled.div``;
 
 // const AddStreetWear = styled.button`
 //   position: fixed;

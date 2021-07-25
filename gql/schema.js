@@ -93,3 +93,77 @@ export const CREATE_QUEST = gql`
     }
   }
 `;
+
+export const GET_QUESTS_BY_USER_ID = gql`
+  query ($id: ID!) {
+    findUserByID(id: $id) {
+      quests {
+        data {
+          name
+          image
+          description
+          _id
+          isAccepted
+          isBeingReviewed
+          knights {
+            data {
+              website
+              name
+              avatar
+              _id
+              twitter
+            }
+          }
+          heros {
+            data {
+              website
+              name
+              avatar
+              description
+              _id
+              isAccepted
+              isBeingReviewed
+              twitter
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_QUESTS = gql`
+  query {
+    getQuests {
+      data {
+        name
+        image
+        description
+        _id
+        isAccepted
+        isBeingReviewed
+        knights {
+          data {
+            website
+            name
+            avatar
+            _id
+            twitter
+          }
+        }
+        heros {
+          data {
+            website
+            name
+            avatar
+            description
+            _id
+            isAccepted
+            isBeingReviewed
+            twitter
+          }
+        }
+      }
+    }
+  }
+`;

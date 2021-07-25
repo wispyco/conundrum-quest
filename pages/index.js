@@ -8,51 +8,6 @@ import Layout from "../components/layout";
 import DadHatsPublic from "../components/DadHatsPublic";
 import Loading from "../components/Loading";
 
-export const GET_DAD_HATS = gql`
-  query GetHats {
-    getHats {
-      data {
-        markers {
-          left
-          height
-          link
-          text
-          color
-          typeName
-          rotationAngle
-          padding
-          width
-          top
-          fontFamily
-          state
-          containerTransformMatrix {
-            a
-            b
-            c
-            d
-            e
-            f
-          }
-          visualTransformMatrix {
-            a
-            b
-            c
-            d
-            e
-            f
-          }
-        }
-        name
-        image
-        _id
-        owner {
-          name
-        }
-      }
-    }
-  }
-`;
-
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Home() {
