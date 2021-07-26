@@ -57,6 +57,7 @@ const QuestCard = ({ quest }) => {
   return (
     <Card>
       <h1>{quest?.name}</h1>
+      <h2>Moderator: {quest?.moderator?.name}</h2>
       <Link href={`profile/quest-review/${quest._id}`}>
         Review and Approve Quest
       </Link>

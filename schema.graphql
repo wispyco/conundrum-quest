@@ -30,6 +30,8 @@ type Quest {
   isBeingReviewed: Boolean
   knights: [Knight] @relation(name: "quest_knights")
   category: Category
+  moderator: User
+  isClaimed: Boolean
 }
 
 enum Category {

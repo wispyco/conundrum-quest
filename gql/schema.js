@@ -181,6 +181,10 @@ export const GET_QUESTS = gql`
             twitter
           }
         }
+        moderator{
+          name
+          _id
+        }
         heros {
           data {
             website
@@ -333,3 +337,11 @@ export const GET_HERO_BY_ID = gql`
     }
   }
 `;
+
+export const DELETE_HERO_BY_ID = gql`
+  mutation($id:ID!){
+    deleteHero(id:$id){
+      name
+    }
+  }
+`

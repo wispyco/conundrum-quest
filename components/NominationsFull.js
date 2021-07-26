@@ -1,6 +1,6 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
-import { GET_HEROS } from "../gql/schema";
+import { DELETE_HERO_BY_ID, GET_HEROS } from "../gql/schema";
 import Loading from "./Loading";
 import styled from "styled-components";
 
@@ -8,6 +8,26 @@ export default function NominationsFull({ user }) {
   const { loading, error, data } = useQuery(GET_HEROS, {
     variables: { id: user.id },
   });
+
+  const [deleteHero, { data: deleteHeroData, loading: deleting }] =
+    useMutation(DELETE_HERO_BY_ID);
+
+  const clickDeleteHero = async (id) => {
+    if (confirm("Are you sure you want to delete the Hero?")) {
+      const deleteHerotResponse = await deleteHero({
+        variables: {
+          id: id,
+        },
+        update(cache) {
+          const normalizedId = cache.identify({ id, __typename: "Hero" });
+          cache.evict({ id: normalizedId });
+          cache.gc();
+        },
+      }).catch(console.error);
+    } else {
+      return;
+    }
+  };
 
   if (error) return <h1>{error.message}</h1>;
 
@@ -37,6 +57,7 @@ export default function NominationsFull({ user }) {
               </h4>
               
                 <Link href={`profile/hero-review/${hero._id}`}>View Hero and Review</Link>
+                <button onClick={()=>clickDeleteHero(hero._id)}>Delete Hero</button>
               
             </Hero>
           );
