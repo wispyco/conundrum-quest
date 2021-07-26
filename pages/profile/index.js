@@ -21,6 +21,7 @@ import CreateQuest from "../../components/CreateQuest";
 import QuestsProfile from "../../components/QuestsProfile";
 import QuestsStatusEdit from "../../components/QuestsStatusEdit";
 import Nominations from "../../components/Nominations";
+import NominationsFull from "../../components/NominationsFull";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -106,6 +107,7 @@ export default function Profile() {
               <QuestsWrap>
                 <QuestsStatusEdit user={user} />
               </QuestsWrap>
+              <NominationsFull user={user} />
             </>
           )}
         </>

@@ -6,7 +6,6 @@ import styled from "styled-components";
 import Layout from "../../../components/layout";
 import useSWR from "swr";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -68,12 +67,12 @@ export default function NominateHero() {
             {user.role === "ADMIN" && <></>}
             {user.role === "KNIGHT" && (
               <>
-                <QuestCard user={user} hero={findHeroByID} />
+                You Don't have Access to this path
               </>
             )}
             {user.role === "MODERATOR" && (
               <>
-                <Link href={`/profile/hero-review/${Router.query.id}`}>View Hero and Review</Link>
+                <QuestCard user={user} hero={findHeroByID} />
               </>
             )}
           </>
@@ -98,11 +97,16 @@ const QuestCard = ({ hero, user }) => {
       defaultValues:{
           name:hero.name,
           description:hero.description,
-          wikipedia:hero.wikipedia
+          wikipedia:hero.wikipedia,
+          isBeingReviewed: JSON.stringify(hero.isBeingReviewed),
+          isAccepted:JSON.stringify(hero.isAccepted)
       }
   });
   const onSubmit = async (data) => {
-    const { name, description, wikipedia } = data;
+    const { name, description, wikipedia,isBeingReviewed, isAccepted } = data;
+
+    const isBeingReviewedSet = isBeingReviewed === "true";
+    const isAcceptedSet = isAccepted === "true";
 
     const updateHeroResponse = await updateHero({
       variables: {
@@ -111,8 +115,8 @@ const QuestCard = ({ hero, user }) => {
         description: description,
         wikipedia: wikipedia,
         questConnect: hero.quest._id,
-        isAccepted: false,
-        isBeingReviewed: false,
+        isAccepted: isAcceptedSet,
+        isBeingReviewed: isBeingReviewedSet,
         ownerConnect: user.id
       },
     }).catch(console.error);
@@ -123,6 +127,9 @@ const QuestCard = ({ hero, user }) => {
   console.log(errors);
   return (
     <Card>
+      <pre>
+        {/* {JSON.stringify(hero, null,2)} */}
+      </pre>
       <h1>{hero?.name}</h1>
       <h2>Edit Hero</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -137,6 +144,20 @@ const QuestCard = ({ hero, user }) => {
           placeholder="wikipedia"
           {...register("wikipedia", {})}
         />
+        <h2>In Review</h2>
+        Not reviewing yet
+        <input
+          {...register("isBeingReviewed", {})}
+          type="radio"
+          value="false"
+        />
+        Reviewing
+        <input {...register("isBeingReviewed", {})} type="radio" value="true" />
+        <h2>Is Accepted</h2>
+        Not Accepted
+        <input {...register("isAccepted", {})} type="radio" value="false" />
+        Accepted
+        <input {...register("isAccepted", {})} type="radio" value="true" />
 
         <input type="submit" />
       </form>

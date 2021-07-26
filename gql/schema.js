@@ -325,6 +325,8 @@ export const GET_HERO_BY_ID = gql`
       name
       description
       wikipedia
+      isAccepted
+      isBeingReviewed
       quest{
         _id
       }
