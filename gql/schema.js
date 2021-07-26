@@ -279,8 +279,10 @@ export const CREATE_HERO = gql`
 export const GET_HEROS_BY_USER_ID = gql`
   query ($id: ID!) {
     findUserByID(id: $id) {
+      _id
       quests {
         data {
+          name
           heros {
             data {
               name
@@ -288,6 +290,9 @@ export const GET_HEROS_BY_USER_ID = gql`
               isAccepted
               isBeingReviewed
               wikipedia
+              knight{
+                _id
+              }
             }
           }
         }

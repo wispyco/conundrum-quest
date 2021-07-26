@@ -80,4 +80,5 @@ type Invite {
 type Query {
   getQuests: [Quest!]
   getInvites: [Invite!]
+  getHerosByOwnerId(id: ID!): [Hero] @resolver(name: "get_heros_by_owner_id")
 }
