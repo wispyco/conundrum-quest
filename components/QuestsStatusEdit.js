@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { DELETE_QUEST_BY_ID, GET_QUESTS, UPDATE_QUEST } from "../gql/schema";
+import { DELETE_QUEST_BY_ID, GET_QUESTS, UPDATE_QUEST_CLAIMED } from "../gql/schema";
 import Loading from "./Loading";
 
 export default function QuestsStatusEdit({ user }) {
@@ -22,17 +22,20 @@ const Edit = ({ data, user }) => {
     <>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       <QuestCardGrid>
-        {data?.getQuests?.data.map((quest) => {
-          return <QuestCard quest={quest} />;
+        {data?.getQuests?.data.filter((questF) => questF?.isClaimed === false).map((quest) => {
+          return <QuestCard user={user} quest={quest} />;
         })}
       </QuestCardGrid>
     </>
   );
 };
 
-const QuestCard = ({ quest }) => {
-  const [deleteQuest, { data: deleteQuestData, loading: saving }] =
+const QuestCard = ({ quest, user }) => {
+  const [deleteQuest, { data: deleteQuestData, loading: deleting }] =
     useMutation(DELETE_QUEST_BY_ID);
+
+    const [updateQuestClaimed, { data: updateQuestClaimedData, loading: saving }] =
+    useMutation(UPDATE_QUEST_CLAIMED);
 
   const clickDeleteQuest = async (id) => {
     if (confirm("Are you sure you want to delete your streetwear?")) {
@@ -51,6 +54,21 @@ const QuestCard = ({ quest }) => {
     }
   };
 
+  const clickClaim = async (id) =>{
+    const updateQuestClaimedResponse = await updateQuestClaimed({
+      variables: {
+        id: id,
+        isClaimed:true,
+        moderatorConnect:user.id
+      },
+      update(cache) {
+        const normalizedId = cache.identify({ id, __typename: "Quest" });
+        cache.evict({ id: normalizedId });
+        cache.gc();
+      },
+    }).catch(console.error);
+  }
+
   console.log("quest.isAccepted", quest.isAccepted);
   console.log("quest.isBeingReviewed ", quest.isBeingReviewed);
 
@@ -58,6 +76,8 @@ const QuestCard = ({ quest }) => {
     <Card>
       <h1>{quest?.name}</h1>
       <h2>Moderator: {quest?.moderator?.name}</h2>
+      {!quest?.isClaimed && <p>Not Claimed</p>}
+      {!quest?.isClaimed ? <button onClick={()=>clickClaim(quest._id)}>Claim</button> : <button>Unclaim</button>}
       <Link href={`profile/quest-review/${quest._id}`}>
         Review and Approve Quest
       </Link>

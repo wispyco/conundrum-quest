@@ -172,6 +172,7 @@ export const GET_QUESTS = gql`
         _id
         isAccepted
         isBeingReviewed
+        isClaimed
         knights {
           data {
             website
@@ -345,3 +346,44 @@ export const DELETE_HERO_BY_ID = gql`
     }
   }
 `
+
+export const UPDATE_QUEST_CLAIMED = gql`
+  mutation (
+    $id: ID!
+    $isClaimed: Boolean
+    $moderatorConnect: ID!
+  ) {
+    updateQuest(
+      id: $id
+      data: {
+      isClaimed: $isClaimed
+      moderator: {connect:$moderatorConnect}
+      }
+    ) {
+      name
+      isAccepted
+      image
+      description
+      _id
+      isBeingReviewed
+      knights {
+        data {
+          website
+          name
+          avatar
+          _id
+        }
+      }
+      heros {
+        data {
+          website
+          name
+          avatar
+          description
+          _id
+          twitter
+        }
+      }
+    }
+  }
+`;
