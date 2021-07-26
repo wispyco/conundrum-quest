@@ -136,8 +136,8 @@ const Made = styled.a`
 
 const Alpha = styled.span`
   position: fixed;
-  top: 40px;
-  left: 85px;
+  top: 20px;
+  left: 65px;
   border: 1px solid yellow;
   background: orange;
   color: #fff;
@@ -190,10 +190,13 @@ const UserMenu = styled.div`
 
 const Logo = styled.img`
   position: fixed;
-  top: 25px;
-  left: 25px;
-  width: 50px;
+  top: 0px;
+  left: 0px;
+  padding:15px 20px;
+  //box-sizing:border-box;
+  width: 75px;
   z-index: 190;
+  background:#fff;
   &:hover {
     cursor: pointer;
   }

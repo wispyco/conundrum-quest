@@ -18,9 +18,25 @@ const QuestCard = ({ quest }) => {
     <Card>
       <h1>{quest?.name}</h1>
       <p>{quest?.description}</p>
+      {quest.heros.data.map((hero)=>{
+         return( 
+             <>
+             
+             <Hero>
+            <h3>{hero?.name}</h3>
+            <p>{hero?.description}</p>
+            <a target="_blank" href={hero?.wikipedia}>Wikipedia Article</a>
+          </Hero>
+          </>
+        )
+      })}
     </Card>
   );
 };
+
+const Hero = styled.div`
+    width:300px;
+`
 
 const Card = styled.div`
   width: 500px;

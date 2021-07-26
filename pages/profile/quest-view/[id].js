@@ -73,6 +73,13 @@ export default function Profile() {
                 </QuestWrap>
               </>
             )}
+            {user.role === "MODERATOR" && (
+              <>
+                <QuestWrap>
+                  <ViewQuest data={data} />
+                </QuestWrap>
+              </>
+            )}
           </>
         )}
       </main>

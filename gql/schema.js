@@ -387,3 +387,44 @@ export const UPDATE_QUEST_CLAIMED = gql`
     }
   }
 `;
+
+export const UPDATE_QUEST_UNCLAIMED = gql`
+  mutation (
+    $id: ID!
+    $isClaimed: Boolean
+    $moderatorDisconnect: Boolean
+  ) {
+    updateQuest(
+      id: $id
+      data: {
+      isClaimed: $isClaimed
+      moderator: {disconnect:$moderatorDisconnect}
+      }
+    ) {
+      name
+      isAccepted
+      image
+      description
+      _id
+      isBeingReviewed
+      knights {
+        data {
+          website
+          name
+          avatar
+          _id
+        }
+      }
+      heros {
+        data {
+          website
+          name
+          avatar
+          description
+          _id
+          twitter
+        }
+      }
+    }
+  }
+`;
