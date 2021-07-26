@@ -31,19 +31,19 @@ export default function Layout({ children }) {
 
   // const cookie = getCookie("fauna_client");
 
-  useEffect(() => {
-    if (cookie?.token === false) {
-      console.log(Router);
-      if (Router.asPath === "/") {
-        setUserMenu(false);
-      } else {
-        magicClient.user.logout().then(async (test) => {
-          // console.log(await magicClient.user.isLoggedIn()); // => `false`
-          Router.push("/login-magic-public");
-        });
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (cookie?.token === false) {
+  //     console.log(Router);
+  //     if (Router.asPath === "/") {
+  //       setUserMenu(false);
+  //     } else {
+  //       magicClient.user.logout().then(async (test) => {
+  //         // console.log(await magicClient.user.isLoggedIn()); // => `false`
+  //         Router.push("/login-magic-public");
+  //       });
+  //     }
+  //   }
+  // }, []);
 
   async function test() {
     const userMagic = await magicClient.user.isLoggedIn(); // => `false`
@@ -201,7 +201,6 @@ const Logo = styled.img`
 
 const Main = styled.main`
   margin-top: 50px;
-  width: 90%;
   margin: 0 auto;
-  padding: 150px;
+  padding: 50px 0;
 `;

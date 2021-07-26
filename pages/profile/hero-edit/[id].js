@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Router, useRouter } from "next/router";
 import Loading from "../../../components/Loading";
-import { CREATE_HERO, GET_QUEST_BY_ID } from "../../../gql/schema";
+import { CREATE_HERO, GET_HERO_BY_ID, GET_QUEST_BY_ID, UPDATE_HERO } from "../../../gql/schema";
 import styled from "styled-components";
 import Layout from "../../../components/layout";
 import useSWR from "swr";
@@ -37,7 +37,7 @@ export default function NominateHero() {
     loading: getLoading,
     error: getError,
     data,
-  } = useQuery(GET_QUEST_BY_ID, {
+  } = useQuery(GET_HERO_BY_ID, {
     variables: { id: Router.query.id },
   });
 
@@ -47,14 +47,14 @@ export default function NominateHero() {
 
   if (getLoading) return <Loading />;
 
-  const { findQuestByID } = data;
+  const { findHeroByID } = data;
 
   return (
     <Layout>
       {/* <pre>
               {JSON.stringify(data,null,2)}
           </pre> */}
-      <main>
+      <>
         {loading ? (
           <>
             <Loading />
@@ -67,40 +67,46 @@ export default function NominateHero() {
             {user.role === "ADMIN" && <></>}
             {user.role === "KNIGHT" && (
               <>
-                <QuestCard user={user} quest={findQuestByID} />
+                <QuestCard user={user} hero={findHeroByID} />
               </>
             )}
           </>
         )}
-      </main>
+      </>
     </Layout>
   );
 }
 
-const QuestCard = ({ quest, user }) => {
+const QuestCard = ({ hero, user }) => {
 
   const Router = useRouter();
 
-  const [createHero, { data: createHeroData, loading: saving }] =
-    useMutation(CREATE_HERO);
+  const [updateHero, { data: updateHeroData, loading: saving }] =
+    useMutation(UPDATE_HERO);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+      defaultValues:{
+          name:hero.name,
+          description:hero.description,
+          wikipedia:hero.wikipedia
+      }
+  });
   const onSubmit = async (data) => {
     const { name, description, wikipedia } = data;
 
-    const createHeroResponse = await createHero({
+    const updateHeroResponse = await updateHero({
       variables: {
+        id: Router.query.id,
         name: name,
         description: description,
         wikipedia: wikipedia,
-        questConnect: Router.query.id,
+        questConnect: hero.quest._id,
         isAccepted: false,
         isBeingReviewed: false,
-        // knightConnect: user.id,
         ownerConnect: user.id
       },
     }).catch(console.error);
@@ -111,8 +117,8 @@ const QuestCard = ({ quest, user }) => {
   console.log(errors);
   return (
     <Card>
-      <h1>{quest?.name}</h1>
-      <h2>Nominate Hero</h2>
+      <h1>{hero?.name}</h1>
+      <h2>Edit Hero</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="name" {...register("name", {})} />
         <input

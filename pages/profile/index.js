@@ -55,69 +55,61 @@ export default function Profile() {
 
   return (
     <Layout>
-      <main>
-        {loading ? (
-          <>
-            <Loading />
-            <Header1>SignUp</Header1>
-          </>
-        ) : (
-          <>
-            <h1>Account Email: {user.email}</h1>
-            {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-            {user.role === "ADMIN" && (
-              <>
-                <CreateInviteWrap>
-                  <CreateInvite />
-                </CreateInviteWrap>
-                <ViewInvitesWrap>
-                  <ViewInvites />
-                </ViewInvitesWrap>
-              </>
-            )}
-            {user.role === "KNIGHT" && (
-              <>
-                <h1>Welcome Knight {user.name}</h1>
-                <button onClick={clickedAddQuest}>
-                  {!addQuest ? "Add a Quest" : "X"}
-                </button>
+      {loading ? (
+        <>
+          <Loading />
+          <Header1>SignUp</Header1>
+        </>
+      ) : (
+        <>
+          <h1>Account Email: {user.email}</h1>
+          {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+          {user.role === "ADMIN" && (
+            <>
+              <CreateInviteWrap>
+                <CreateInvite />
+              </CreateInviteWrap>
+              <ViewInvitesWrap>
+                <ViewInvites />
+              </ViewInvitesWrap>
+            </>
+          )}
+          {user.role === "KNIGHT" && (
+            <>
+              <h1>Welcome Knight {user.name}</h1>
+              <button onClick={clickedAddQuest}>
+                {!addQuest ? "Add a Quest" : "X"}
+              </button>
 
-                {addQuest && (
-                  <CreateQuestWrap>
-                    <CreateQuest
-                      clickedAddQuest={clickedAddQuest}
-                      user={user}
-                    />
-                  </CreateQuestWrap>
-                )}
-                <QuestsWrap>
-                  <QuestsProfile user={user} />
-                </QuestsWrap>
-                  <Nominations  user={user}/>
-              </>
-            )}
-            {user.role === "MODERATOR" && (
-              <>
-                <h1>Welcome Mod {user.name}</h1>
-                <button onClick={clickedAddQuest}>
-                  {!addQuest ? "Add a Quest" : "X"}
-                </button>
-                {addQuest && (
-                  <CreateQuestWrap>
-                    <CreateQuest
-                      clickedAddQuest={clickedAddQuest}
-                      user={user}
-                    />
-                  </CreateQuestWrap>
-                )}
-                <QuestsWrap>
-                  <QuestsStatusEdit user={user} />
-                </QuestsWrap>
-              </>
-            )}
-          </>
-        )}
-      </main>
+              {addQuest && (
+                <CreateQuestWrap>
+                  <CreateQuest clickedAddQuest={clickedAddQuest} user={user} />
+                </CreateQuestWrap>
+              )}
+              <QuestsWrap>
+                <QuestsProfile user={user} />
+              </QuestsWrap>
+              <Nominations user={user} />
+            </>
+          )}
+          {user.role === "MODERATOR" && (
+            <>
+              <h1>Welcome Mod {user.name}</h1>
+              <button onClick={clickedAddQuest}>
+                {!addQuest ? "Add a Quest" : "X"}
+              </button>
+              {addQuest && (
+                <CreateQuestWrap>
+                  <CreateQuest clickedAddQuest={clickedAddQuest} user={user} />
+                </CreateQuestWrap>
+              )}
+              <QuestsWrap>
+                <QuestsStatusEdit user={user} />
+              </QuestsWrap>
+            </>
+          )}
+        </>
+      )}
     </Layout>
   );
 }
@@ -149,9 +141,16 @@ const CreateInviteWrap = styled.div`
   }
 `;
 
-const CreateQuestWrap = styled.div``;
+const CreateQuestWrap = styled.div`
+  width: 900px;
+  margin: 0 auto;
+`;
 
-const QuestsWrap = styled.div``;
+const QuestsWrap = styled.div`
+  // width: 900px;
+  // margin: 0 auto;
+  text-align:center;
+`;
 
 // const AddStreetWear = styled.button`
 //   position: fixed;

@@ -47,7 +47,7 @@ const QuestCard = ({ quest }) => {
 };
 
 const Card = styled.div`
-  width: 500px;
+  width: 300px;
   border: 1px solid #000;
   padding: 0 25px 25px 25px;
   border-radius: 30px;
@@ -67,9 +67,9 @@ const Card = styled.div`
 `;
 
 const QuestCardGrid = styled.div`
-  display: grid;
-  grid-template-columns: 500px 500px;
-  grid-column-gap: 50px;
-  width: 1100px;
-  margin: 0 auto;
+width: 950px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 300px 300px 300px;
+grid-column-gap: 25px;
 `;

@@ -62,8 +62,8 @@ export default function CreateQuest({ user, clickedAddQuest }) {
         // heroWebsite: heroWebsite,
         // heroTwitter: heroTwitter,
         heroAvatar: "https://google.com",
-        knightName: user.name,
-        knightConnect: user.id,
+        // knightName: user.name,
+        // knightConnect: user.id,
         category: category,
       },
     }).catch(console.error);

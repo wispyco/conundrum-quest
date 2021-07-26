@@ -32,8 +32,6 @@ export const CREATE_QUEST = gql`
     $description: String
     $ownerConnect: ID!
     $image: String
-    $knightName: String
-    $knightConnect: ID!
     $category: Category
   ) {
     createQuest(
@@ -45,9 +43,6 @@ export const CREATE_QUEST = gql`
         isBeingReviewed: false
         image: $image
         category: $category
-        knights: {
-          create: [{ name: $knightName, owner: { connect: $knightConnect } }]
-        }
       }
     ) {
       name
@@ -84,8 +79,6 @@ export const UPDATE_QUEST = gql`
     $description: String
     $ownerConnect: ID!
     $image: String
-    $knightName: String
-    $knightConnect: ID!
     $category: Category
     $isAccepted: Boolean
     $isBeingReviewed: Boolean
@@ -100,7 +93,6 @@ export const UPDATE_QUEST = gql`
         isBeingReviewed: $isBeingReviewed
         image: $image
         category: $category
-        knights: { connect: $knightConnect }
       }
     ) {
       name
@@ -258,7 +250,7 @@ export const CREATE_HERO = gql`
     $description: String
     $questConnect: ID!
     $wikipedia: String
-    $knightConnect: ID!
+    $ownerConnect: ID!
   ) {
     createHero(
       data: {
@@ -267,8 +259,8 @@ export const CREATE_HERO = gql`
         isBeingReviewed: $isBeingReviewed
         description: $description
         wikipedia: $wikipedia
-        knight: { connect: $knightConnect }
         quest: { connect: $questConnect }
+        owner: { connect: $ownerConnect }
       }
     ) {
       name
@@ -276,26 +268,65 @@ export const CREATE_HERO = gql`
   }
 `;
 
-export const GET_HEROS_BY_USER_ID = gql`
-  query ($id: ID!) {
-    findUserByID(id: $id) {
-      _id
-      quests {
-        data {
+export const UPDATE_HERO = gql`
+  mutation (
+    $id: ID!
+    $name: String
+    $description: String
+    $wikipedia: String
+    $ownerConnect: ID!
+    $questConnect: ID!
+    $isAccepted: Boolean
+    $isBeingReviewed: Boolean
+  ) {
+    updateHero(
+      id: $id
+      data: {
+        name: $name
+        description: $description
+        wikipedia: $wikipedia
+        owner: { connect: $ownerConnect }
+        quest: { connect: $questConnect }
+        isAccepted: $isAccepted
+        isBeingReviewed: $isBeingReviewed
+      }
+    ){
+      name
+    }
+  }
+`;
+
+export const GET_HEROS = gql`
+  query {
+    getHeros {
+      data {
+        name
+        wikipedia
+        isAccepted
+        isBeingReviewed
+        description
+        _id
+        quest {
           name
-          heros {
-            data {
-              name
-              description
-              isAccepted
-              isBeingReviewed
-              wikipedia
-              knight{
-                _id
-              }
-            }
-          }
+          _id
         }
+        owner {
+          email
+          _id
+        }
+      }
+    }
+  }
+`;
+
+export const GET_HERO_BY_ID = gql`
+  query ($id: ID!) {
+    findHeroByID(id: $id) {
+      name
+      description
+      wikipedia
+      quest{
+        _id
       }
     }
   }
