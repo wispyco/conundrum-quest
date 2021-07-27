@@ -14,6 +14,7 @@ import Loading from "./Loading";
 export default function QuestsStatusEdit({ user }) {
   const { loading, error, data } = useQuery(GET_QUESTS, {
     variables: { id: user.id },
+    pollInterval: 500,
   });
 
   if (error) return <h1>{error.message}</h1>;
@@ -84,39 +85,15 @@ const QuestCard = ({ quest, user }) => {
     }
   };
 
-  const {
-    loading: refetchLoading,
-    error: getError,
-    data,
-    refetch,
-  } = useQuery(GET_QUEST_BY_ID);
-
   const clickClaim = async (id) => {
-    refetch({ variables: { id: id } });
-
-    var delayInMilliseconds = 3000; //1 second
-    // let quest;
-
-    setTimeout(async function () {
-      quest = data
-
-      console.log("quest", quest);
-
-      // if (quest.isClaimed) {
-      //   alert("already claimed");
-      //   return;
-      // } else {
-      //   alert("lets do this");
-      //   const updateQuestClaimedResponse = await updateQuestClaimed({
-      //     variables: {
-      //       id: id,
-      //       isClaimed: true,
-      //       moderatorConnect: user.id,
-      //     },
-      //     refetchQueries: [{ query: GET_QUESTS }],
-      //   }).catch(console.error);
-      // }
-    }, delayInMilliseconds);
+    const updateQuestClaimedResponse = await updateQuestClaimed({
+      variables: {
+        id: id,
+        isClaimed: true,
+        moderatorConnect: user.id,
+      },
+      refetchQueries: [{ query: GET_QUESTS }],
+    }).catch(console.error);
   };
   const clickUnClaim = async (id) => {
     const updateQuestUnClaimedResponse = await updateQuestUnClaimed({
@@ -132,14 +109,14 @@ const QuestCard = ({ quest, user }) => {
   console.log("quest.isAccepted", quest.isAccepted);
   console.log("quest.isBeingReviewed ", quest.isBeingReviewed);
 
-  if (claiming || unclaiming || refetchLoading) return <Loading />;
+  if (claiming || unclaiming ) return <Loading />;
 
   return (
     <Card>
       <h1>{quest?.name}</h1>
       {!quest?.isClaimed && <p>Not Claimed</p>}
       {!quest?.isClaimed ? (
-        <button onClick={() => clickClaim(quest._id)}>
+        <button onClick={() => clickClaim(quest._id, quest.isClaimed)}>
           Claim
         </button>
       ) : (
