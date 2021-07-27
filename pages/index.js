@@ -120,6 +120,9 @@ const QuestCard = ({ quest }) => {
 
 const Form = styled.form`
   width: 900px;
+  @media(max-width:1100px){
+    width:90%;
+  }
   margin: 0px auto 50px auto;
   display:grid;
   grid-template-columns:100px 400px 500px;
