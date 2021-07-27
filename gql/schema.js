@@ -267,6 +267,7 @@ export const CREATE_HERO = gql`
         wikipedia: $wikipedia
         quest: { connect: $questConnect }
         owner: { connect: $ownerConnect }
+        isClaimed: false
       }
     ) {
       name

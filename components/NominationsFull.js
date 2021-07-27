@@ -70,11 +70,11 @@ export default function NominationsFull({ user }) {
 
   return (
     <Wrap>
-      <h1>Unclaimed Nominations</h1>
+      <h1>Claimed Nominations</h1>
       <HeroWrap>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {data.getHeros.data
-          .filter((heroF) => heroF?.isClaimed === false)
+          .filter((heroF) => heroF?.isClaimed === true && heroF?.moderator._id === user.id)
           .map((hero, i) => {
             return (
               <Hero>
@@ -113,11 +113,11 @@ export default function NominationsFull({ user }) {
             );
           })}
       </HeroWrap>
-      <h1>Claimed Nominations</h1>
+      <h1>Unclaimed Nominations</h1>
       <HeroWrap>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {data.getHeros.data
-          .filter((heroF) => heroF?.isClaimed === true && heroF?.moderator._id === user.id)
+          .filter((heroF) => heroF?.isClaimed === false)
           .map((hero, i) => {
             return (
               <Hero>
