@@ -23,48 +23,80 @@ const Data = ({ user }) => {
 
   if (error) return <h1>{error.message}</h1>;
 
-  return<DataRendered data={data}/>
-
-  
+  return <DataRendered data={data} />;
 };
 
-const DataRendered = ({data}) =>{
-  const { register, handleSubmit, formState, watch } = useForm();
-  const onSubmit = data => console.log(data);
+const DataRendered = ({ data }) => {
+  const { register, handleSubmit, formState, watch } = useForm({
+    defaultValues:{
+      category:"ALL"
+    }
+  });
+  const onSubmit = (data) => console.log(data);
 
-  const watchAllFields = watch()
+  const watchAllFields = watch();
 
-  const [quests, setQuests] = useState(data?.getQuests?.data)
-  
+  const [quests, setQuests] = useState(data?.getQuests?.data);
+
   // useEffect(()=>{
   //   setQuests(quests.find((questF) => questF.category === watchAllFields.category))
   // },[watchAllFields])
 
- 
-  const find = () =>{
-    setQuests([data?.getQuests?.data.find((questF) => questF.category === watchAllFields.category )])
-  }
-  const findAll = () =>{
-    setQuests(data?.getQuests?.data)
-  }
+  const findSustain = () => {
+    setQuests(
+      data?.getQuests?.data.filter(
+        (questF) => questF.category === "SUSTAINABILITY_HUMAN_DEVELOPMENT"
+      )
+    );
+  };
+  const findTech = () => {
+    setQuests(
+      data?.getQuests?.data.filter(
+        (questF) =>
+          questF.category ===
+          "TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE"
+      )
+    );
+  };
+  const findAll = () => {
+    setQuests(data?.getQuests?.data);
+  };
 
   return (
     <>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          All
+          <input
+            onClick={findAll}
+            {...register("category", {})}
+            type="radio"
+            value="ALL"
+          />
+        </div>
+        <div>
+          Sustainability and Human Development
+          <input
+            onClick={findSustain}
+            {...register("category", {})}
+            type="radio"
+            value="SUSTAINABILITY_HUMAN_DEVELOPMENT"
+          />
+        </div>
+        <div>
+          Technology Infrastructure and Artificial Intelligence
+          <input
+            onClick={findTech}
+            {...register("category", {})}
+            type="radio"
+            value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE"
+          />
+        </div>
+      </Form>
 
-<form onSubmit={handleSubmit(onSubmit)}>
-  All
-  <input onClick={findAll} {...register("category", {})} type="radio" value="ALL" />
-
-      Sustainability and Human Development
-      <input onClick={find} {...register("category", {})} type="radio" value="SUSTAINABILITY_HUMAN_DEVELOPMENT" />
-      Technology Infrastructure and Artificial Intelligence
-      <input onClick={find} {...register("category", {})} type="radio" value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE" />
-
-    </form>
-
-    <pre>
+      {/* <pre>
       {JSON.stringify(watchAllFields, null,2)}
-    </pre>
+    </pre> */}
 
       <QuestCardGrid>
         {quests.map((quest) => {
@@ -74,8 +106,8 @@ const DataRendered = ({data}) =>{
 
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </>
-  )
-}
+  );
+};
 
 const QuestCard = ({ quest }) => {
   return (
@@ -86,9 +118,13 @@ const QuestCard = ({ quest }) => {
   );
 };
 
+const Form = styled.form`
+  width: 900px;
+  margin: 0px auto 50px auto;
+  display:grid;
+  grid-template-columns:100px 400px 500px;
+`;
 
-  
-  
 const Card = styled.div`
   width: 500px;
   padding: 0 25px 25px 25px;
