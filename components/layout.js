@@ -167,7 +167,7 @@ const Title = styled.div`
   a {
     text-align: center;
     display: block;
-    margin: 50px auto;
+    margin: 50px auto 0 auto;
     width: 200px;
     border-radius: 30px;
     padding: 15px;

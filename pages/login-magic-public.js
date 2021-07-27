@@ -64,7 +64,6 @@ export default function Login() {
     <Layout>
       <form onSubmit={onSubmit}>
         <h2>Log in / Signup </h2>
-        <h3>(No Password Necessary, just a magic link)</h3>
 
         <label htmlFor="email">
           Email<span aria-hidden={true}>*</span>
@@ -87,11 +86,13 @@ export default function Login() {
         form {
           padding: 3rem;
           width: 600px;
-          margin: 0 auto;
+          margin: 150px auto 0 auto;
         }
         h2 {
           margin-top: 0;
           margin-bottom: 25px;
+          font-weight:100;
+          text-align:center;
         }
         label {
           display: block;

@@ -174,6 +174,7 @@ export const GET_QUESTS = gql`
         isAccepted
         isBeingReviewed
         isClaimed
+        category
         knights {
           data {
             website
