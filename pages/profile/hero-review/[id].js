@@ -51,9 +51,7 @@ export default function NominateHero() {
 
   return (
     <Layout>
-      {/* <pre>
-              {JSON.stringify(data,null,2)}
-          </pre> */}
+     
       <>
         {loading ? (
           <>
@@ -67,7 +65,7 @@ export default function NominateHero() {
             {/* {user.role === "ADMIN" && <></>} */}
             {user.role === "KNIGHT" && (
               <>
-                <p>You Don't have Access to this path</p>
+                <p>You Dont have Access to this path</p>
               </>
             )}
             {user.role === "MODERATOR" && (

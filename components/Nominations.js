@@ -38,7 +38,7 @@ export default function Nominations({ user }) {
               {hero.isBeingReviewed || hero.isAccepted ? (
                 <>
                   
-                  <Link href={`/quest/${dataFiltered[i].quest._id}`}>View Hero's Quest</Link>
+                  <Link href={`/quest/${dataFiltered[i].quest._id}`}>View Heros Quest</Link>
                   <p>
                     {hero.isBeingReviewed && (
                       <>
