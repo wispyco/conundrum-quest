@@ -5,6 +5,8 @@ import Loading from "../components/Loading";
 import { GET_QUESTS } from "../gql/schema";
 import styled from "styled-components";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -21,18 +23,53 @@ const Data = ({ user }) => {
 
   if (error) return <h1>{error.message}</h1>;
 
+  return<DataRendered data={data}/>
+
+  
+};
+
+const DataRendered = ({data}) =>{
+  const { register, handleSubmit, formState, watch } = useForm();
+  const onSubmit = data => console.log(data);
+
+  const watchAllFields = watch()
+
+  const [quests, setQuests] = useState(data?.getQuests?.data)
+  
+  // useEffect(()=>{
+  //   setQuests(quests.find((questF) => questF.category === watchAllFields.category))
+  // },[watchAllFields])
+
+ 
+  const find = () =>{
+    setQuests([data?.getQuests?.data.find((questF) => questF.category === watchAllFields.category)])
+  }
+
   return (
     <>
+
+<form onSubmit={handleSubmit(onSubmit)}>
+      Sustainability and Human Development
+      <input onClick={find} {...register("category", {})} type="radio" value="SUSTAINABILITY_HUMAN_DEVELOPMENT" />
+      Technology Infrastructure and Artificial Intelligence
+      <input onClick={find} {...register("category", {})} type="radio" value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE" />
+
+    </form>
+
+    {/* <pre>
+      {JSON.stringify(watchAllFields, null,2)}
+    </pre> */}
+
       <QuestCardGrid>
-        {data?.getQuests?.data.map((quest) => {
-          return <>{quest.isAccepted && <QuestCard quest={quest} />}</>;
+        {quests.map((quest) => {
+          return <>{quest?.isAccepted && <QuestCard quest={quest} />}</>;
         })}
       </QuestCardGrid>
 
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </>
-  );
-};
+  )
+}
 
 const QuestCard = ({ quest }) => {
   return (
@@ -43,6 +80,9 @@ const QuestCard = ({ quest }) => {
   );
 };
 
+
+  
+  
 const Card = styled.div`
   width: 500px;
   padding: 0 25px 25px 25px;
