@@ -42,13 +42,19 @@ const DataRendered = ({data}) =>{
 
  
   const find = () =>{
-    setQuests([data?.getQuests?.data.find((questF) => questF.category === watchAllFields.category)])
+    setQuests([data?.getQuests?.data.find((questF) => questF.category === watchAllFields.category )])
+  }
+  const findAll = () =>{
+    setQuests(data?.getQuests?.data)
   }
 
   return (
     <>
 
 <form onSubmit={handleSubmit(onSubmit)}>
+  All
+  <input onClick={findAll} {...register("category", {})} type="radio" value="ALL" />
+
       Sustainability and Human Development
       <input onClick={find} {...register("category", {})} type="radio" value="SUSTAINABILITY_HUMAN_DEVELOPMENT" />
       Technology Infrastructure and Artificial Intelligence
@@ -56,9 +62,9 @@ const DataRendered = ({data}) =>{
 
     </form>
 
-    {/* <pre>
+    <pre>
       {JSON.stringify(watchAllFields, null,2)}
-    </pre> */}
+    </pre>
 
       <QuestCardGrid>
         {quests.map((quest) => {
