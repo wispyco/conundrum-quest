@@ -75,6 +75,10 @@ const Hero = styled.div`
 const HerosGrid = styled.div`
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
+  @media(max-width:1100px){
+    grid-template-columns: 1fr;
+    justify-items:center;
+  }
 `
 
 const HeroTitle = styled.div`
@@ -88,7 +92,18 @@ const HeroTitle = styled.div`
 `
 
 const Card = styled.div`
-  width: 900px;
+  width: 1000px;
+  @media(max-width:1100px){
+    width:80%;
+    margin: 0 auto;
+    text-align:center;
+    h1{
+      height:auto !important;
+    }
+    p{
+      line-height:26px;
+    }
+  }
 //   border: 1px solid #000;
   padding: 0 25px 25px 25px;
 //   border-radius: 30px;
