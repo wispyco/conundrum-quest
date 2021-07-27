@@ -369,8 +369,8 @@ const Main = styled.main`
 
 const GlobalStyle = createGlobalStyle`
   body {
-    @media(max-width:1100px){
-      overflow:hidden;
-    }
+    // @media(max-width:1100px){
+    //   overflow:hidden;
+    // }
   }
 `;
