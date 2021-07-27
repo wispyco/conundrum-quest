@@ -162,6 +162,9 @@ export default function NominationsFull({ user }) {
 
 const Hero = styled.div`
   width: 300px;
+  @media(max-width:1100px){
+    width: 100%;
+  }
   border: 1px solid #000;
   border-radius: 30px;
   padding: 25px;
@@ -173,6 +176,11 @@ const HeroWrap = styled.div`
   display: grid;
   grid-template-columns: 300px 300px 300px;
   grid-column-gap: 25px;
+  @media(max-width:1100px){
+    width:90%;
+    grid-template-columns:1fr;
+    grid-row-gap:25px;
+  }
 `;
 
 const Wrap = styled.div`

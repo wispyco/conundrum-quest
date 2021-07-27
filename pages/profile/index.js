@@ -63,7 +63,7 @@ export default function Profile() {
         </>
       ) : (
         <>
-          <h1>Account Email: {user.email}</h1>
+          <Header2>login email: {user.email}</Header2>
           {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
           {user.role === "ADMIN" && (
             <>
@@ -78,9 +78,9 @@ export default function Profile() {
           {user.role === "KNIGHT" && (
             <>
               <h1>Welcome Knight {user.name}</h1>
-              <button onClick={clickedAddQuest}>
+              <AddQuest onClick={clickedAddQuest}>
                 {!addQuest ? "Add a Quest" : "X"}
-              </button>
+              </AddQuest>
 
               {addQuest && (
                 <CreateQuestWrap>
@@ -95,10 +95,10 @@ export default function Profile() {
           )}
           {user.role === "MODERATOR" && (
             <>
-              <h1>Welcome Mod {user.name}</h1>
-              <button onClick={clickedAddQuest}>
+              <Header3>Welcome Moderator {user.name}</Header3>
+              <AddQuest onClick={clickedAddQuest}>
                 {!addQuest ? "Add a Quest" : "X"}
-              </button>
+              </AddQuest>
               {addQuest && (
                 <CreateQuestWrap>
                   <CreateQuest clickedAddQuest={clickedAddQuest} user={user} />
@@ -135,6 +135,15 @@ export const Header1 = styled.h1`
   }
 `;
 
+const Header2 = styled.h2`
+  text-align:center;
+  margin-top:100px;
+`
+
+const Header3 = styled.h3`
+  text-align:center;
+`
+
 const ViewInvitesWrap = styled.div``;
 
 const CreateInviteWrap = styled.div`
@@ -152,6 +161,9 @@ const CreateInviteWrap = styled.div`
 
 const CreateQuestWrap = styled.div`
   width: 900px;
+  @media(max-width:1100px){
+    width:100%;
+  }
   margin: 0 auto;
 `;
 
@@ -160,6 +172,17 @@ const QuestsWrap = styled.div`
   // margin: 0 auto;
   text-align:center;
 `;
+
+const AddQuest = styled.button`
+  width: 200px;
+  padding: 10px;
+  border-radius:30px;
+  margin: 0 auto;
+  display:block;
+  &:hover{
+    cursor:pointer;
+  }
+`
 
 // const AddStreetWear = styled.button`
 //   position: fixed;

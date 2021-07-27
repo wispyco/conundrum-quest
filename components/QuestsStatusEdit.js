@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {
   DELETE_QUEST_BY_ID,
   GET_QUESTS,
+  GET_QUEST_BY_ID,
   UPDATE_QUEST_CLAIMED,
   UPDATE_QUEST_UNCLAIMED,
 } from "../gql/schema";
@@ -43,7 +44,7 @@ const Edit = ({ data, user }) => {
               (questF) =>
                 questF?.isClaimed === true && questF?.moderator._id === user.id
             )
-            .map((quest,i) => {
+            .map((quest, i) => {
               return <QuestCard key={i} user={user} quest={quest} />;
             })}
         </QuestCardGrid>
@@ -83,15 +84,39 @@ const QuestCard = ({ quest, user }) => {
     }
   };
 
+  const {
+    loading: refetchLoading,
+    error: getError,
+    data,
+    refetch,
+  } = useQuery(GET_QUEST_BY_ID);
+
   const clickClaim = async (id) => {
-    const updateQuestClaimedResponse = await updateQuestClaimed({
-      variables: {
-        id: id,
-        isClaimed: true,
-        moderatorConnect: user.id,
-      },
-      refetchQueries: [{ query: GET_QUESTS }],
-    }).catch(console.error);
+    refetch({ variables: { id: id } });
+
+    var delayInMilliseconds = 3000; //1 second
+    // let quest;
+
+    setTimeout(async function () {
+      quest = data
+
+      console.log("quest", quest);
+
+      // if (quest.isClaimed) {
+      //   alert("already claimed");
+      //   return;
+      // } else {
+      //   alert("lets do this");
+      //   const updateQuestClaimedResponse = await updateQuestClaimed({
+      //     variables: {
+      //       id: id,
+      //       isClaimed: true,
+      //       moderatorConnect: user.id,
+      //     },
+      //     refetchQueries: [{ query: GET_QUESTS }],
+      //   }).catch(console.error);
+      // }
+    }, delayInMilliseconds);
   };
   const clickUnClaim = async (id) => {
     const updateQuestUnClaimedResponse = await updateQuestUnClaimed({
@@ -107,25 +132,28 @@ const QuestCard = ({ quest, user }) => {
   console.log("quest.isAccepted", quest.isAccepted);
   console.log("quest.isBeingReviewed ", quest.isBeingReviewed);
 
-  if (claiming || unclaiming) return <Loading />;
+  if (claiming || unclaiming || refetchLoading) return <Loading />;
 
   return (
     <Card>
       <h1>{quest?.name}</h1>
       {!quest?.isClaimed && <p>Not Claimed</p>}
       {!quest?.isClaimed ? (
-        <button onClick={() => clickClaim(quest._id)}>Claim</button>
+        <button onClick={() => clickClaim(quest._id)}>
+          Claim
+        </button>
       ) : (
         <button onClick={() => clickUnClaim(quest._id)}>Unclaim</button>
       )}
       {quest?.isClaimed ? (
         <>
-        <Link href={`profile/quest-review/${quest._id}`}>
-          Review and Approve Quest
-        </Link>
-              <button onClick={() => clickDeleteQuest(quest._id)}>Delete Quest</button>
-            </>
-
+          <Link href={`profile/quest-review/${quest._id}`}>
+            Review and Approve Quest
+          </Link>
+          <button onClick={() => clickDeleteQuest(quest._id)}>
+            Delete Quest
+          </button>
+        </>
       ) : (
         <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
       )}
@@ -137,6 +165,9 @@ const QuestCard = ({ quest, user }) => {
 
 const Card = styled.div`
   width: 500px;
+  @media (max-width: 1100px) {
+    width: 100%;
+  }
   border: 1px solid #000;
   padding: 0 25px 25px 25px;
   border-radius: 30px;
@@ -158,6 +189,10 @@ const Card = styled.div`
 const QuestCardGrid = styled.div`
   display: grid;
   grid-template-columns: 500px 500px;
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
   grid-column-gap: 50px;
   grid-row-gap: 50px;
   width: 1100px;
