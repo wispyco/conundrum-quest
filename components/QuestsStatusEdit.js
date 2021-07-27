@@ -32,8 +32,8 @@ const Edit = ({ data, user }) => {
         <QuestCardGrid>
           {data?.getQuests?.data
             .filter((questF) => questF?.isClaimed === false)
-            .map((quest) => {
-              return <QuestCard user={user} quest={quest} />;
+            .map((quest, i) => {
+              return <QuestCard key={i} user={user} quest={quest} />;
             })}
         </QuestCardGrid>
         <h2>Claimed Quests</h2>
@@ -43,8 +43,8 @@ const Edit = ({ data, user }) => {
               (questF) =>
                 questF?.isClaimed === true && questF?.moderator._id === user.id
             )
-            .map((quest) => {
-              return <QuestCard user={user} quest={quest} />;
+            .map((quest,i) => {
+              return <QuestCard key={i} user={user} quest={quest} />;
             })}
         </QuestCardGrid>
       </>

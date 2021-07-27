@@ -18,8 +18,8 @@ export default function QuestsProfile({ user }) {
       <h1>Your Quests</h1>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       <QuestCardGrid>
-        {data?.findUserByID?.quests?.data.map((quest) => {
-          return <QuestCard quest={quest} />;
+        {data?.findUserByID?.quests?.data.map((quest,i) => {
+          return <QuestCard key={i} quest={quest} />;
         })}
       </QuestCardGrid>
     </>

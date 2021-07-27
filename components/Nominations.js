@@ -23,7 +23,7 @@ export default function Nominations({ user }) {
         {/* <pre>{JSON.stringify(dataFiltered, null, 2)}</pre> */}
         {dataFiltered.map((hero, i) => {
           return (
-            <Hero>
+            <Hero key={i}>
               <h2>{dataFiltered[i].quest.name}</h2>
               <h3>Name: {hero.name}</h3>
               <p>Description: {hero.description}</p>

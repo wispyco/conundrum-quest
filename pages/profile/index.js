@@ -122,7 +122,14 @@ export const Header1 = styled.h1`
   letter-spacing: 2px;
   font-size: 42px;
   width: 50%;
-  margin: 25px auto;
+  position:fixed;
+  left:0;
+  top:0;
+  @media(max-width:1100px){
+    position:relative;
+    width:80%;
+    margin: 150px auto 0 auto;
+  }
   b {
     color: red;
   }

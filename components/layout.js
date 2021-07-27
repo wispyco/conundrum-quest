@@ -2,7 +2,7 @@ import Head from "next/head";
 import { magicClient } from "../lib/magic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import styled, {createGlobalStyle} from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Link from "next/link";
 import Script from "next/script";
 import useSWR from "swr";
@@ -64,11 +64,11 @@ export default function Layout({ children }) {
     test();
   });
 
-  const [menuState, setMenuState] = useState(true)
+  const [menuState, setMenuState] = useState(true);
 
-  const toggleMenu = () =>{
-    setMenuState((state)=> !state)
-  }
+  const toggleMenu = () => {
+    setMenuState((state) => !state);
+  };
 
   return (
     <>
@@ -86,7 +86,7 @@ export default function Layout({ children }) {
         src="https://upload-widget.cloudinary.com/global/all.js"
         type="text/javascript"
       ></Script>
-      <GlobalStyle/>
+      <GlobalStyle />
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300;400;500;700&display=swap" />
       <Link href="/">
         <Logo src="/logo-3.png" />
@@ -104,7 +104,7 @@ export default function Layout({ children }) {
                 {/* </a> */}
               </Link>
 
-              <a href="">Were Open Source, see our naked code</a>
+              <a href="">Were Open Source</a>
               <a href="">Feedback</a>
             </UserMenu>
           ) : (
@@ -160,10 +160,14 @@ export default function Layout({ children }) {
 }
 
 const Title = styled.div`
+  margin: 150px auto 0 auto;
+  @media(max-width:1100px){
+    margin: 25px auto 0 auto;
+  }
   a {
     text-align: center;
     display: block;
-    margin: 25px auto;
+    margin: 50px auto;
     width: 200px;
     border-radius: 30px;
     padding: 15px;
@@ -183,15 +187,20 @@ const Made = styled.a`
 
 const Alpha = styled.span`
   position: fixed;
-  top: 20px;
-  left: 65px;
-  border: 1px solid yellow;
-  background: orange;
+  background: #a7a7a7;
   color: #fff;
   text-transform: uppercase;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   z-index: 200;
-  padding: 5px;
+  padding: 3px;
+  font-size: 12px;
+  top: 68px;
+  left: 50%;
+  width: 100px;
+  text-align: center;
+  margin-left: -91px;
+  /* box-shadow: 5px 5px 10px #dadada; */
+  transform: rotate(-90deg);
 `;
 
 const Header2 = styled.h2`
@@ -219,28 +228,36 @@ const Header3 = styled.h3`
 
 const UserMenu = styled.div`
   position: fixed;
-  top: 15px;
-  right: 15px;
+  background: #fff;
+  top: 25px;
+  right: 25px;
   display: grid;
-  grid-row-gap: 10px;
-  width: 150px;
+  grid-template-columns: 100px 100px 200px 100px;
+  // grid-row-gap: 10px;
+  width: 500px;
+  align-items: center;
   text-align: center;
-  @media(max-width:1100px){
-    display:none;
+  @media (max-width: 1100px) {
+    display: none;
   }
   button {
     padding: 10px;
     background: none;
-    border: 1px solid #000;
+    //border: 1px solid #000;
+    border: none;
     font-size: 16px;
     &:hover {
       cursor: pointer;
+      text-decoration: underline;
     }
   }
   a {
-    border: 1px solid #000;
+    //border: 1px solid #000;
     padding: 10px;
     font-size: 16px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 const UserMenuMobile = styled.div`
@@ -249,23 +266,23 @@ const UserMenuMobile = styled.div`
   right: 0px;
   display: grid;
   grid-row-gap: 10px;
-  align-items:center;
+  align-items: center;
   width: 100%;
-  height:100vh;
-  padding-top:100px;
+  height: 100vh;
+  padding-top: 150px;
   grid-template-rows: 50px 50px 50px 50px;
-  background:#fff;
-  z-index:100;
+  background: #fff;
+  z-index: 100;
   text-align: center;
-  @media(min-width:1100px){
-    display:none;
+  @media (min-width: 1100px) {
+    display: none;
   }
   button {
     padding: 10px;
     background: none;
     border: 1px solid #000;
-    width:250px;
-    border-radius:30px;
+    width: 250px;
+    border-radius: 30px;
     margin: 0 auto;
     font-size: 16px;
     &:hover {
@@ -276,8 +293,8 @@ const UserMenuMobile = styled.div`
     border: 1px solid #000;
     padding: 10px;
     font-size: 16px;
-    width:250px;
-    border-radius:30px;
+    width: 250px;
+    border-radius: 30px;
     margin: 0 auto;
   }
 `;
@@ -285,23 +302,26 @@ const UserMenuMobile = styled.div`
 const Menu = styled.button`
   position: absolute;
   right: 0;
-  z-index:200;
-  top:0;
-  display:none;
-  @media(max-width:1100px){
-    display:block;
+  z-index: 200;
+  top: 0;
+  display: none;
+  @media (max-width: 1100px) {
+    display: block;
   }
-`
+`;
 
 const Logo = styled.img`
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 25px;
+  left: 50%;
+  margin-left: -50px;
   padding: 15px 20px;
   //box-sizing:border-box;
-  width: 75px;
+  width: 100px;
   z-index: 190;
   background: #fff;
+  border-radius: 30px;
+  box-shadow: 5px 5px 10px #dadada;
   &:hover {
     cursor: pointer;
   }

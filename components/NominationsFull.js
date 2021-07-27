@@ -77,7 +77,7 @@ export default function NominationsFull({ user }) {
           .filter((heroF) => heroF?.isClaimed === true && heroF?.moderator._id === user.id)
           .map((hero, i) => {
             return (
-              <Hero>
+              <Hero key={i}>
                 <h2>{hero.quest.name}</h2>
                 {!hero?.isClaimed && <p>Not Claimed</p>}
                 {!hero?.isClaimed ? (

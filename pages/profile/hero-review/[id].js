@@ -67,7 +67,7 @@ export default function NominateHero() {
             {user.role === "ADMIN" && <></>}
             {user.role === "KNIGHT" && (
               <>
-                You Don't have Access to this path
+                <p>You Don't have Access to this path</p>
               </>
             )}
             {user.role === "MODERATOR" && (
