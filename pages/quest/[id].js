@@ -41,11 +41,16 @@ const QuestCard = ({ quest }) => {
     <Card>
       <h1>{quest?.name}</h1>
       <p>{quest?.description}</p>
+      <HeroTitle>
+        
       <h2>Heros</h2>
       <Link href={`/profile/nominate-hero/${quest._id}`}>Nominate Hero</Link>
+      </HeroTitle>
+      <HerosGrid>
+
       {quest.heros.data.map((hero)=>{
-         return( 
-             <>
+        return( 
+          <>
              {hero.isAccepted &&
              
              <Hero>
@@ -57,12 +62,29 @@ const QuestCard = ({ quest }) => {
           </>
         )
       })}
+      </HerosGrid>
     </Card>
   );
 };
 
 const Hero = styled.div`
     width:300px;
+    text-align:center;
+`
+
+const HerosGrid = styled.div`
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`
+
+const HeroTitle = styled.div`
+  text-align:center;
+  margin: 35px 0;
+  a{
+    border-radius: 30px;
+    background: #25cec8;
+    color: #fff !important;
+  }
 `
 
 const Card = styled.div`
@@ -70,14 +92,15 @@ const Card = styled.div`
 //   border: 1px solid #000;
   padding: 0 25px 25px 25px;
 //   border-radius: 30px;
-  margin: 0px auto;
+  margin: 150px auto;
   h1 {
     font-weight: 300;
     height: 50px;
   }
   a {
-    border: 1px solid aqua;
-    border-radius: 30px;
+    // border: 1px solid aqua;
+    // border-radius: 30px;
+    color:blue;
     padding: 10px;
     width: 200px;
     text-align: center;
