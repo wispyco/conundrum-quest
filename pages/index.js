@@ -28,9 +28,9 @@ const Data = ({ user }) => {
 
 const DataRendered = ({ data }) => {
   const { register, handleSubmit, formState, watch } = useForm({
-    defaultValues:{
-      category:"ALL"
-    }
+    defaultValues: {
+      category: "ALL",
+    },
   });
   const onSubmit = (data) => console.log(data);
 
@@ -65,33 +65,45 @@ const DataRendered = ({ data }) => {
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          All
+        <label class="radio">
+          <div>
+          <p>All</p>
+
           <input
             onClick={findAll}
             {...register("category", {})}
             type="radio"
             value="ALL"
-          />
-        </div>
-        <div>
-          Sustainability and Human Development
+            />
+          <span class="radio__control"></span>
+            </div>
+        </label>
+        <label class="radio">
+          <div>
+          <p>Sustainability and Human Development</p>
+
           <input
             onClick={findSustain}
             {...register("category", {})}
             type="radio"
             value="SUSTAINABILITY_HUMAN_DEVELOPMENT"
-          />
-        </div>
-        <div>
-          Technology Infrastructure and Artificial Intelligence
+            />
+          <span class="radio__control"></span>
+            </div>
+        </label>
+        <label class="radio">
+          <div>
+          <p>Technology Infrastructure and Artificial Intelligence</p>
+
           <input
             onClick={findTech}
             {...register("category", {})}
             type="radio"
             value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE"
-          />
-        </div>
+            />
+          <span class="radio__control"></span>
+            </div>
+        </label>
       </Form>
 
       {/* <pre>
@@ -119,14 +131,50 @@ const QuestCard = ({ quest }) => {
 };
 
 const Form = styled.form`
-  width: 900px;
-  @media(max-width:1100px){
-    width:50%;
-    display:block;
+  width: 600px;
+  @media (max-width: 1100px) {
+    width: 50%;
+    display: block;
   }
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
   margin: 0px auto 50px auto;
-  display:grid;
-  grid-template-columns:100px 400px 500px;
+  // display: grid;
+  // grid-template-columns: 50px 200px 200px;
+  label {
+    div{
+      display: grid;
+      grid-template-columns: 1fr 25px 0;
+      align-items: center;
+      position:relative;
+      p{
+        text-align:center;
+      }
+    }
+    .radio__control {
+      display: block;
+      width: 200px;
+      height: 50px;
+      border-radius:30px;
+      /* border-radius: 50%; */
+      border: 0.1em solid currentColor;
+      position: absolute;
+      top: 10px;
+      padding: 15px;
+      &:hover{
+        cursor:pointer;
+      }
+    }
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      &:checked + .radio__control {
+        background: #0000002b;
+      }
+    }
+  }
 `;
 
 const Card = styled.div`
