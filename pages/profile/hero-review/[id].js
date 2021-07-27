@@ -64,7 +64,7 @@ export default function NominateHero() {
           <>
             {/* <h1>Edit Quest</h1> */}
             {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-            {user.role === "ADMIN" && <></>}
+            {/* {user.role === "ADMIN" && <></>} */}
             {user.role === "KNIGHT" && (
               <>
                 <p>You Don't have Access to this path</p>

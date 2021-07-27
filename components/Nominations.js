@@ -42,7 +42,6 @@ export default function Nominations({ user }) {
                   <p>
                     {hero.isBeingReviewed && (
                       <>
-                        {" "}
                         {!hero.isAccepted &&
                           "Cannot edit when Quest is is being reviewed"}
                       </>

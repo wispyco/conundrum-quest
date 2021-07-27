@@ -25,7 +25,7 @@ const QuestCard = ({ quest }) => {
              <Hero>
             <h3>{hero?.name}</h3>
             <p>{hero?.description}</p>
-            <a target="_blank" href={hero?.wikipedia}>Wikipedia Article</a>
+            <a rel="noreferrer"  target="_blank" href={hero?.wikipedia}>Wikipedia Article</a>
           </Hero>
           </>
         )
