@@ -65,7 +65,7 @@ const DataRendered = ({ data }) => {
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <label class="radio">
+        <label className="radio">
           <div>
           <p>All</p>
 
@@ -75,10 +75,10 @@ const DataRendered = ({ data }) => {
             type="radio"
             value="ALL"
             />
-          <span class="radio__control"></span>
+          <span className="radio__control"></span>
             </div>
         </label>
-        <label class="radio">
+        <label className="radio">
           <div>
           <p>Sustainability and Human Development</p>
 
@@ -88,10 +88,10 @@ const DataRendered = ({ data }) => {
             type="radio"
             value="SUSTAINABILITY_HUMAN_DEVELOPMENT"
             />
-          <span class="radio__control"></span>
+          <span className="radio__control"></span>
             </div>
         </label>
-        <label class="radio">
+        <label className="radio">
           <div>
           <p>Technology Infrastructure and Artificial Intelligence</p>
 
@@ -101,7 +101,7 @@ const DataRendered = ({ data }) => {
             type="radio"
             value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE"
             />
-          <span class="radio__control"></span>
+          <span className="radio__control"></span>
             </div>
         </label>
       </Form>
