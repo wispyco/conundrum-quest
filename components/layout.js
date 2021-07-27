@@ -108,12 +108,12 @@ export default function Layout({ children }) {
               <a href="">Feedback</a>
             </UserMenu>
           ) : (
-            <UserMenu>
+            <UserMenuOut>
               <Link href="/login-magic-public">login / signup</Link>
 
               <a href="">Were Open Source</a>
               <a href="">Feedback</a>
-            </UserMenu>
+            </UserMenuOut>
           )}
         </>
       ) : (
@@ -233,6 +233,40 @@ const UserMenu = styled.div`
   right: 25px;
   display: grid;
   grid-template-columns: 100px 100px 200px 100px;
+  // grid-row-gap: 10px;
+  width: 500px;
+  align-items: center;
+  text-align: center;
+  @media (max-width: 1100px) {
+    display: none;
+  }
+  button {
+    padding: 10px;
+    background: none;
+    //border: 1px solid #000;
+    border: none;
+    font-size: 16px;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  a {
+    //border: 1px solid #000;
+    padding: 10px;
+    font-size: 16px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+const UserMenuOut = styled.div`
+  position: fixed;
+  background: #fff;
+  top: 25px;
+  right: 25px;
+  display: grid;
+  grid-template-columns: 150px 200px 100px;
   // grid-row-gap: 10px;
   width: 500px;
   align-items: center;
