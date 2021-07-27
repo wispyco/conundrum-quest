@@ -43,6 +43,7 @@ export const CREATE_QUEST = gql`
         isBeingReviewed: false
         image: $image
         category: $category
+        isClaimed: false
       }
     ) {
       name
