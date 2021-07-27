@@ -137,30 +137,32 @@ const Form = styled.form`
     display: block;
   }
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-
+  grid-template-columns: 75px 200px 200px;
+  grid-column-gap:10px;
   margin: 0px auto 50px auto;
   // display: grid;
-  // grid-template-columns: 50px 200px 200px;
+  // grid-template-columns: 25px 200px 200px;
   label {
     div{
-      display: grid;
-      grid-template-columns: 1fr 25px 0;
-      align-items: center;
+      // display: grid;
+      // grid-template-columns: 1fr 25px 0;
+      // align-items: center;
       position:relative;
       p{
         text-align:center;
+        font-size:12px;
+        padding:5px 20px;
       }
     }
     .radio__control {
       display: block;
-      width: 200px;
+      width: 100%;
       height: 50px;
       border-radius:30px;
       /* border-radius: 50%; */
       border: 0.1em solid currentColor;
       position: absolute;
-      top: 10px;
+      top: -8px;
       padding: 15px;
       &:hover{
         cursor:pointer;
@@ -171,7 +173,8 @@ const Form = styled.form`
       width: 0;
       height: 0;
       &:checked + .radio__control {
-        background: #0000002b;
+        background: #25cec873;
+        color: #fff;
       }
     }
   }
