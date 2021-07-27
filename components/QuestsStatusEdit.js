@@ -119,15 +119,18 @@ const QuestCard = ({ quest, user }) => {
         <button onClick={() => clickUnClaim(quest._id)}>Unclaim</button>
       )}
       {quest?.isClaimed ? (
+        <>
         <Link href={`profile/quest-review/${quest._id}`}>
           Review and Approve Quest
         </Link>
+              <button onClick={() => clickDeleteQuest(quest._id)}>Delete Quest</button>
+            </>
+
       ) : (
         <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
       )}
       <p>{quest.isBeingReviewed ? "Reviewing" : "Not yet reviewing"}</p>
       <p>{quest.isAccepted ? "Accepted" : "Not Accepted"}</p>
-      <button onClick={() => clickDeleteQuest(quest._id)}>Delete Quest</button>
     </Card>
   );
 };

@@ -3,7 +3,7 @@ type User {
   name: String
   quests: [Quest] @relation(name: "user_quests")
   #knight: Knight @relation(name: "user_knight")
-  heros: [Hero]
+  heros: [Hero] @relation(name: "user_knights")
   jobs: [Job] @relation(name: "user_jobs")
   role: UserRole!
 }
@@ -61,6 +61,8 @@ type Hero {
   owner: User
   isAccepted: Boolean
   isBeingReviewed: Boolean
+  moderator: User @relation(name: "user_knights")
+  isClaimed: Boolean
 }
 
 type Job {

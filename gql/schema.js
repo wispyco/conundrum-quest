@@ -309,7 +309,12 @@ export const GET_HEROS = gql`
         wikipedia
         isAccepted
         isBeingReviewed
+        isClaimed
         description
+        moderator{
+          name
+          _id
+        }
         _id
         quest {
           name
@@ -361,29 +366,6 @@ export const UPDATE_QUEST_CLAIMED = gql`
       }
     ) {
       name
-      isAccepted
-      image
-      description
-      _id
-      isBeingReviewed
-      knights {
-        data {
-          website
-          name
-          avatar
-          _id
-        }
-      }
-      heros {
-        data {
-          website
-          name
-          avatar
-          description
-          _id
-          twitter
-        }
-      }
     }
   }
 `;
@@ -402,29 +384,42 @@ export const UPDATE_QUEST_UNCLAIMED = gql`
       }
     ) {
       name
-      isAccepted
-      image
-      description
-      _id
-      isBeingReviewed
-      knights {
-        data {
-          website
-          name
-          avatar
-          _id
-        }
+    }
+  }
+`;
+
+export const UPDATE_HERO_CLAIMED = gql`
+  mutation (
+    $id: ID!
+    $isClaimed: Boolean
+    $moderatorConnect: ID!
+  ) {
+    updateHero(
+      id: $id
+      data: {
+      isClaimed: $isClaimed
+      moderator: {connect:$moderatorConnect}
       }
-      heros {
-        data {
-          website
-          name
-          avatar
-          description
-          _id
-          twitter
-        }
+    ) {
+      name
+    }
+  }
+`;
+
+export const UPDATE_HERO_UNCLAIMED = gql`
+  mutation (
+    $id: ID!
+    $isClaimed: Boolean
+    $moderatorDisconnect: Boolean
+  ) {
+    updateHero(
+      id: $id
+      data: {
+      isClaimed: $isClaimed
+      moderator: {disconnect:$moderatorDisconnect}
       }
+    ) {
+      name
     }
   }
 `;
