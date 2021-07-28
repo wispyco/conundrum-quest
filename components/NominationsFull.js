@@ -10,7 +10,7 @@ import Loading from "./Loading";
 import styled from "styled-components";
 
 export default function NominationsFull({ user }) {
-  const { loading, error, data, stopPolling } = useQuery(GET_HEROS, {
+  const { loading, error, data, stopPolling, refetch } = useQuery(GET_HEROS, {
     variables: { id: user.id },
     // pollInterval: 500,
   });
@@ -66,19 +66,20 @@ export default function NominationsFull({ user }) {
     }).catch(console.error);
   };
 
+  const refetchOnHover = async (id) => {
+    refetch();
+  };
+
   if (error) return <h1>{error.message}</h1>;
 
   if (loading) return <Loading />;
-
-  stopPolling();
 
   if (claiming || unclaiming) return <Loading />;
 
   return (
     <Wrap>
-      <h1>Claimed Nominations</h1>
+      {/* <h1>Claimed Nominations</h1>
       <HeroWrap>
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {data.getHeros.data
           .filter(
             (heroF) =>
@@ -121,24 +122,29 @@ export default function NominationsFull({ user }) {
               </Hero>
             );
           })}
-      </HeroWrap>
-      <h1>Unclaimed Nominations</h1>
+      </HeroWrap> */}
+      <h1>Nominations</h1>
       <HeroWrap>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {data.getHeros.data
-          .filter((heroF) => heroF?.isClaimed === false)
+          // .filter((heroF) => heroF?.isClaimed === false)
           .map((hero, i) => {
             return (
-              <Hero key={i}>
+              <Hero
+                claimed={hero?.isClaimed}
+                onMouseEnter={refetchOnHover}
+                key={i}
+              >
                 <h2>{hero.quest.name}</h2>
                 {!hero?.isClaimed && <p>Not Claimed</p>}
-                {!hero?.isClaimed ? (
-                  <button onClick={() => clickClaim(hero._id)}>Claim</button>
-                ) : (
-                  <button onClick={() => clickUnClaim(hero._id)}>
-                    Unclaim
-                  </button>
+
+                {hero?.isClaimed && hero?.moderator?._id !== user.id && (
+                  <p>Quest is being moderated by {hero?.moderator?.name}</p>
                 )}
+                {!hero?.isClaimed && (
+                  <button onClick={() => clickClaim(hero._id)}>Claim</button>
+                )}
+                {/* // )} */}
                 <h3>Name: {hero.name}</h3>
                 <p>Description: {hero.description}</p>
                 <h4>
@@ -151,11 +157,14 @@ export default function NominationsFull({ user }) {
                 <h4>
                   {hero.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}
                 </h4>
-                {hero?.isClaimed && (
+                {hero?.isClaimed && hero?.moderator?._id === user.id && (
                   <>
                     <Link href={`profile/hero-review/${hero._id}`}>
                       View Hero and Review
                     </Link>
+                    <button onClick={() => clickUnClaim(hero._id)}>
+                      Unclaim
+                    </button>
                     <button onClick={() => clickDeleteHero(hero._id)}>
                       Delete Hero
                     </button>
@@ -177,6 +186,7 @@ const Hero = styled.div`
   border: 1px solid #000;
   border-radius: 30px;
   padding: 25px;
+  background-color: ${(props) => (props.claimed ? "#daf7f0" : "white")};
 `;
 
 const HeroWrap = styled.div`

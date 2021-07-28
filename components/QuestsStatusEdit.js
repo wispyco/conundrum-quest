@@ -10,42 +10,67 @@ import {
   UPDATE_QUEST_UNCLAIMED,
 } from "../gql/schema";
 import Loading from "./Loading";
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react";
 import { Router } from "next/router";
 
 export default function QuestsStatusEdit({ user }) {
-  const { loading, error, data, startPolling, stopPolling, refetch } = useQuery(GET_QUESTS, {
-    variables: { id: user.id },
-    // pollInterval: 500,
-  });
-
-  
+  const { loading, error, data, startPolling, stopPolling, refetch } = useQuery(
+    GET_QUESTS,
+    {
+      variables: { id: user.id },
+      // pollInterval: 500,
+    }
+  );
 
   if (error) return <h1>{error.message}</h1>;
 
   if (loading) return <Loading />;
 
-
-  return <Edit data={data} refetch={refetch} startPolling={startPolling} stopPolling={stopPolling} user={user} />;
+  return (
+    <Edit
+      data={data}
+      refetch={refetch}
+      startPolling={startPolling}
+      stopPolling={stopPolling}
+      user={user}
+    />
+  );
 }
 
-const Edit = ({ data, user,startPolling, stopPolling, refetch }) => {
-
-  
+const Edit = ({ data, user, startPolling, stopPolling, refetch }) => {
   return (
     <>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {/* <pre>{JSON.stringify(claimedOwned, null, 2)}</pre> */}
       <>
-        <h2>Unclaimed Quests</h2>
+        <h2>Quests</h2>
         <QuestCardGrid>
           {data?.getQuests?.data
-            .filter((questF) => questF?.isClaimed === false)
+            // .filter((questF) => questF?.isClaimed === false)
             .map((quest, i) => {
-              return <QuestCard refetch={refetch} stopPolling={stopPolling} startPolling={startPolling} key={i} user={user} quest={quest} />;
+              return (
+                <>
+                  {/* {quest?.isClaimed ? ( */}
+
+                  <QuestCard
+                    refetch={refetch}
+                    stopPolling={stopPolling}
+                    startPolling={startPolling}
+                    key={i}
+                    user={user}
+                    quest={quest}
+                  />
+
+                  {/* // ):(
+
+                //   <QuestCard refetch={refetch} stopPolling={stopPolling} startPolling={startPolling} key={i} user={user} quest={quest} />
+
+                // )} */}
+                </>
+              );
             })}
         </QuestCardGrid>
-        <h2>Claimed Quests</h2>
+        {/* <h2>Claimed Quests</h2>
         <QuestCardGrid>
           {data?.getQuests?.data
             .filter(
@@ -53,9 +78,16 @@ const Edit = ({ data, user,startPolling, stopPolling, refetch }) => {
                 questF?.isClaimed === true && questF?.moderator._id === user.id
             )
             .map((quest, i) => {
-              return <QuestCard refetch={refetch} key={i} user={user} quest={quest} />;
+              return (
+                <QuestCard
+                  refetch={refetch}
+                  key={i}
+                  user={user}
+                  quest={quest}
+                />
+              );
             })}
-        </QuestCardGrid>
+        </QuestCardGrid> */}
       </>
     </>
   );
@@ -92,9 +124,7 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
     }
   };
 
-
   const clickClaim = async (id) => {
-
     const updateQuestClaimedResponse = await updateQuestClaimed({
       variables: {
         id: id,
@@ -105,15 +135,9 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
     }).catch(console.error);
   };
 
-
   const refetchOnHover = async (id) => {
-
-    refetch()
-    
+    refetch();
   };
-
-
-
 
   const clickUnClaim = async (id) => {
     const updateQuestUnClaimedResponse = await updateQuestUnClaimed({
@@ -129,35 +153,41 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
   console.log("quest.isAccepted", quest.isAccepted);
   console.log("quest.isBeingReviewed ", quest.isBeingReviewed);
 
-  if (claiming || unclaiming ) return <Loading />;
+  if (claiming || unclaiming) return <Loading />;
 
   return (
-    <Card onMouseEnter={refetchOnHover}>
+    <Card
+      claimedByYou={quest?.moderator?._id === user.id}
+      claimed={quest?.isClaimed}
+      onMouseEnter={refetchOnHover}
+    >
       <h1>{quest?.name}</h1>
       {!quest?.isClaimed && <p>Not Claimed</p>}
-      {!quest?.isClaimed ? (
-        <>
-        
-        
-        <button onClick={() => clickClaim(quest._id, quest.isClaimed)}>
-          Claim
-        </button>
-        
-        </>
-      ) : (
-        <button onClick={() => clickUnClaim(quest._id, quest.isClaimed)}>Unclaim</button>
-      )}
-      {quest?.isClaimed ? (
+
+      {quest?.isClaimed && quest?.moderator?._id === user.id ? (
         <>
           <Link href={`profile/quest-review/${quest._id}`}>
             Review and Approve Quest
           </Link>
+          <button onClick={() => clickUnClaim(quest._id, quest.isClaimed)}>
+            Unclaim
+          </button>
           <button onClick={() => clickDeleteQuest(quest._id)}>
             Delete Quest
           </button>
         </>
       ) : (
-        <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
+        <>
+          {quest?.isClaimed && quest?.moderator?._id !== user.id && (
+            <p>Quest is being moderated by {quest?.moderator?.name}</p>
+          )}
+          {!quest?.isClaimed && (
+            <button onClick={() => clickClaim(quest._id, quest.isClaimed)}>
+              Claim
+            </button>
+          )}
+          <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
+        </>
       )}
       <p>{quest.isBeingReviewed ? "Reviewing" : "Not yet reviewing"}</p>
       <p>{quest.isAccepted ? "Accepted" : "Not Accepted"}</p>
@@ -167,6 +197,9 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
 
 const Card = styled.div`
   width: 500px;
+  background-color: ${(props) => (props.claimed ? "#daf7f0" : "white")};
+  border: ${(props) =>
+    props.claimedByYou ? "4px solid #007eff !important" : "1px solid #000"};
   @media (max-width: 1100px) {
     width: 100%;
   }
