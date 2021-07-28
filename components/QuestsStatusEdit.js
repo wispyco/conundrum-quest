@@ -10,21 +10,28 @@ import {
   UPDATE_QUEST_UNCLAIMED,
 } from "../gql/schema";
 import Loading from "./Loading";
+import {useEffect, useState} from "react"
+import { Router } from "next/router";
 
 export default function QuestsStatusEdit({ user }) {
-  const { loading, error, data } = useQuery(GET_QUESTS, {
+  const { loading, error, data, startPolling, stopPolling, refetch } = useQuery(GET_QUESTS, {
     variables: { id: user.id },
     // pollInterval: 500,
   });
+
+  
 
   if (error) return <h1>{error.message}</h1>;
 
   if (loading) return <Loading />;
 
-  return <Edit data={data} user={user} />;
+
+  return <Edit data={data} refetch={refetch} startPolling={startPolling} stopPolling={stopPolling} user={user} />;
 }
 
-const Edit = ({ data, user }) => {
+const Edit = ({ data, user,startPolling, stopPolling, refetch }) => {
+
+  
   return (
     <>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
@@ -35,7 +42,7 @@ const Edit = ({ data, user }) => {
           {data?.getQuests?.data
             .filter((questF) => questF?.isClaimed === false)
             .map((quest, i) => {
-              return <QuestCard key={i} user={user} quest={quest} />;
+              return <QuestCard refetch={refetch} stopPolling={stopPolling} startPolling={startPolling} key={i} user={user} quest={quest} />;
             })}
         </QuestCardGrid>
         <h2>Claimed Quests</h2>
@@ -46,7 +53,7 @@ const Edit = ({ data, user }) => {
                 questF?.isClaimed === true && questF?.moderator._id === user.id
             )
             .map((quest, i) => {
-              return <QuestCard key={i} user={user} quest={quest} />;
+              return <QuestCard refetch={refetch} key={i} user={user} quest={quest} />;
             })}
         </QuestCardGrid>
       </>
@@ -54,7 +61,7 @@ const Edit = ({ data, user }) => {
   );
 };
 
-const QuestCard = ({ quest, user }) => {
+const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
   const [deleteQuest, { data: deleteQuestData, loading: deleting }] =
     useMutation(DELETE_QUEST_BY_ID);
 
@@ -85,7 +92,9 @@ const QuestCard = ({ quest, user }) => {
     }
   };
 
+
   const clickClaim = async (id) => {
+
     const updateQuestClaimedResponse = await updateQuestClaimed({
       variables: {
         id: id,
@@ -95,6 +104,17 @@ const QuestCard = ({ quest, user }) => {
       refetchQueries: [{ query: GET_QUESTS }],
     }).catch(console.error);
   };
+
+
+  const refetchOnHover = async (id) => {
+
+    refetch()
+    
+  };
+
+
+
+
   const clickUnClaim = async (id) => {
     const updateQuestUnClaimedResponse = await updateQuestUnClaimed({
       variables: {
@@ -112,15 +132,20 @@ const QuestCard = ({ quest, user }) => {
   if (claiming || unclaiming ) return <Loading />;
 
   return (
-    <Card>
+    <Card onMouseEnter={refetchOnHover}>
       <h1>{quest?.name}</h1>
       {!quest?.isClaimed && <p>Not Claimed</p>}
       {!quest?.isClaimed ? (
+        <>
+        
+        
         <button onClick={() => clickClaim(quest._id, quest.isClaimed)}>
           Claim
         </button>
+        
+        </>
       ) : (
-        <button onClick={() => clickUnClaim(quest._id)}>Unclaim</button>
+        <button onClick={() => clickUnClaim(quest._id, quest.isClaimed)}>Unclaim</button>
       )}
       {quest?.isClaimed ? (
         <>

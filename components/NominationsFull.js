@@ -1,11 +1,16 @@
 import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
-import { DELETE_HERO_BY_ID, GET_HEROS, UPDATE_HERO_UNCLAIMED, UPDATE_HERO_CLAIMED } from "../gql/schema";
+import {
+  DELETE_HERO_BY_ID,
+  GET_HEROS,
+  UPDATE_HERO_UNCLAIMED,
+  UPDATE_HERO_CLAIMED,
+} from "../gql/schema";
 import Loading from "./Loading";
 import styled from "styled-components";
 
 export default function NominationsFull({ user }) {
-  const { loading, error, data } = useQuery(GET_HEROS, {
+  const { loading, error, data, stopPolling } = useQuery(GET_HEROS, {
     variables: { id: user.id },
     // pollInterval: 500,
   });
@@ -13,15 +18,15 @@ export default function NominationsFull({ user }) {
   const [deleteHero, { data: deleteHeroData, loading: deleting }] =
     useMutation(DELETE_HERO_BY_ID);
 
-    const [
-      updateHeroClaimed,
-      { data: updateHeroClaimedData, loading: claiming },
-    ] = useMutation(UPDATE_HERO_CLAIMED);
-  
-    const [
-      updateHeroUnClaimed,
-      { data: updateHeroUnClaimedData, loading: unclaiming },
-    ] = useMutation(UPDATE_HERO_UNCLAIMED);
+  const [
+    updateHeroClaimed,
+    { data: updateHeroClaimedData, loading: claiming },
+  ] = useMutation(UPDATE_HERO_CLAIMED);
+
+  const [
+    updateHeroUnClaimed,
+    { data: updateHeroUnClaimedData, loading: unclaiming },
+  ] = useMutation(UPDATE_HERO_UNCLAIMED);
 
   const clickDeleteHero = async (id) => {
     if (confirm("Are you sure you want to delete the Hero?")) {
@@ -64,10 +69,10 @@ export default function NominationsFull({ user }) {
   if (error) return <h1>{error.message}</h1>;
 
   if (loading) return <Loading />;
- 
+
+  stopPolling();
 
   if (claiming || unclaiming) return <Loading />;
-
 
   return (
     <Wrap>
@@ -75,7 +80,10 @@ export default function NominationsFull({ user }) {
       <HeroWrap>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {data.getHeros.data
-          .filter((heroF) => heroF?.isClaimed === true && heroF?.moderator._id === user.id)
+          .filter(
+            (heroF) =>
+              heroF?.isClaimed === true && heroF?.moderator._id === user.id
+          )
           .map((hero, i) => {
             return (
               <Hero key={i}>
@@ -100,7 +108,7 @@ export default function NominationsFull({ user }) {
                 <h4>
                   {hero.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}
                 </h4>
-                {hero?.isClaimed &&
+                {hero?.isClaimed && (
                   <>
                     <Link href={`profile/hero-review/${hero._id}`}>
                       View Hero and Review
@@ -109,7 +117,7 @@ export default function NominationsFull({ user }) {
                       Delete Hero
                     </button>
                   </>
-               }
+                )}
               </Hero>
             );
           })}
@@ -143,7 +151,7 @@ export default function NominationsFull({ user }) {
                 <h4>
                   {hero.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}
                 </h4>
-                {hero?.isClaimed &&
+                {hero?.isClaimed && (
                   <>
                     <Link href={`profile/hero-review/${hero._id}`}>
                       View Hero and Review
@@ -152,7 +160,7 @@ export default function NominationsFull({ user }) {
                       Delete Hero
                     </button>
                   </>
-               }
+                )}
               </Hero>
             );
           })}
@@ -163,7 +171,7 @@ export default function NominationsFull({ user }) {
 
 const Hero = styled.div`
   width: 300px;
-  @media(max-width:1100px){
+  @media (max-width: 1100px) {
     width: 100%;
   }
   border: 1px solid #000;
@@ -177,10 +185,10 @@ const HeroWrap = styled.div`
   display: grid;
   grid-template-columns: 300px 300px 300px;
   grid-column-gap: 25px;
-  @media(max-width:1100px){
-    width:90%;
-    grid-template-columns:1fr;
-    grid-row-gap:25px;
+  @media (max-width: 1100px) {
+    width: 90%;
+    grid-template-columns: 1fr;
+    grid-row-gap: 25px;
   }
 `;
 
