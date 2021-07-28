@@ -22,6 +22,7 @@ import QuestsProfile from "../../components/QuestsProfile";
 import QuestsStatusEdit from "../../components/QuestsStatusEdit";
 import Nominations from "../../components/Nominations";
 import NominationsFull from "../../components/NominationsFull";
+import UpdateUserName from "../../components/UpdateUserName";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -77,7 +78,8 @@ export default function Profile() {
           )}
           {user.role === "KNIGHT" && (
             <>
-              <h1>Welcome Knight {user.name}</h1>
+              <Header3>Welcome Knight {user.name}</Header3>
+              <UpdateUserName user={user}/>
               <AddQuest onClick={clickedAddQuest}>
                 {!addQuest ? "Add a Quest" : "X"}
               </AddQuest>

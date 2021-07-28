@@ -5,7 +5,7 @@ type User {
   #knight: Knight @relation(name: "user_knight")
   heros: [Hero] @relation(name: "user_knights")
   jobs: [Job] @relation(name: "user_jobs")
-  role: UserRole!
+  role: UserRole
 }
 
 enum UserRole {

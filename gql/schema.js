@@ -426,3 +426,11 @@ export const UPDATE_HERO_UNCLAIMED = gql`
     }
   }
 `;
+
+export const UPDATE_USER_NAME = gql`
+  mutation($id:ID!, $name:String){
+    updateUser(id:$id,data:{name:$name}){
+      name
+    }
+  }
+`
