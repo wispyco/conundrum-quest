@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import Loading from "../../components/Loading";
-import { GET_QUEST_BY_ID } from "../../gql/schema";
+import { GET_KNIGHTS, GET_QUEST_BY_ID } from "../../gql/schema";
 import styled from "styled-components"
 import Layout from "../../components/layout"
 import Link from "next/link";
@@ -18,25 +18,34 @@ export default function QuestSingle(){
     variables: { id: Router.query.id },
   });
 
+  const {
+    loading: knightsLoading,
+    error: knightsError,
+    data:knightsData,
+  } = useQuery(GET_KNIGHTS);
+
   
   
-  if (getError) return <h1>failed to get</h1>;
+  if (getError || knightsError) return <h1>failed to get</h1>;
   
-  if (getLoading) return <Loading />;
+  if (getLoading || knightsLoading) return <Loading />;
   const {findQuestByID} = data
 
     return(
         <Layout>
         {/* <pre>
-            {JSON.stringify(data,null,2)}
+            {JSON.stringify(knightsData,null,2)}
         </pre> */}
-            <QuestCard quest={findQuestByID}/>
+            <QuestCard knights={knightsData} quest={findQuestByID}/>
         </Layout>
     )
 }
 
 
-const QuestCard = ({ quest }) => {
+const QuestCard = ({ quest, knights }) => {
+
+  const router = useRouter()
+
   return (
     <Card>
       <h1>{quest?.name}</h1>
@@ -63,6 +72,14 @@ const QuestCard = ({ quest }) => {
         )
       })}
       </HerosGrid>
+      <h2>Knights</h2>
+      <h3>Submitted By: {quest?.owner?.name}</h3>
+      <h2>Following:</h2>
+      {knights.getKnights.data.filter((knightF) => knightF?.quest._id === router.query.id).map((knight)=>{
+        return(
+          <h3>{knight.name}</h3>
+        )
+      })}
     </Card>
   );
 };

@@ -24,7 +24,7 @@ type Quest {
   description: String
   heros: [Hero] @relation(name: "quest_heros")
   image: String
-  owner: User! @relation(name: "user_quests")
+  owner: User @relation(name: "user_quests")
   # need to set permissions that only MODERATOR could not set
   isAccepted: Boolean
   isBeingReviewed: Boolean
@@ -85,4 +85,5 @@ type Query {
   getQuests: [Quest!]
   getInvites: [Invite!]
   getHeros: [Hero!]
+  getKnights: [Knight!]
 }

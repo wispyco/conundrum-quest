@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { UPDATE_USER_NAME } from "../gql/schema";
 
 import { useMutation, useQuery } from "@apollo/client";
+import { useState } from "react";
 
 export default function UpdateUserName({user}) {
 
@@ -31,13 +32,25 @@ export default function UpdateUserName({user}) {
   };
   console.log(errors);
 
+  const [userDetails, setUserDetails] = useState(false)
+
+  const toggleUserDetails =() =>{
+    setUserDetails((state) => !state)
+  }
+
   return (
+    <>
+    <UserDetailsToggle onClick={toggleUserDetails}>{!userDetails ? " Update Profile": "X"}</UserDetailsToggle>
+    {
+      userDetails &&
     <Form onSubmit={handleSubmit(onSubmit)}>
       <h3>Update your Name</h3>
       <input type="text" placeholder="name" {...register("name", {})} />
 
       <input type="submit" />
     </Form>
+    }
+    </>
   );
 }
 
@@ -51,3 +64,14 @@ const Form = styled.form`
     padding: 15px;
   }
 `;
+
+const UserDetailsToggle = styled.button`
+  margin: 25px auto;
+  width:150px;
+  padding:20px;
+  border-radius:30px;
+  display:block;
+  &:hover{
+    cursor:pointer;
+  }
+`

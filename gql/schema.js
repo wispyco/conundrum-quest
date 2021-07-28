@@ -215,6 +215,7 @@ export const GET_QUEST_BY_ID = gql`
       category
       owner{
         _id
+        name
       }
       knights {
         data {
@@ -434,6 +435,19 @@ export const UPDATE_USER_NAME = gql`
   mutation($id:ID!, $name:String){
     updateUser(id:$id,data:{name:$name}){
       name
+    }
+  }
+`
+
+export const GET_KNIGHTS = gql`
+  query{
+    getKnights{
+      data{
+        name
+        quest{
+          _id
+        }
+      }
     }
   }
 `
