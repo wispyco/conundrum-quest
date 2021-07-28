@@ -7,7 +7,7 @@ import styled from "styled-components";
 export default function NominationsFull({ user }) {
   const { loading, error, data } = useQuery(GET_HEROS, {
     variables: { id: user.id },
-    pollInterval: 500,
+    // pollInterval: 500,
   });
 
   const [deleteHero, { data: deleteHeroData, loading: deleting }] =

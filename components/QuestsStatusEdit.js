@@ -14,7 +14,7 @@ import Loading from "./Loading";
 export default function QuestsStatusEdit({ user }) {
   const { loading, error, data } = useQuery(GET_QUESTS, {
     variables: { id: user.id },
-    pollInterval: 500,
+    // pollInterval: 500,
   });
 
   if (error) return <h1>{error.message}</h1>;
