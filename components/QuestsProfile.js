@@ -30,7 +30,7 @@ const QuestCard = ({ quest }) => {
   return (
     <Card>
       <h1>{quest?.name}</h1>
-      <h2>{quest.isBeingReviewed ? "Is in Review" : "Waiting to be Reviewed"}</h2>
+      <h2>{quest.isBeingReviewed ? <>{!quest?.isAccepted && "Is in Review"}</> : "Waiting to be Reviewed"}</h2>
       <h2>{quest.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}</h2>
       {quest.isBeingReviewed || quest.isAccepted ?
       <>

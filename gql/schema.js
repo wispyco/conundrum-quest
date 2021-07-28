@@ -82,7 +82,6 @@ export const UPDATE_QUEST = gql`
     $image: String
     $category: Category
     $isAccepted: Boolean
-    $isBeingReviewed: Boolean
   ) {
     updateQuest(
       id: $id
@@ -91,7 +90,6 @@ export const UPDATE_QUEST = gql`
         description: $description
         owner: { connect: $ownerConnect }
         isAccepted: $isAccepted
-        isBeingReviewed: $isBeingReviewed
         image: $image
         category: $category
       }
@@ -215,6 +213,9 @@ export const GET_QUEST_BY_ID = gql`
       isAccepted
       isBeingReviewed
       category
+      owner{
+        _id
+      }
       knights {
         data {
           website
@@ -360,11 +361,13 @@ export const UPDATE_QUEST_CLAIMED = gql`
     $id: ID!
     $isClaimed: Boolean
     $moderatorConnect: ID!
+    $isBeingReviewed: Boolean
   ) {
     updateQuest(
       id: $id
       data: {
       isClaimed: $isClaimed
+      isBeingReviewed: $isBeingReviewed
       moderator: {connect:$moderatorConnect}
       }
     ) {

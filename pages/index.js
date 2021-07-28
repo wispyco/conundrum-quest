@@ -212,6 +212,7 @@ const QuestCardGrid = styled.div`
   display: grid;
   grid-template-columns: 500px 500px;
   grid-column-gap: 50px;
+  grid-row-gap: 50px;
   width: 1050px;
   margin: 0 auto;
   @media (max-width: 1100px) {

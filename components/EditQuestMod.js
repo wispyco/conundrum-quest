@@ -19,12 +19,12 @@ export default function EditQuestMod({ user, data, Router }) {
       name: data.findQuestByID.name,
       description: data.findQuestByID.description,
       category: data.findQuestByID.category,
-      isBeingReviewed: JSON.stringify(data.findQuestByID.isBeingReviewed),
+      // isBeingReviewed: JSON.stringify(data.findQuestByID.isBeingReviewed),
       isAccepted: JSON.stringify(data.findQuestByID.isAccepted),
     },
   });
-  const onSubmit = async (data) => {
-    const { name, description, category, isBeingReviewed, isAccepted } = data;
+  const onSubmit = async (dataSubmit) => {
+    const { name, description, category, isBeingReviewed, isAccepted } = dataSubmit;
 
     const isBeingReviewedSet = isBeingReviewed === "true";
     const isAcceptedSet = isAccepted === "true";
@@ -32,13 +32,13 @@ export default function EditQuestMod({ user, data, Router }) {
     const updateQuestResponse = await updateQuest({
       variables: {
         id: Router.query.id,
-        ownerConnect: user.id,
+        ownerConnect: data.findQuestByID.owner._id,
         name: name,
         description: description,
         image: "https://google.com",
         // heroName: heroName,
         isAccepted: isAcceptedSet,
-        isBeingReviewed: isBeingReviewedSet,
+        // isBeingReviewed: isBeingReviewedSet,
         // heroDescription: heroDescription,
         // heroWebsite: heroWebsite,
         // heroTwitter: heroTwitter,
@@ -77,15 +77,15 @@ export default function EditQuestMod({ user, data, Router }) {
             Technology Infrastructure + Artificial Intelligence
           </option>
         </select>
-        <h2>In Review</h2>
-        Not reviewing yet
+        {/* <h2>In Review</h2> */}
+        {/* Not reviewing yet
         <input
           {...register("isBeingReviewed", {})}
           type="radio"
           value="false"
         />
         Reviewing
-        <input {...register("isBeingReviewed", {})} type="radio" value="true" />
+        <input {...register("isBeingReviewed", {})} type="radio" value="true" /> */}
         <h2>Is Accepted</h2>
         Not Accepted
         <input {...register("isAccepted", {})} type="radio" value="false" />

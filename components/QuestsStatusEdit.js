@@ -130,6 +130,7 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
         id: id,
         isClaimed: true,
         moderatorConnect: user.id,
+        isBeingReviewed: true
       },
       refetchQueries: [{ query: GET_QUESTS }],
     }).catch(console.error);
