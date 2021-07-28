@@ -132,6 +132,7 @@ export default function NominationsFull({ user }) {
             return (
               <Hero
                 claimed={hero?.isClaimed}
+                claimedByYou={hero?.moderator?._id === user.id}
                 onMouseEnter={refetchOnHover}
                 key={i}
               >
@@ -187,6 +188,8 @@ const Hero = styled.div`
   border-radius: 30px;
   padding: 25px;
   background-color: ${(props) => (props.claimed ? "#daf7f0" : "white")};
+  border: ${(props) =>
+    props.claimedByYou ? "4px solid #007eff !important" : "1px solid #000"};
 `;
 
 const HeroWrap = styled.div`
