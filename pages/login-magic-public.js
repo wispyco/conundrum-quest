@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useUser, useIsMounted } from "../lib/hooks";
 import { Magic } from "magic-sdk";
+import { OAuthExtension } from '@magic-ext/oauth';
+
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 
@@ -60,6 +62,18 @@ export default function Login() {
     [login, isLoggingIn]
   );
 
+  const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
+    extensions: [new OAuthExtension()],
+  });
+
+  const github = async ()=>{
+    await magic.oauth.loginWithRedirect({
+      provider: 'github',
+      redirectURI: process.env.NEXT_PUBLIC_REDIRECT_URL_OAUTH
+    });
+    
+  }
+
   return (
     <Layout>
       <form onSubmit={onSubmit}>
@@ -81,6 +95,8 @@ export default function Login() {
 
         {errorMsg && <p className="error">{errorMsg}</p>}
       </form>
+
+      <button onClick={github}>Login With Github</button>
 
       <style jsx>{`
         form {

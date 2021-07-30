@@ -54,7 +54,7 @@ const QuestCard = ({ quest, knights, user }) => {
       <p>{quest?.description}</p>
       <HeroTitle>
         <h2>Heros</h2>
-        {!user.token ? (
+        {!user?.token ? (
           <Link href={`/login-magic-public`}>Sign Up & Nominate Hero</Link>
         ) : (
           <Link href={`/profile/nominate-hero/${quest._id}`}>
@@ -90,7 +90,7 @@ const QuestCard = ({ quest, knights, user }) => {
         })}
       <FollowTitle>
         <h2>Follow this quest</h2>
-        {!user.token ? (
+        {!user?.token ? (
           <Link href={`/login-magic-public`}>Sign Up & Follow</Link>
         ) : (
           <button onClick={()=> follow(user.id,quest._id)}>
