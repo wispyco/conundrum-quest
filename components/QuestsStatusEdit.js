@@ -151,9 +151,6 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
     }).catch(console.error);
   };
 
-  console.log("quest.isAccepted", quest.isAccepted);
-  console.log("quest.isBeingReviewed ", quest.isBeingReviewed);
-
   if (claiming || unclaiming) return <Loading />;
 
   return (

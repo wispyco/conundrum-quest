@@ -5,8 +5,15 @@ import { GET_KNIGHTS, GET_QUEST_BY_ID } from "../../gql/schema";
 import styled from "styled-components"
 import Layout from "../../components/layout"
 import Link from "next/link";
+import useSWR from "swr";
+
+const fetcher = (url) => fetch(url).then((r) => r.json());
+
 
 export default function QuestSingle(){
+
+    const { data: user, error, mutate } = useSWR("/api/user-profile", fetcher);
+  
 
     const Router = useRouter();
 
@@ -26,7 +33,7 @@ export default function QuestSingle(){
 
   
   
-  if (getError || knightsError) return <h1>failed to get</h1>;
+  if (getError || knightsError) return <h1>failed to get {JSON.stringify(knightsError, null,2)} </h1>;
   
   if (getLoading || knightsLoading) return <Loading />;
   const {findQuestByID} = data
@@ -36,13 +43,13 @@ export default function QuestSingle(){
         {/* <pre>
             {JSON.stringify(knightsData,null,2)}
         </pre> */}
-            <QuestCard knights={knightsData} quest={findQuestByID}/>
+            <QuestCard user={user} knights={knightsData} quest={findQuestByID}/>
         </Layout>
     )
 }
 
 
-const QuestCard = ({ quest, knights }) => {
+const QuestCard = ({ quest, knights, user }) => {
 
   const router = useRouter()
 
@@ -53,8 +60,13 @@ const QuestCard = ({ quest, knights }) => {
       <HeroTitle>
         
       <h2>Heros</h2>
-      <Link href={`/profile/nominate-hero/${quest._id}`}>Nominate Hero</Link>
+      {user.id ?  
+       <Link href={`/login-magic-public`}>Sign Up & Nominate Hero</Link> 
+       :      
+        <Link href={`/profile/nominate-hero/${quest._id}`}>Nominate Hero</Link>
+      }
       </HeroTitle>
+      
       <HerosGrid>
 
       {quest.heros.data.map((hero)=>{

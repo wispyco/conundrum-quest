@@ -40,6 +40,7 @@ const Hero = styled.div`
 
 const Card = styled.div`
   width: 500px;
+  margin: 0 auto;
   border: 1px solid #000;
   padding: 0 25px 25px 25px;
   border-radius: 30px;

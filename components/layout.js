@@ -48,8 +48,8 @@ export default function Layout({ children }) {
   async function test() {
     const userMagic = await magicClient.user.isLoggedIn(); // => `false`
 
-    console.log(userMagic, "userMagic");
-    console.log(cookie, "cookie");
+    // console.log(userMagic, "userMagic");
+    // console.log(cookie, "cookie");
 
     if (cookie?.token === false) {
       // show user menu
