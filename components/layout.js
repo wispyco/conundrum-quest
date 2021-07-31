@@ -16,7 +16,6 @@ import { ImEarth } from "react-icons/im";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
-import { Helmet } from "react-helmet";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -90,11 +89,11 @@ export default function Layout({ children }) {
     role: user?.role,
   });
 
-  if (!user) return <Loading />;
+  // if (!user) return <Loading />;
 
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Conundrum Quest</title>
         <meta
           name="description"
@@ -103,7 +102,7 @@ export default function Layout({ children }) {
         />
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:image" content="/logo-3.png" />
-      </Helmet>
+      </Head>
       <Script
         src="https://upload-widget.cloudinary.com/global/all.js"
         type="text/javascript"
@@ -135,7 +134,7 @@ export default function Layout({ children }) {
               >
                 Were Open Source
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenu>
@@ -150,7 +149,7 @@ export default function Layout({ children }) {
               >
                 Were Open Source
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenuOut>
@@ -174,7 +173,7 @@ export default function Layout({ children }) {
               >
                 Were Open Source
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenuMobile>
@@ -189,7 +188,7 @@ export default function Layout({ children }) {
               >
                 Were Open Source, see our naked code
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenuMobile>
