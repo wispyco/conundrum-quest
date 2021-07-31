@@ -186,7 +186,7 @@ export default function Layout({ children }) {
       {Router.asPath === "/" && (
         <Title>
           <Header2>
-            The World’s hardest problems & who is working on them.
+            The Worlds hardest problems and who is working on them.
           </Header2>
           <Link href="/login-magic-public">Join to Add a Quest</Link>
         </Title>
@@ -194,7 +194,7 @@ export default function Layout({ children }) {
       <Main>{children}</Main>
       <Made href="https://wispy.co">
         <Header2>
-          Made for the <ImEarth /> and it's <IoIosPeople />
+          Made for the <ImEarth /> and its <IoIosPeople />
         </Header2>
         <p>by wispy.co</p>
       </Made>
