@@ -310,7 +310,7 @@ const Alpha = styled.span`
   color: #fff;
   text-transform: uppercase;
   /* border-radius: 30px; */
-  z-index: 200;
+  z-index: 990;
   padding: 3px;
   font-size: 12px;
   top: 67px;
@@ -439,7 +439,7 @@ const UserMenuMobile = styled.div`
   padding-top: 150px;
   grid-template-rows: 50px 50px 50px 50px;
   background: #fff;
-  z-index: 100;
+  z-index: 300;
   text-align: center;
   @media (min-width: 1250px) {
     display: none;
@@ -469,7 +469,7 @@ const UserMenuMobile = styled.div`
 const Menu = styled.button`
   position: absolute;
   right: 15px;
-  z-index: 200;
+  z-index: 400;
   top: 15px;
   background: none;
   border: none;
@@ -487,7 +487,7 @@ const Logo = styled.img`
   padding: 15px 20px;
   //box-sizing:border-box;
   width: 100px;
-  z-index: 190;
+  z-index: 890;
   background: #fff;
   border-radius: 30px;
   box-shadow: 5px 5px 10px #dadada;
