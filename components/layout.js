@@ -258,6 +258,10 @@ const Wait = styled.div`
   padding: 200px;
   z-index: 500;
   border-radius: 20px;
+  @media(max-width:1600px){
+    top:100px;
+    padding:100px;
+  }
   @media (max-width: 1100px) {
     padding: 0;
     width: 300px;
