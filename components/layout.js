@@ -15,6 +15,7 @@ import { IoIosPeople } from "react-icons/io";
 import { ImEarth } from "react-icons/im";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
+import LogRocket from "logrocket";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -79,6 +80,14 @@ export default function Layout({ children }) {
   const [userData, setUserData] = useState(null);
 
   const { data: user, error: userError } = useSWR("/api/user", fetcher);
+
+  LogRocket.identify(user?.id, {
+    name: user?.name,
+    email: user?.email,
+
+    // Add your own custom user variables here, ie:
+    role: user?.role,
+  });
 
   if (!user) return <Loading />;
 

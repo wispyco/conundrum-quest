@@ -8,6 +8,9 @@ import {
 } from "@apollo/client";
 import useSWR from "swr";
 
+import LogRocket from "logrocket";
+LogRocket.init("oaksw4/conundrum-quest");
+
 const createApolloClient = (accessToken) => {
   const link = createHttpLink({
     uri: "https://graphql.us.fauna.com/graphql",
