@@ -237,6 +237,11 @@ const Form = styled.form`
       left:50%;
       width:100px;
       margin-left:-50px;
+      @media(max-width:1150px){
+        position:relative;
+        margin:0 auto;
+        left:initial;
+      }
     }
     div {
       // display: grid;
