@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Layout from "../components/layout";
+import styled from styled-components;
+import Layout from ../components/layout;
 
 export default function PrivacyPolicy() {
   return (
@@ -352,7 +352,7 @@ export default function PrivacyPolicy() {
         <p>
           We may disclose information (including personal information) about you
           to our Corporate Affiliates. For purposes of this Privacy Policy,
-          "Corporate Affiliate" means any person or entity which directly or
+          Corporate Affiliate means any person or entity which directly or
           indirectly controls, is controlled by or is under common control with
           Conundrum Quest, whether by ownership or otherwise. Any information
           relating to you that we provide to our Corporate Affiliates will be
@@ -410,7 +410,7 @@ export default function PrivacyPolicy() {
         </p>
         <h1>Cookies</h1>
         <p>
-          Conundrum Quest uses "Cookies" to identify the areas of our website
+          Conundrum Quest uses Cookies to identify the areas of our website
           that you have visited. A Cookie is a small piece of data stored on
           your computer or mobile device by your web browser. We use Cookies to
           enhance the performance and functionality of our website/app but are
@@ -464,7 +464,7 @@ export default function PrivacyPolicy() {
           We may display, include or make available third-party content
           (including data, information, applications and other products
           services) or provide links to third-party websites or services
-          ("Third- Party Services").
+          (Third- Party Services).
         </p>
         <p>
           You acknowledge and agree that Conundrum Quest shall not be
@@ -496,7 +496,7 @@ export default function PrivacyPolicy() {
           <li>
             Sessions useuse
             <p>
-              $elnombre uses "Sessions" to identify the areas of our website
+              $elnombre uses Sessions to identify the areas of our website
               that you have visited. A Session is a small piece of data stored
               on your computer or mobile device by your web browser.
             </p>
