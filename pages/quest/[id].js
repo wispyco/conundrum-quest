@@ -220,6 +220,10 @@ const QuestCard = ({ quest, knights, user }) => {
 const FollowersGrid = styled.div`
   display: grid;
   grid-template-columns: 200px 200px 200px 200px;
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 `;
 
 const Follower = styled.div`
@@ -229,6 +233,9 @@ const Follower = styled.div`
 
 const Hero = styled.div`
   width: 300px;
+  @media (max-width: 1100px) {
+    width: 100%;
+  }
   text-align: center;
 `;
 
@@ -270,6 +277,7 @@ const Card = styled.div`
     h1 {
       height: auto !important;
     }
+    width: 100%;
     p {
       line-height: 26px;
     }
