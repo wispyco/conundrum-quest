@@ -112,7 +112,13 @@ export default function Layout({ children }) {
                 {/* </a> */}
               </Link>
 
-              <a href="">Were Open Source</a>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/wispyco/conundrum-quest"
+              >
+                Were Open Source
+              </a>
               <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
@@ -121,7 +127,13 @@ export default function Layout({ children }) {
             <UserMenuOut>
               <Link href="/login-magic-public">login / signup</Link>
 
-              <a href="">Were Open Source</a>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/wispyco/conundrum-quest"
+              >
+                Were Open Source
+              </a>
               <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
@@ -139,7 +151,13 @@ export default function Layout({ children }) {
                 {/* </a> */}
               </Link>
 
-              <a href="">Were Open Source</a>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/wispyco/conundrum-quest"
+              >
+                Were Open Source
+              </a>
               <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
@@ -148,7 +166,13 @@ export default function Layout({ children }) {
             <UserMenuMobile>
               <Link href="/login-magic-public">login / signup</Link>
 
-              <a href="">Were Open Source, see our naked code</a>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/wispyco/conundrum-quest"
+              >
+                Were Open Source, see our naked code
+              </a>
               <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
