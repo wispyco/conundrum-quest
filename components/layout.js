@@ -81,12 +81,12 @@ export default function Layout({ children }) {
 
   const { data: user, error: userError } = useSWR("/api/user", fetcher);
 
-  LogRocket.identify(user.id, {
-    name: user.name,
-    email: user.email,
+  LogRocket.identify(user?.id, {
+    name: user?.name,
+    email: user?.email,
 
     // Add your own custom user variables here, ie:
-    role: user.role,
+    role: user?.role,
   });
 
   if (!user) return <Loading />;
