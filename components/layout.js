@@ -211,8 +211,8 @@ export default function Layout({ children }) {
       <Header1>Conundrum Quest</Header1>
       {Router.asPath === "/" && (
         <Title>
-          <Header2>
-            The Worlds hardest problems and who is working on them.
+          <Header2 className="title">
+            The <span>Worlds</span> hardest problems and who is working on them.
           </Header2>
           <Link href="/login-magic-public">Join to Add a Quest</Link>
         </Title>
@@ -273,6 +273,11 @@ const Wait = styled.div`
 
 const Title = styled.div`
   margin: 150px auto 0 auto;
+  background: url("/banner.jpeg");
+  background-size:cover;
+  color:#fff;
+  padding:75px 0;
+
   @media (max-width: 1100px) {
     margin: 25px auto 0 auto;
   }
@@ -318,9 +323,17 @@ const Alpha = styled.span`
 
 const Header2 = styled.h2`
   text-align: center;
-  font-weight: 300;
-  font-size: 32px;
-  width: 600px;
+  span{
+    color:#00c4ff;
+  }
+  &.title{
+
+    font-weight: 500;
+    background: #d3d3d363;
+  }
+  border-radius:10px;
+  font-size: 46px;
+  width: 800px;
   @media (max-width: 1100px) {
     width: 75%;
   }
