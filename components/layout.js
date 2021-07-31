@@ -13,6 +13,8 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Loading from "./Loading";
 import { IoIosPeople } from "react-icons/io";
 import { ImEarth } from "react-icons/im";
+import { AiOutlineMenu } from "react-icons/ai";
+import { GrClose } from "react-icons/gr";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -102,7 +104,9 @@ export default function Layout({ children }) {
         <Logo src="/logo-3.png" />
       </Link>
       <Alpha>In Alpha</Alpha>
-      <Menu onClick={toggleMenu}>Toggle Menu</Menu>
+      <Menu onClick={toggleMenu}>
+        {menuState ? <AiOutlineMenu size={40} /> : <GrClose size={40} />}
+      </Menu>
       {menuState ? (
         <>
           {userMenu ? (
@@ -381,9 +385,11 @@ const UserMenuMobile = styled.div`
 
 const Menu = styled.button`
   position: absolute;
-  right: 0;
+  right: 15px;
   z-index: 200;
-  top: 0;
+  top: 15px;
+  background: none;
+  border: none;
   display: none;
   @media (max-width: 1100px) {
     display: block;
@@ -411,6 +417,9 @@ const Main = styled.main`
   margin-top: 50px;
   margin: 0 auto;
   padding: 50px 0;
+  @media (max-width: 1100px) {
+    padding: 0;
+  }
 `;
 
 const GlobalStyle = createGlobalStyle`

@@ -205,8 +205,9 @@ const QuestCard = ({ quest }) => {
 const Form = styled.form`
   width: 1125px;
   @media (max-width: 1150px) {
-    width: 50%;
+    width: 66%;
     display: block;
+    margin-top: 50px;
   }
   display: grid;
   grid-template-columns: 75px 200px 200px 200px 200px 250px;
@@ -225,6 +226,9 @@ const Form = styled.form`
         font-size: 12px;
         padding: 5px 20px;
       }
+      @media (max-width: 1150px) {
+        height: 66px;
+      }
     }
     .radio__control {
       display: block;
@@ -236,6 +240,9 @@ const Form = styled.form`
       position: absolute;
       top: -8px;
       padding: 15px;
+      @media (max-width: 1150px) {
+        height: 66px;
+      }
       &:hover {
         cursor: pointer;
       }
@@ -264,6 +271,9 @@ const Card = styled.div`
     font-weight: 300;
     height: 150px;
     text-align: center;
+    @media (max-width: 1100px) {
+      height: auto;
+    }
   }
   h3 {
     text-align: center;
