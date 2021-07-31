@@ -375,12 +375,12 @@ const UserMenuOut = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 150px 125px 200px 150px;
+  grid-template-columns: 150px 100px 175px 150px;
   // grid-row-gap: 10px;
-  width: 650px;
+  width: 550px;
   align-items: center;
   text-align: center;
-  @media (max-width: 1100px) {
+  @media (max-width: 1250px) {
     display: none;
   }
   button {
@@ -417,7 +417,7 @@ const UserMenuMobile = styled.div`
   background: #fff;
   z-index: 100;
   text-align: center;
-  @media (min-width: 1100px) {
+  @media (min-width: 1250px) {
     display: none;
   }
   button {
@@ -450,7 +450,7 @@ const Menu = styled.button`
   background: none;
   border: none;
   display: none;
-  @media (max-width: 1100px) {
+  @media (max-width: 1250px) {
     display: block;
   }
 `;

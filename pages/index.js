@@ -219,13 +219,25 @@ const Form = styled.form`
     display: block;
     margin-top: 50px;
   }
+  position:relative;
   display: grid;
-  grid-template-columns: 75px 200px 200px 200px 200px 250px;
+  grid-template-columns: 200px 200px 200px 200px 250px;
+  @media(max-width:1300px){
+    grid-template-columns: 200px 200px 200px 200px 250px;
+  }
   grid-column-gap: 10px;
   margin: 0px auto 50px auto;
   // display: grid;
   // grid-template-columns: 25px 200px 200px;
   label {
+    margin-top:100px;
+    &:first-child{
+      margin-top:0;
+      position:absolute;
+      left:50%;
+      width:100px;
+      margin-left:-50px;
+    }
     div {
       // display: grid;
       // grid-template-columns: 1fr 25px 0;
