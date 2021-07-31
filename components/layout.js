@@ -211,8 +211,8 @@ export default function Layout({ children }) {
       <Header1>Conundrum Quest</Header1>
       {Router.asPath === "/" && (
         <Title>
-          <Header2>
-            The Worlds hardest problems and who is working on them.
+          <Header2 className="title">
+            The <span>Worlds</span> hardest problems and who is working on them.
           </Header2>
           <Link href="/login-magic-public">Join to Add a Quest</Link>
         </Title>
@@ -258,6 +258,10 @@ const Wait = styled.div`
   padding: 200px;
   z-index: 500;
   border-radius: 20px;
+  @media(max-width:1600px){
+    top:100px;
+    padding:100px;
+  }
   @media (max-width: 1100px) {
     padding: 0;
     width: 300px;
@@ -269,6 +273,12 @@ const Wait = styled.div`
 
 const Title = styled.div`
   margin: 150px auto 0 auto;
+  background: url("/banner.jpeg");
+  background-size:cover;
+  background-attachment:fixed;                                        
+  color:#fff;
+  padding:75px 0;
+
   @media (max-width: 1100px) {
     margin: 25px auto 0 auto;
   }
@@ -303,7 +313,7 @@ const Alpha = styled.span`
   z-index: 200;
   padding: 3px;
   font-size: 12px;
-  top: 68px;
+  top: 67px;
   left: 50%;
   width: 100px;
   text-align: center;
@@ -314,9 +324,17 @@ const Alpha = styled.span`
 
 const Header2 = styled.h2`
   text-align: center;
-  font-weight: 300;
-  font-size: 32px;
-  width: 600px;
+  span{
+    color:#00c4ff;
+  }
+  &.title{
+
+    font-weight: 500;
+    background: #d3d3d363;
+  }
+  border-radius:10px;
+  font-size: 46px;
+  width: 800px;
   @media (max-width: 1100px) {
     width: 75%;
   }
@@ -338,12 +356,15 @@ const Header3 = styled.h3`
 const UserMenu = styled.div`
   position: fixed;
   background: #fff;
-  top: 25px;
-  right: 25px;
+  top: 0px;
+  // right: 0px;
+  left:50%;
+  padding: 20px 0px 0 75px;
+  z-index:100;
   display: grid;
-  grid-template-columns: 100px 100px 125px 200px 150px;
+  grid-template-columns: 60px 110px 110px 100px 150px;
   // grid-row-gap: 10px;
-  width: 650px;
+  width:50%;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
@@ -372,12 +393,15 @@ const UserMenu = styled.div`
 const UserMenuOut = styled.div`
   position: fixed;
   background: #fff;
-  top: 25px;
-  right: 25px;
+  top: 0px;
+  right: 0px;
+  left:50%;
+  padding: 25px 0 35px 50px;
+  z-index:100;
   display: grid;
   grid-template-columns: 150px 100px 175px 150px;
   // grid-row-gap: 10px;
-  width: 550px;
+  width: 100%;
   align-items: center;
   text-align: center;
   @media (max-width: 1250px) {
