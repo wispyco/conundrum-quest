@@ -106,7 +106,10 @@ export default function Layout({ children }) {
         />
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:url" content="https://conundrum.quest" />
-        <meta property="og:image" content="/logo-3.png" />
+        <meta
+          property="og:image"
+          content="https://conundrum.quest/logo-3.png"
+        />
         <meta property="og:image:width" content="148" />
         <meta property="og:image:height" content="186" />
       </Head>
