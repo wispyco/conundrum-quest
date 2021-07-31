@@ -81,7 +81,7 @@ export default function PrivacyPolicy() {
               content or whose products or services we think may interest you.
             </li>
             <li>
-              Website: Conundrum Quest's site, which can be accessed via this
+              Website: Conundrum Quests site, which can be accessed via this
               URL: https://conundrum.quest
             </li>
             <li>
@@ -241,7 +241,7 @@ export default function PrivacyPolicy() {
           information with and who carries out services on our behalf. When we
           no longer need to use your information and there is no need for us to
           keep it to comply with our legal or regulatory obligations, we’ll
-          either remove it from our systems or depersonalize it so that we can't
+          either remove it from our systems or depersonalize it so that we cant
           identify you.
         </p>
 
@@ -387,9 +387,9 @@ export default function PrivacyPolicy() {
 
         <h1>Your Consent</h1>
         <p>
-          We've updated our Privacy Policy to provide you with complete
+          Weve updated our Privacy Policy to provide you with complete
           transparency into what is being set when you visit our site and how
-          it's being used. By using our website/app, registering an account, or
+          its being used. By using our website/app, registering an account, or
           making a purchase, you hereby consent to our Privacy Policy and agree
           to its terms.
         </p>
@@ -426,7 +426,7 @@ export default function PrivacyPolicy() {
 
         <h1>Blocking and disabling cookies and similar technologies</h1>
         <p>
-          Wherever you're located you may also set your browser to block cookies
+          Wherever youre located you may also set your browser to block cookies
           and similar technologies, but this action may block our essential
           cookies and prevent our website from functioning properly, and you may
           not be able to fully utilize all of its features and services. You
@@ -435,10 +435,10 @@ export default function PrivacyPolicy() {
           your browser. Different browsers make different controls available to
           you. Disabling a cookie or category of cookie does not delete the
           cookie from your browser, you will need to do this yourself from
-          within your browser, you should visit your browser's help menu for
+          within your browser, you should visit your browsers help menu for
           more information.
         </p>
-        <h1>Kids' Privacy</h1>
+        <h1>Kids Privacy</h1>
         <p>
           We collect information from kids under the age of 13 just to better
           our services. If You are a parent or guardian and You are aware that
@@ -477,7 +477,7 @@ export default function PrivacyPolicy() {
         <p>
           Third-Party Services and links thereto are provided solely as a
           convenience to you and you access and use them entirely at your own
-          risk and subject to such third parties' terms and conditions.
+          risk and subject to such third parties terms and conditions.
         </p>
         <h1>Tracking Technologies</h1>
         <ul>
@@ -515,7 +515,7 @@ export default function PrivacyPolicy() {
         <h1>What is GDPR?</h1>
         <p>
           GDPR is an EU-wide privacy and data protection law that regulates how
-          EU residents' data is protected by companies and enhances the
+          EU residents data is protected by companies and enhances the
           control the EU residents have, over their personal data.
         </p>
         <p>
@@ -563,9 +563,9 @@ export default function PrivacyPolicy() {
         <h1>Why is GDPR important?</h1>
         <p>
           GDPR adds some new requirements regarding how companies should protect
-          individuals' personal data that they collect and process. It also
+          individuals personal data that they collect and process. It also
           raises the stakes for compliance by increasing enforcement and
-          imposing greater fines for breach. Beyond these facts it's simply the
+          imposing greater fines for breach. Beyond these facts its simply the
           right thing to do. At Conundrum Quest we strongly believe that your
           data privacy is very important and we already have solid security and
           privacy practices in place that go beyond the requirements of this new
@@ -573,7 +573,7 @@ export default function PrivacyPolicy() {
         </p>
 
         <h1>
-          Individual Data Subject's Rights - Data Access, Portability and
+          Individual Data Subjects Rights - Data Access, Portability and
           Deletion
         </h1>
         <p>
@@ -588,14 +588,14 @@ export default function PrivacyPolicy() {
         <p>
           We are aware that if you are working with EU customers, you need to be
           able to provide them with the ability to access, update, retrieve and
-          remove personal data. We got you! We've been set up as self service
+          remove personal data. We got you! Weve been set up as self service
           from the start and have always given you access to your data and your
           customers data. Our customer support team is here for you to answer
           any questions you might have about working with the API.
         </p>
         <h1>Contact Us</h1>
         <p>
-          Don't hesitate to contact us if you have any questions. hi@wispy.co
+          Dont hesitate to contact us if you have any questions. hi@wispy.co
         </p>
       </Wrap>
     </Layout>
