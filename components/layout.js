@@ -310,7 +310,7 @@ const Alpha = styled.span`
   color: #fff;
   text-transform: uppercase;
   /* border-radius: 30px; */
-  z-index: 200;
+  z-index: 990;
   padding: 3px;
   font-size: 12px;
   top: 67px;
@@ -487,7 +487,7 @@ const Logo = styled.img`
   padding: 15px 20px;
   //box-sizing:border-box;
   width: 100px;
-  z-index: 190;
+  z-index: 890;
   background: #fff;
   border-radius: 30px;
   box-shadow: 5px 5px 10px #dadada;
