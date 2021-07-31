@@ -175,9 +175,9 @@ const QuestCard = ({ quest, knights, user }) => {
       <h3 className="submitted">Submitted By: {quest?.owner?.name}</h3>
       <h2 className="knights">Knights who are following this quest</h2>
       <FollowersGrid>
-        {quest?.follower1s?.data.map((follower) => {
+        {quest?.follower1s?.data.map((follower, i) => {
           return (
-            <Follower>
+            <Follower key={i}>
               <p>{follower.owner.name}</p>
               <a target="_blank" rel="nofollow" href={userData.twitter}>
                 <FaTwitter />
