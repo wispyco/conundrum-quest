@@ -108,7 +108,7 @@ export default function Layout({ children }) {
         <meta property="og:url" content="https://conundrum.quest" />
         <meta
           property="og:image"
-          content="https://conundrum.quest/logo-3.png"
+          content="https://conundrum-quest.vercel.app/logo-3-large.png"
         />
         <meta property="og:image:width" content="148" />
         <meta property="og:image:height" content="186" />
