@@ -94,6 +94,15 @@ export default function CreateQuest({ user, clickedAddQuest }) {
           <option value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE">
             Technology Infrastructure + Artificial Intelligence
           </option>
+          <option value="HEALTHCARE_LIFE_SCIENCES">
+            Healthcare + Life Sciences
+          </option>
+          <option value="TRANSPORTATION_URBAN_INFRASTRUCTURE">
+            Transportation + Urban Infrastructure
+          </option>
+          <option value="DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING">
+            Digital Immersive Learning / Therapies + Ambient Computing
+          </option>
         </select>
         {/* <h2>Hero</h2>
         <input

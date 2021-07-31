@@ -24,7 +24,8 @@ export default function EditQuestMod({ user, data, Router }) {
     },
   });
   const onSubmit = async (dataSubmit) => {
-    const { name, description, category, isBeingReviewed, isAccepted } = dataSubmit;
+    const { name, description, category, isBeingReviewed, isAccepted } =
+      dataSubmit;
 
     const isBeingReviewedSet = isBeingReviewed === "true";
     const isAcceptedSet = isAccepted === "true";
@@ -75,6 +76,15 @@ export default function EditQuestMod({ user, data, Router }) {
           </option>
           <option value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE">
             Technology Infrastructure + Artificial Intelligence
+          </option>
+          <option value="HEALTHCARE_LIFE_SCIENCES">
+            Healthcare + Life Sciences
+          </option>
+          <option value="TRANSPORTATION_URBAN_INFRASTRUCTURE">
+            Transportation + Urban Infrastructure
+          </option>
+          <option value="DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING">
+            Digital Immersive Learning / Therapies + Ambient Computing
           </option>
         </select>
         {/* <h2>In Review</h2> */}
