@@ -223,6 +223,7 @@ export default function Layout({ children }) {
           Made for the <ImEarth /> and its <IoIosPeople />
         </Header2>
         <p>by wispy.co</p>
+        <Link href="/privacy-policy">Privacy Policy</Link>
       </Made>
       <>
         {process.browser && (
