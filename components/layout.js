@@ -439,7 +439,7 @@ const UserMenuMobile = styled.div`
   padding-top: 150px;
   grid-template-rows: 50px 50px 50px 50px;
   background: #fff;
-  z-index: 100;
+  z-index: 300;
   text-align: center;
   @media (min-width: 1250px) {
     display: none;
@@ -469,7 +469,7 @@ const UserMenuMobile = styled.div`
 const Menu = styled.button`
   position: absolute;
   right: 15px;
-  z-index: 200;
+  z-index: 400;
   top: 15px;
   background: none;
   border: none;
