@@ -5,7 +5,9 @@ type User {
   #knight: Knight @relation(name: "user_knight")
   heros: [Hero] @relation(name: "user_knights")
   jobs: [Job] @relation(name: "user_jobs")
-  role: UserRole!
+  role: UserRole
+  follower1: User @relation(name: "user_follower1")
+  twitter: String
 }
 
 enum UserRole {
@@ -24,14 +26,30 @@ type Quest {
   description: String
   heros: [Hero] @relation(name: "quest_heros")
   image: String
-  owner: User! @relation(name: "user_quests")
+  owner: User @relation(name: "user_quests")
   # need to set permissions that only MODERATOR could not set
   isAccepted: Boolean
   isBeingReviewed: Boolean
   knights: [Knight] @relation(name: "quest_knights")
+  followers: [Follower]
+  follower1s: [Follower1] @relation(name: "quest_follower1")
   category: Category
   moderator: User
   isClaimed: Boolean
+}
+
+type Follower1 {
+  name: String
+  twitter: String
+  isFollowing: Boolean
+  owner: User @relation(name: "user_follower1")
+  quests: [Quest] @relation(name: "quest_follower1")
+}
+type Follower @embedded {
+  name: String
+  twitter: String
+  isFollowing: Boolean
+  id: ID!
 }
 
 enum Category {
@@ -85,4 +103,5 @@ type Query {
   getQuests: [Quest!]
   getInvites: [Invite!]
   getHeros: [Hero!]
+  getKnights: [Knight!]
 }

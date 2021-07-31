@@ -32,7 +32,6 @@ export default function NominateHero() {
 
   const Router = useRouter();
 
-
   const {
     loading: getLoading,
     error: getError,
@@ -54,31 +53,28 @@ export default function NominateHero() {
       {/* <pre>
               {JSON.stringify(data,null,2)}
           </pre> */}
-      <main>
-        {loading ? (
-          <>
-            <Loading />
-            <h1>SignUp</h1>
-          </>
-        ) : (
-          <>
-            {/* <h1>Edit Quest</h1> */}
-            {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-            {user.role === "ADMIN" && <></>}
-            {user.role === "KNIGHT" && (
-              <>
-                <QuestCard user={user} quest={findQuestByID} />
-              </>
-            )}
-          </>
-        )}
-      </main>
+      {loading ? (
+        <>
+          <Loading />
+          <h1>SignUp</h1>
+        </>
+      ) : (
+        <>
+          {/* <h1>Edit Quest</h1> */}
+          {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+          {user.role === "ADMIN" && <></>}
+          {user.role === "KNIGHT" && (
+            <>
+              <QuestCard user={user} quest={findQuestByID} />
+            </>
+          )}
+        </>
+      )}
     </Layout>
   );
 }
 
 const QuestCard = ({ quest, user }) => {
-
   const Router = useRouter();
 
   const [createHero, { data: createHeroData, loading: saving }] =
@@ -101,12 +97,11 @@ const QuestCard = ({ quest, user }) => {
         isAccepted: false,
         isBeingReviewed: false,
         // knightConnect: user.id,
-        ownerConnect: user.id
+        ownerConnect: user.id,
       },
     }).catch(console.error);
 
-    Router.push("/profile")
-
+    Router.push("/profile");
   };
   console.log(errors);
   return (
@@ -114,15 +109,15 @@ const QuestCard = ({ quest, user }) => {
       <h1>{quest?.name}</h1>
       <h2>Nominate Hero</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="name" {...register("name", {})} />
+        <input type="text" placeholder="Full Name" {...register("name", {})} />
         <input
           type="text"
-          placeholder="description"
+          placeholder="What does this Hero do related to this Quest"
           {...register("description", {})}
         />
         <input
           type="text"
-          placeholder="wikipedia"
+          placeholder="Wikipedia url (https://wikipedia.com/hero)"
           {...register("wikipedia", {})}
         />
 
@@ -135,7 +130,7 @@ const QuestCard = ({ quest, user }) => {
 const Card = styled.div`
   width: 900px;
   padding: 0 25px 25px 25px;
-  margin: 0px auto;
+  margin: 150px auto;
   h1 {
     font-weight: 300;
     height: 50px;
@@ -148,6 +143,13 @@ const Card = styled.div`
     text-align: center;
     display: block;
     margin: 0 auto;
+  }
+  form {
+    display: grid;
+    grid-row-gap: 25px;
+    input {
+      padding: 5px;
+    }
   }
 `;
 

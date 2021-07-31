@@ -9,6 +9,8 @@ import useSWR from "swr";
 import { query } from "faunadb";
 import { Header1 } from "../pages/profile";
 import { GoogleFonts } from "next-google-fonts";
+import { FeedbackFish } from "@feedback-fish/react";
+import Loading from "./Loading";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -48,8 +50,8 @@ export default function Layout({ children }) {
   async function test() {
     const userMagic = await magicClient.user.isLoggedIn(); // => `false`
 
-    console.log(userMagic, "userMagic");
-    console.log(cookie, "cookie");
+    // console.log(userMagic, "userMagic");
+    // console.log(cookie, "cookie");
 
     if (cookie?.token === false) {
       // show user menu
@@ -69,6 +71,12 @@ export default function Layout({ children }) {
   const toggleMenu = () => {
     setMenuState((state) => !state);
   };
+
+  const [userData, setUserData] = useState(null);
+
+  const { data: user, error: userError } = useSWR("/api/user", fetcher);
+
+  if (!user) return <Loading />;
 
   return (
     <>
@@ -105,14 +113,18 @@ export default function Layout({ children }) {
               </Link>
 
               <a href="">Were Open Source</a>
-              <a href="">Feedback</a>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+                <NavButton>Send feedback</NavButton>
+              </FeedbackFish>
             </UserMenu>
           ) : (
             <UserMenuOut>
               <Link href="/login-magic-public">login / signup</Link>
 
               <a href="">Were Open Source</a>
-              <a href="">Feedback</a>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+                <NavButton>Send feedback</NavButton>
+              </FeedbackFish>
             </UserMenuOut>
           )}
         </>
@@ -128,14 +140,18 @@ export default function Layout({ children }) {
               </Link>
 
               <a href="">Were Open Source</a>
-              <a href="">Feedback</a>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+                <NavButton>Send feedback</NavButton>
+              </FeedbackFish>
             </UserMenuMobile>
           ) : (
             <UserMenuMobile>
               <Link href="/login-magic-public">login / signup</Link>
 
               <a href="">Were Open Source, see our naked code</a>
-              <a href="">Feedback</a>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+                <NavButton>Send feedback</NavButton>
+              </FeedbackFish>
             </UserMenuMobile>
           )}
         </>
@@ -159,9 +175,11 @@ export default function Layout({ children }) {
   );
 }
 
+const NavButton = styled.button``;
+
 const Title = styled.div`
   margin: 150px auto 0 auto;
-  @media(max-width:1100px){
+  @media (max-width: 1100px) {
     margin: 25px auto 0 auto;
   }
   a {
@@ -232,9 +250,9 @@ const UserMenu = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 100px 100px 200px 100px;
+  grid-template-columns: 100px 100px 200px 150px;
   // grid-row-gap: 10px;
-  width: 500px;
+  width: 550px;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
@@ -266,9 +284,9 @@ const UserMenuOut = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 150px 200px 100px;
+  grid-template-columns: 150px 200px 150px;
   // grid-row-gap: 10px;
-  width: 500px;
+  width: 550px;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {

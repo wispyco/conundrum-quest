@@ -18,7 +18,7 @@ export default function QuestsProfile({ user }) {
       <h1>Your Quests</h1>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       <QuestCardGrid>
-        {data?.findUserByID?.quests?.data.map((quest,i) => {
+        {data?.findUserByID?.quests?.data.map((quest, i) => {
           return <QuestCard key={i} quest={quest} />;
         })}
       </QuestCardGrid>
@@ -30,18 +30,37 @@ const QuestCard = ({ quest }) => {
   return (
     <Card>
       <h1>{quest?.name}</h1>
-      <h2>{quest.isBeingReviewed ? "Is in Review" : "Waiting to be Reviewed"}</h2>
-      <h2>{quest.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}</h2>
-      {quest.isBeingReviewed || quest.isAccepted ?
-      <>
-        <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
-        <p>{quest.isBeingReviewed && <> {!quest.isAccepted &&"Cannot edit when Quest is is being reviewed"}</>}</p>
-        <p>{quest.isAccepted && "Cannot edit once Quest has been Accepted"}</p>
-      </>
-      :
-      <Link href={`profile/quest-edit/${quest._id}`}>Edit Quest</Link>
-
-      }
+      <h2>
+        {quest.isBeingReviewed ? (
+          <>{!quest?.isAccepted && "Is in Review"}</>
+        ) : (
+          "Waiting to be Reviewed"
+        )}
+      </h2>
+      <h2>{quest.isAccepted && "Is Accepted"}</h2>
+      {quest.isBeingReviewed || quest.isAccepted ? (
+        <>
+          {quest.isAccepted ? (
+            <Link href={`quest/${quest._id}`}>View Quest</Link>
+          ) : (
+            <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
+          )}
+          <p>
+            {quest.isBeingReviewed && (
+              <>
+                {" "}
+                {!quest.isAccepted &&
+                  "Cannot edit when Quest is is being reviewed"}
+              </>
+            )}
+          </p>
+          <p>
+            {quest.isAccepted && "Cannot edit once Quest has been Accepted"}
+          </p>
+        </>
+      ) : (
+        <Link href={`profile/quest-edit/${quest._id}`}>Edit Quest</Link>
+      )}
     </Card>
   );
 };
@@ -67,9 +86,10 @@ const Card = styled.div`
 `;
 
 const QuestCardGrid = styled.div`
-width: 950px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: 300px 300px 300px;
-grid-column-gap: 25px;
+  width: 950px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
 `;

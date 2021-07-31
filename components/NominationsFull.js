@@ -1,26 +1,32 @@
 import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
-import { DELETE_HERO_BY_ID, GET_HEROS, UPDATE_HERO_UNCLAIMED, UPDATE_HERO_CLAIMED } from "../gql/schema";
+import {
+  DELETE_HERO_BY_ID,
+  GET_HEROS,
+  UPDATE_HERO_UNCLAIMED,
+  UPDATE_HERO_CLAIMED,
+} from "../gql/schema";
 import Loading from "./Loading";
 import styled from "styled-components";
 
 export default function NominationsFull({ user }) {
-  const { loading, error, data } = useQuery(GET_HEROS, {
+  const { loading, error, data, stopPolling, refetch } = useQuery(GET_HEROS, {
     variables: { id: user.id },
+    // pollInterval: 500,
   });
 
   const [deleteHero, { data: deleteHeroData, loading: deleting }] =
     useMutation(DELETE_HERO_BY_ID);
 
-    const [
-      updateHeroClaimed,
-      { data: updateHeroClaimedData, loading: claiming },
-    ] = useMutation(UPDATE_HERO_CLAIMED);
-  
-    const [
-      updateHeroUnClaimed,
-      { data: updateHeroUnClaimedData, loading: unclaiming },
-    ] = useMutation(UPDATE_HERO_UNCLAIMED);
+  const [
+    updateHeroClaimed,
+    { data: updateHeroClaimedData, loading: claiming },
+  ] = useMutation(UPDATE_HERO_CLAIMED);
+
+  const [
+    updateHeroUnClaimed,
+    { data: updateHeroUnClaimedData, loading: unclaiming },
+  ] = useMutation(UPDATE_HERO_UNCLAIMED);
 
   const clickDeleteHero = async (id) => {
     if (confirm("Are you sure you want to delete the Hero?")) {
@@ -60,21 +66,25 @@ export default function NominationsFull({ user }) {
     }).catch(console.error);
   };
 
+  const refetchOnHover = async (id) => {
+    refetch();
+  };
+
   if (error) return <h1>{error.message}</h1>;
 
   if (loading) return <Loading />;
- 
 
   if (claiming || unclaiming) return <Loading />;
 
-
   return (
     <Wrap>
-      <h1>Claimed Nominations</h1>
+      {/* <h1>Claimed Nominations</h1>
       <HeroWrap>
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {data.getHeros.data
-          .filter((heroF) => heroF?.isClaimed === true && heroF?.moderator._id === user.id)
+          .filter(
+            (heroF) =>
+              heroF?.isClaimed === true && heroF?.moderator._id === user.id
+          )
           .map((hero, i) => {
             return (
               <Hero key={i}>
@@ -99,7 +109,7 @@ export default function NominationsFull({ user }) {
                 <h4>
                   {hero.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}
                 </h4>
-                {hero?.isClaimed &&
+                {hero?.isClaimed && (
                   <>
                     <Link href={`profile/hero-review/${hero._id}`}>
                       View Hero and Review
@@ -108,28 +118,34 @@ export default function NominationsFull({ user }) {
                       Delete Hero
                     </button>
                   </>
-               }
+                )}
               </Hero>
             );
           })}
-      </HeroWrap>
-      <h1>Unclaimed Nominations</h1>
+      </HeroWrap> */}
+      <h1>Nominations</h1>
       <HeroWrap>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {data.getHeros.data
-          .filter((heroF) => heroF?.isClaimed === false)
+          // .filter((heroF) => heroF?.isClaimed === false)
           .map((hero, i) => {
             return (
-              <Hero key={i}>
+              <Hero
+                claimed={hero?.isClaimed}
+                claimedByYou={hero?.moderator?._id === user.id}
+                onMouseEnter={refetchOnHover}
+                key={i}
+              >
                 <h2>{hero.quest.name}</h2>
                 {!hero?.isClaimed && <p>Not Claimed</p>}
-                {!hero?.isClaimed ? (
-                  <button onClick={() => clickClaim(hero._id)}>Claim</button>
-                ) : (
-                  <button onClick={() => clickUnClaim(hero._id)}>
-                    Unclaim
-                  </button>
+
+                {hero?.isClaimed && hero?.moderator?._id !== user.id && (
+                  <p>Quest is being moderated by {hero?.moderator?.name}</p>
                 )}
+                {!hero?.isClaimed && (
+                  <button onClick={() => clickClaim(hero._id)}>Claim</button>
+                )}
+                {/* // )} */}
                 <h3>Name: {hero.name}</h3>
                 <p>Description: {hero.description}</p>
                 <h4>
@@ -142,16 +158,19 @@ export default function NominationsFull({ user }) {
                 <h4>
                   {hero.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}
                 </h4>
-                {hero?.isClaimed &&
+                {hero?.isClaimed && hero?.moderator?._id === user.id && (
                   <>
                     <Link href={`profile/hero-review/${hero._id}`}>
                       View Hero and Review
                     </Link>
+                    <button onClick={() => clickUnClaim(hero._id)}>
+                      Unclaim
+                    </button>
                     <button onClick={() => clickDeleteHero(hero._id)}>
                       Delete Hero
                     </button>
                   </>
-               }
+                )}
               </Hero>
             );
           })}
@@ -162,9 +181,15 @@ export default function NominationsFull({ user }) {
 
 const Hero = styled.div`
   width: 300px;
+  @media (max-width: 1100px) {
+    width: 100%;
+  }
   border: 1px solid #000;
   border-radius: 30px;
   padding: 25px;
+  background-color: ${(props) => (props.claimed ? "#daf7f0" : "white")};
+  border: ${(props) =>
+    props.claimedByYou ? "4px solid #007eff !important" : "1px solid #000"};
 `;
 
 const HeroWrap = styled.div`
@@ -173,6 +198,11 @@ const HeroWrap = styled.div`
   display: grid;
   grid-template-columns: 300px 300px 300px;
   grid-column-gap: 25px;
+  @media (max-width: 1100px) {
+    width: 90%;
+    grid-template-columns: 1fr;
+    grid-row-gap: 25px;
+  }
 `;
 
 const Wrap = styled.div`
