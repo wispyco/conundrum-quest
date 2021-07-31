@@ -275,6 +275,7 @@ const Title = styled.div`
   margin: 150px auto 0 auto;
   background: url("/banner.jpeg");
   background-size:cover;
+  background-attachment:fixed;                                        
   color:#fff;
   padding:75px 0;
 
@@ -312,7 +313,7 @@ const Alpha = styled.span`
   z-index: 200;
   padding: 3px;
   font-size: 12px;
-  top: 68px;
+  top: 67px;
   left: 50%;
   width: 100px;
   text-align: center;
@@ -355,12 +356,15 @@ const Header3 = styled.h3`
 const UserMenu = styled.div`
   position: fixed;
   background: #fff;
-  top: 25px;
-  right: 25px;
+  top: 0px;
+  // right: 0px;
+  left:50%;
+  padding: 20px 0px 0 75px;
+  z-index:100;
   display: grid;
-  grid-template-columns: 100px 100px 125px 200px 150px;
+  grid-template-columns: 60px 110px 110px 100px 150px;
   // grid-row-gap: 10px;
-  width: 650px;
+  width:50%;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
@@ -389,12 +393,15 @@ const UserMenu = styled.div`
 const UserMenuOut = styled.div`
   position: fixed;
   background: #fff;
-  top: 25px;
-  right: 25px;
+  top: 0px;
+  right: 0px;
+  left:50%;
+  padding: 25px 0 35px 50px;
+  z-index:100;
   display: grid;
   grid-template-columns: 150px 100px 175px 150px;
   // grid-row-gap: 10px;
-  width: 550px;
+  width: 100%;
   align-items: center;
   text-align: center;
   @media (max-width: 1250px) {

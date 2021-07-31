@@ -169,6 +169,11 @@ export const Header1 = styled.h1`
   font-size: 42px;
   width: 50%;
   position: fixed;
+  background:#fff;
+  margin:0;
+  padding-top:25px;
+  padding-bottom:25px;
+  z-index:100;
   left: 0;
   top: 0;
   @media (max-width: 1100px) {
