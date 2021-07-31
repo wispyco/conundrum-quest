@@ -2,8 +2,10 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
 import {
+  FOLLOW,
   GET_KNIGHTS,
   GET_QUEST_BY_ID,
+  UNFOLLOW,
   UPDATE_QUEST_FOLLOWERS,
 } from "../../gql/schema";
 import styled from "styled-components";
@@ -80,25 +82,45 @@ const QuestCard = ({ quest, knights, user }) => {
     // }
   }, [user]);
 
-  const [
-    updateQuestFollowers,
-    { data: updateQuestFollowersData, loading: saving },
-  ] = useMutation(UPDATE_QUEST_FOLLOWERS);
+  const [followQuest, { data: followQuestData, loading: saving }] =
+    useMutation(FOLLOW);
+  const [unfollowQuest, { data: unFollowQuestData, loading: unfollowing }] =
+    useMutation(UNFOLLOW);
 
   const follow = async (userId, QuestId, userName) => {
     console.log("questId", QuestId);
     console.log("userId", userData.id);
 
-    const updateQuestFollowersResponse = await updateQuestFollowers({
+    const followQuestResponse = await followQuest({
       variables: {
-        name: userName,
-        // twitter: String,
         isFollowing: true,
-        followerId: JSON.stringify(userId),
-        id: QuestId,
+        name: userName,
+        quests: QuestId,
+        owner: userData.id,
       },
     }).catch(console.error);
   };
+
+  const unFollow = async (userId, QuestId, userName, unFollowId) => {
+    console.log("questId", QuestId);
+    console.log("userId", userData.id);
+
+    const unFollowQuestResponse = await unfollowQuest({
+      variables: {
+        isFollowing: false,
+        name: userName,
+        quests: QuestId,
+        owner: userData.id,
+        id: unFollowId,
+      },
+    }).catch(console.error);
+  };
+
+  const test = quest.follower1s?.data.filter(
+    (follower) => follower?.owner?._id === userData.id
+  );
+
+  console.log(test, "test");
 
   return (
     <Card>
@@ -135,12 +157,11 @@ const QuestCard = ({ quest, knights, user }) => {
       <h2>Knights</h2>
       <h3>Submitted By: {quest?.owner?.name}</h3>
       <h2>Following:</h2>
-      {quest?.followers.map((follower) => {
+      {quest?.follower1s?.data.map((follower) => {
         return (
           <>
             <p>{follower.name}</p>
-            <p>{follower.id}</p>
-            <p>{userData.id}</p>
+            <p>{follower.owner._id}</p>
           </>
         );
       })}
@@ -151,31 +172,21 @@ const QuestCard = ({ quest, knights, user }) => {
           <Link href={`/login-magic-public`}>Sign Up to Follow</Link>
         ) : (
           <>
-            {quest.followers
-              .filter((follower) => follower.id === JSON.stringify(userData.id))
-              .map((item) => {
-                return (
-                  <>
-                    {item.isFollowing ? (
-                      <button
-                        onClick={() =>
-                          follow(userData.id, quest._id, userData.name)
-                        }
-                      >
-                        Follow
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          follow(userData.id, quest._id, userData.name)
-                        }
-                      >
-                        Un Follow
-                      </button>
-                    )}
-                  </>
-                );
-              })}
+            {JSON.stringify(test) === "[]" ? (
+              <button
+                onClick={() => follow(userData.id, quest._id, userData.name)}
+              >
+                Follow
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  unFollow(userData.id, quest._id, userData.name, test[0]._id)
+                }
+              >
+                Un Follow
+              </button>
+            )}
           </>
         )}
       </FollowTitle>

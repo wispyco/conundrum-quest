@@ -6,6 +6,7 @@ type User {
   heros: [Hero] @relation(name: "user_knights")
   jobs: [Job] @relation(name: "user_jobs")
   role: UserRole
+  follower1: User @relation(name: "user_follower1")
 }
 
 enum UserRole {
@@ -30,13 +31,21 @@ type Quest {
   isBeingReviewed: Boolean
   knights: [Knight] @relation(name: "quest_knights")
   followers: [Follower]
+  follower1s: [Follower1] @relation(name: "quest_follower1")
   category: Category
   moderator: User
   isClaimed: Boolean
 }
 
-type Follower @embedded{
-  name:String
+type Follower1 {
+  name: String
+  twitter: String
+  isFollowing: Boolean
+  owner: User @relation(name: "user_follower1")
+  quests: [Quest] @relation(name: "quest_follower1")
+}
+type Follower @embedded {
+  name: String
   twitter: String
   isFollowing: Boolean
   id: ID!

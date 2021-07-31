@@ -166,6 +166,12 @@ export const GET_QUESTS = gql`
     getQuests {
       data {
         name
+        follower1s {
+          data {
+            name
+            isFollowing
+          }
+        }
         followers {
           name
         }
@@ -211,6 +217,16 @@ export const GET_QUEST_BY_ID = gql`
     findQuestByID(id: $id) {
       name
       image
+      follower1s {
+        data {
+          owner {
+            _id
+          }
+          _id
+          name
+          isFollowing
+        }
+      }
       followers {
         name
         id
@@ -444,17 +460,59 @@ export const GET_KNIGHTS = gql`
   }
 `;
 
-export const UPDATE_QUEST_FOLLOWERS = gql`
-  mutation ($id: ID!, $followerId: ID!, $name: String, $isFollowing: Boolean) {
-    updateQuest(
-      id: $id
-      data: { followers: [{ name: $name, isFollowing: $isFollowing, id: $followerId }] }
+export const FOLLOW = gql`
+  mutation ($isFollowing: Boolean, $name: String, $quests: [ID], $owner: ID!) {
+    createFollower1(
+      data: {
+        isFollowing: $isFollowing
+        name: $name
+        quests: { connect: $quests }
+        owner: { connect: $owner }
+      }
     ) {
       name
-      followers {
-        name
-        isFollowing
-        id
+      quests {
+        data {
+          name
+          follower1s {
+            data {
+              name
+              isFollowing
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const UNFOLLOW = gql`
+  mutation (
+    $id: ID!
+    $isFollowing: Boolean
+    $name: String
+    $quests: [ID]
+    $owner: ID!
+  ) {
+    updateFollower1(
+      id: $id
+      data: {
+        isFollowing: $isFollowing
+        name: $name
+        quests: { disconnect: $quests }
+        owner: { connect: $owner }
+      }
+    ) {
+      name
+      quests {
+        data {
+          name
+          follower1s {
+            data {
+              name
+              isFollowing
+            }
+          }
+        }
       }
     }
   }
