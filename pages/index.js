@@ -67,42 +67,42 @@ const DataRendered = ({ data }) => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label className="radio">
           <div>
-          <p>All</p>
+            <p>All</p>
 
-          <input
-            onClick={findAll}
-            {...register("category", {})}
-            type="radio"
-            value="ALL"
+            <input
+              onClick={findAll}
+              {...register("category", {})}
+              type="radio"
+              value="ALL"
             />
-          <span className="radio__control"></span>
-            </div>
+            <span className="radio__control"></span>
+          </div>
         </label>
         <label className="radio">
           <div>
-          <p>Sustainability and Human Development</p>
+            <p>Sustainability and Human Development</p>
 
-          <input
-            onClick={findSustain}
-            {...register("category", {})}
-            type="radio"
-            value="SUSTAINABILITY_HUMAN_DEVELOPMENT"
+            <input
+              onClick={findSustain}
+              {...register("category", {})}
+              type="radio"
+              value="SUSTAINABILITY_HUMAN_DEVELOPMENT"
             />
-          <span className="radio__control"></span>
-            </div>
+            <span className="radio__control"></span>
+          </div>
         </label>
         <label className="radio">
           <div>
-          <p>Technology Infrastructure and Artificial Intelligence</p>
+            <p>Technology Infrastructure and Artificial Intelligence</p>
 
-          <input
-            onClick={findTech}
-            {...register("category", {})}
-            type="radio"
-            value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE"
+            <input
+              onClick={findTech}
+              {...register("category", {})}
+              type="radio"
+              value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE"
             />
-          <span className="radio__control"></span>
-            </div>
+            <span className="radio__control"></span>
+          </div>
         </label>
       </Form>
 
@@ -126,6 +126,16 @@ const QuestCard = ({ quest }) => {
     <Card>
       <h1>{quest?.name}</h1>
       <Link href={`quest/${quest._id}`}>View Quest</Link>
+      <h3>
+        {quest.heros.data.length > 0 && (
+          <>Heros working on this: {quest.heros.data.length}</>
+        )}
+      </h3>
+      <h3>
+        {quest.follower1s.data.length > 0 && (
+          <>Knights following this: {quest.follower1s.data.length}</>
+        )}
+      </h3>
     </Card>
   );
 };
@@ -138,34 +148,34 @@ const Form = styled.form`
   }
   display: grid;
   grid-template-columns: 75px 200px 200px;
-  grid-column-gap:10px;
+  grid-column-gap: 10px;
   margin: 0px auto 50px auto;
   // display: grid;
   // grid-template-columns: 25px 200px 200px;
   label {
-    div{
+    div {
       // display: grid;
       // grid-template-columns: 1fr 25px 0;
       // align-items: center;
-      position:relative;
-      p{
-        text-align:center;
-        font-size:12px;
-        padding:5px 20px;
+      position: relative;
+      p {
+        text-align: center;
+        font-size: 12px;
+        padding: 5px 20px;
       }
     }
     .radio__control {
       display: block;
       width: 100%;
       height: 50px;
-      border-radius:30px;
+      border-radius: 30px;
       /* border-radius: 50%; */
       border: 0.1em solid currentColor;
       position: absolute;
       top: -8px;
       padding: 15px;
-      &:hover{
-        cursor:pointer;
+      &:hover {
+        cursor: pointer;
       }
     }
     input {
@@ -191,6 +201,9 @@ const Card = styled.div`
   h1 {
     font-weight: 300;
     height: 150px;
+    text-align: center;
+  }
+  h3 {
     text-align: center;
   }
   a {

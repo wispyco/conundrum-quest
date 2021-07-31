@@ -221,6 +221,7 @@ export const GET_QUEST_BY_ID = gql`
         data {
           owner {
             _id
+            name
           }
           _id
           name
@@ -440,8 +441,8 @@ export const UPDATE_HERO_UNCLAIMED = gql`
 `;
 
 export const UPDATE_USER_NAME = gql`
-  mutation ($id: ID!, $name: String) {
-    updateUser(id: $id, data: { name: $name }) {
+  mutation ($id: ID!, $name: String, $twitter: String) {
+    updateUser(id: $id, data: { name: $name, twitter: $twitter }) {
       name
     }
   }
@@ -514,6 +515,14 @@ export const UNFOLLOW = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const DELETE_FOLLOWER = gql`
+  mutation Delete($id: ID!) {
+    deleteFollower1(id: $id) {
+      name
     }
   }
 `;

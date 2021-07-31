@@ -56,6 +56,11 @@ const UpdateProfile = ({ user }) => {
       <h3>Update your Profile Name</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="name" {...register("name", {})} />
+        <input
+          type="text"
+          placeholder="Twitter Link"
+          {...register("twitter", {})}
+        />
 
         <input type="submit" />
       </form>

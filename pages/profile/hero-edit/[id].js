@@ -1,7 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Router, useRouter } from "next/router";
 import Loading from "../../../components/Loading";
-import { CREATE_HERO, GET_HERO_BY_ID, GET_QUEST_BY_ID, UPDATE_HERO } from "../../../gql/schema";
+import {
+  CREATE_HERO,
+  GET_HERO_BY_ID,
+  GET_QUEST_BY_ID,
+  UPDATE_HERO,
+} from "../../../gql/schema";
 import styled from "styled-components";
 import Layout from "../../../components/layout";
 import useSWR from "swr";
@@ -32,7 +37,6 @@ export default function NominateHero() {
   console.log("user >>>>>>", user);
 
   const Router = useRouter();
-
 
   const {
     loading: getLoading,
@@ -73,7 +77,9 @@ export default function NominateHero() {
             )}
             {user.role === "MODERATOR" && (
               <>
-                <Link href={`/profile/hero-review/${Router.query.id}`}>View Hero and Review</Link>
+                <Link href={`/profile/hero-review/${Router.query.id}`}>
+                  View Hero and Review
+                </Link>
               </>
             )}
           </>
@@ -84,7 +90,6 @@ export default function NominateHero() {
 }
 
 const QuestCard = ({ hero, user }) => {
-
   const Router = useRouter();
 
   const [updateHero, { data: updateHeroData, loading: saving }] =
@@ -95,11 +100,11 @@ const QuestCard = ({ hero, user }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-      defaultValues:{
-          name:hero.name,
-          description:hero.description,
-          wikipedia:hero.wikipedia
-      }
+    defaultValues: {
+      name: hero.name,
+      description: hero.description,
+      wikipedia: hero.wikipedia,
+    },
   });
   const onSubmit = async (data) => {
     const { name, description, wikipedia } = data;
@@ -113,12 +118,11 @@ const QuestCard = ({ hero, user }) => {
         questConnect: hero.quest._id,
         isAccepted: false,
         isBeingReviewed: false,
-        ownerConnect: user.id
+        ownerConnect: user.id,
       },
     }).catch(console.error);
 
-    Router.push("/profile")
-
+    Router.push("/profile");
   };
   console.log(errors);
   return (
@@ -147,7 +151,7 @@ const QuestCard = ({ hero, user }) => {
 const Card = styled.div`
   width: 900px;
   padding: 0 25px 25px 25px;
-  margin: 0px auto;
+  margin: 150px auto;
   h1 {
     font-weight: 300;
     height: 50px;
@@ -160,6 +164,13 @@ const Card = styled.div`
     text-align: center;
     display: block;
     margin: 0 auto;
+  }
+  form {
+    display: grid;
+    grid-row-gap: 25px;
+    input {
+      padding: 5px;
+    }
   }
 `;
 

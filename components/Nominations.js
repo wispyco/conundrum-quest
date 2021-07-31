@@ -28,17 +28,20 @@ export default function Nominations({ user }) {
               <h3>Name: {hero.name}</h3>
               <p>Description: {hero.description}</p>
               <h4>
-                {hero.isBeingReviewed
-                  ? <>{!hero.isAccepted && "Is in Review"}</>
-                  : "Waiting to be Reviewed"}
+                {hero.isBeingReviewed ? (
+                  <>{!hero.isAccepted && "Is in Review"}</>
+                ) : (
+                  "Waiting to be Reviewed"
+                )}
               </h4>
               <h4>
                 {hero.isAccepted ? "Is Accepted" : "Waiting to be Accepted"}
               </h4>
               {hero.isBeingReviewed || hero.isAccepted ? (
                 <>
-                  
-                  <Link href={`/quest/${dataFiltered[i].quest._id}`}>View Heros Quest</Link>
+                  <Link href={`/quest/${dataFiltered[i].quest._id}`}>
+                    View Heros Quest
+                  </Link>
                   <p>
                     {hero.isBeingReviewed && (
                       <>
@@ -67,7 +70,7 @@ const Hero = styled.div`
   width: 300px;
   border: 1px solid #000;
   border-radius: 30px;
-  padding:25px;
+  padding: 25px;
 `;
 
 const HeroWrap = styled.div`
@@ -79,5 +82,5 @@ const HeroWrap = styled.div`
 `;
 
 const Wrap = styled.div`
-    text-align:center;
-`
+  text-align: center;
+`;

@@ -7,6 +7,7 @@ type User {
   jobs: [Job] @relation(name: "user_jobs")
   role: UserRole
   follower1: User @relation(name: "user_follower1")
+  twitter: String
 }
 
 enum UserRole {

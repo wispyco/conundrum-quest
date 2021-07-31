@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
 import {
+  DELETE_FOLLOWER,
   FOLLOW,
   GET_KNIGHTS,
   GET_QUEST_BY_ID,
@@ -15,6 +16,7 @@ import useSWR from "swr";
 import { query as q } from "faunadb";
 import { authClient } from "../../utils/faunaAuth";
 import { useState, useEffect } from "react";
+import { FaTwitter } from "react-icons/fa";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -82,10 +84,12 @@ const QuestCard = ({ quest, knights, user }) => {
     // }
   }, [user]);
 
-  const [followQuest, { data: followQuestData, loading: saving }] =
+  const [followQuest, { data: followQuestData, loading: following }] =
     useMutation(FOLLOW);
   const [unfollowQuest, { data: unFollowQuestData, loading: unfollowing }] =
     useMutation(UNFOLLOW);
+  const [deleteFollower, { data: deleteFollowerData, loading: deleting }] =
+    useMutation(DELETE_FOLLOWER);
 
   const follow = async (userId, QuestId, userName) => {
     console.log("questId", QuestId);
@@ -98,6 +102,7 @@ const QuestCard = ({ quest, knights, user }) => {
         quests: QuestId,
         owner: userData.id,
       },
+      refetchQueries: [{ query: GET_QUEST_BY_ID, variables: { id: QuestId } }],
     }).catch(console.error);
   };
 
@@ -114,6 +119,12 @@ const QuestCard = ({ quest, knights, user }) => {
         id: unFollowId,
       },
     }).catch(console.error);
+    const deleteFollowerResponse = await deleteFollower({
+      variables: {
+        id: unFollowId,
+      },
+      refetchQueries: [{ query: GET_QUEST_BY_ID, variables: { id: QuestId } }],
+    }).catch(console.error);
   };
 
   const test = quest.follower1s?.data.filter(
@@ -121,6 +132,13 @@ const QuestCard = ({ quest, knights, user }) => {
   );
 
   console.log(test, "test");
+
+  if (following || unfollowing)
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
 
   return (
     <Card>
@@ -154,17 +172,22 @@ const QuestCard = ({ quest, knights, user }) => {
           );
         })}
       </HerosGrid>
-      <h2>Knights</h2>
-      <h3>Submitted By: {quest?.owner?.name}</h3>
-      <h2>Following:</h2>
-      {quest?.follower1s?.data.map((follower) => {
-        return (
-          <>
-            <p>{follower.name}</p>
-            <p>{follower.owner._id}</p>
-          </>
-        );
-      })}
+      <h3 className="submitted">Submitted By: {quest?.owner?.name}</h3>
+      <h2 className="knights">Knights who are following this quest</h2>
+      <FollowersGrid>
+        {quest?.follower1s?.data.map((follower) => {
+          return (
+            <Follower>
+              <p>{follower.owner.name}</p>
+              <a target="_blank" rel="nofollow" href={userData.twitter}>
+                <FaTwitter />
+              </a>
+              {/* <p>followerId{follower._id}</p>
+            <p>ownerID{follower.owner._id}</p> */}
+            </Follower>
+          );
+        })}
+      </FollowersGrid>
 
       <FollowTitle>
         <h2>Follow this quest</h2>
@@ -193,6 +216,16 @@ const QuestCard = ({ quest, knights, user }) => {
     </Card>
   );
 };
+
+const FollowersGrid = styled.div`
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+`;
+
+const Follower = styled.div`
+  display: grid;
+  justify-items: center;
+`;
 
 const Hero = styled.div`
   width: 300px;
@@ -248,6 +281,10 @@ const Card = styled.div`
   h1 {
     font-weight: 300;
     height: 50px;
+  }
+  .knights,
+  .submitted {
+    text-align: center;
   }
   a {
     // border: 1px solid aqua;

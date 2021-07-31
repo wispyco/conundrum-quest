@@ -16,6 +16,7 @@ export default function UpdateUserName({ user, setUserData }) {
   } = useForm({
     defaultValues: {
       name: user.name,
+      twitter: user.twitter,
     },
   });
   const onSubmit = async (data) => {
@@ -23,6 +24,7 @@ export default function UpdateUserName({ user, setUserData }) {
       variables: {
         id: user.id,
         name: data.name,
+        twitter: data.twitter,
       },
       // refetchQueries: [{ query: GET_QUESTS }],
     }).catch(console.error);
@@ -46,6 +48,11 @@ export default function UpdateUserName({ user, setUserData }) {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <h3>Update your Name</h3>
           <input type="text" placeholder="name" {...register("name", {})} />
+          <input
+            type="text"
+            placeholder="Twitter url (https://twitter.com/anderskitson)"
+            {...register("twitter", {})}
+          />
 
           <input type="submit" />
         </Form>
