@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import axios from "axios";
 import { magicClient } from "../lib/magic";
+import Layout from "../components/layout";
+import Loading from "../components/Loading";
+import styled from "styled-components";
 
 export default function MagicVerify() {
   // The redirect contains a `provider` query param if the user is logging in with a social provider
@@ -69,5 +72,15 @@ export default function MagicVerify() {
   //   };
   // }, [router.query]);
 
-  return <h1>Thanks for Joining you will be redirected to your profile</h1>;
+  return (
+    <>
+      <Loading />
+      <Thanks>Thanks for Joining you will be redirected to your profile</Thanks>
+    </>
+  );
 }
+
+const Thanks = styled.h1`
+  margin: 150px 0;
+  text-align: center;
+`;
