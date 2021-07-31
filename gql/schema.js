@@ -222,6 +222,7 @@ export const GET_QUEST_BY_ID = gql`
           owner {
             _id
             name
+            twitter
           }
           _id
           name
