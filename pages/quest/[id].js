@@ -183,7 +183,7 @@ const QuestCard = ({ quest, knights, user }) => {
           return (
             <Follower key={i}>
               <p>{follower.owner.name}</p>
-              <a target="_blank" rel="noreferrer" href={userData.twitter}>
+              <a target="_blank" rel="noreferrer" href={follower.owner.twitter}>
                 <FaTwitter />
               </a>
               {/* <p>followerId{follower._id}</p>
