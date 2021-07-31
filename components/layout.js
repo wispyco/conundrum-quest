@@ -11,6 +11,8 @@ import { Header1 } from "../pages/profile";
 import { GoogleFonts } from "next-google-fonts";
 import { FeedbackFish } from "@feedback-fish/react";
 import Loading from "./Loading";
+import { IoIosPeople } from "react-icons/io";
+import { ImEarth } from "react-icons/im";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -184,7 +186,7 @@ export default function Layout({ children }) {
       {Router.asPath === "/" && (
         <Title>
           <Header2>
-            The World’s hardest problems & who is working on them.
+            The Worlds hardest problems and who is working on them.
           </Header2>
           <Link href="/login-magic-public">Join to Add a Quest</Link>
         </Title>
@@ -192,8 +194,9 @@ export default function Layout({ children }) {
       <Main>{children}</Main>
       <Made href="https://wispy.co">
         <Header2>
-          Made for fun by <span>Wispy Company</span> in The Great White North
+          Made for the <ImEarth /> and its <IoIosPeople />
         </Header2>
+        <p>by wispy.co</p>
       </Made>
     </>
   );
@@ -225,6 +228,7 @@ const Made = styled.a`
   span {
     color: blue;
   }
+  text-align: center;
 `;
 
 const Alpha = styled.span`
