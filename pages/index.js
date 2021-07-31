@@ -7,13 +7,18 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { GiNinjaHeroicStance, GiMountedKnight } from "react-icons/gi";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Home() {
   const { data: user, error: userError } = useSWR("/api/user", fetcher);
 
-  return <Layout>{user && <Data user={user} />}</Layout>;
+  return (
+    <Layout>
+      <>{user && <Data user={user} />}</>
+    </Layout>
+  );
 }
 
 const Data = ({ user }) => {
@@ -190,12 +195,17 @@ const QuestCard = ({ quest }) => {
       <Link href={`quest/${quest._id}`}>View Quest</Link>
       <h3>
         {quest.heros.data.length > 0 && (
-          <>Heros working on this: {quest.heros.data.length}</>
+          <>
+            Heros <GiNinjaHeroicStance size={35} />: {quest.heros.data.length}
+          </>
         )}
       </h3>
       <h3>
         {quest.follower1s.data.length > 0 && (
-          <>Knights following this: {quest.follower1s.data.length}</>
+          <>
+            Knights <GiMountedKnight size={35} />:{" "}
+            {quest.follower1s.data.length}
+          </>
         )}
       </h3>
     </Card>
@@ -209,13 +219,30 @@ const Form = styled.form`
     display: block;
     margin-top: 50px;
   }
+  position:relative;
   display: grid;
-  grid-template-columns: 75px 200px 200px 200px 200px 250px;
+  grid-template-columns: 200px 200px 200px 200px 250px;
+  @media(max-width:1300px){
+    grid-template-columns: 200px 200px 200px 200px 250px;
+  }
   grid-column-gap: 10px;
   margin: 0px auto 50px auto;
   // display: grid;
   // grid-template-columns: 25px 200px 200px;
   label {
+    margin-top:100px;
+    &:first-child{
+      margin-top:0;
+      position:absolute;
+      left:50%;
+      width:100px;
+      margin-left:-50px;
+      @media(max-width:1150px){
+        position:relative;
+        margin:0 auto;
+        left:initial;
+      }
+    }
     div {
       // display: grid;
       // grid-template-columns: 1fr 25px 0;
@@ -277,6 +304,7 @@ const Card = styled.div`
   }
   h3 {
     text-align: center;
+    font-weight: 300;
   }
   a {
     border: 1px solid #000000;

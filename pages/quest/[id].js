@@ -17,6 +17,7 @@ import { query as q } from "faunadb";
 import { authClient } from "../../utils/faunaAuth";
 import { useState, useEffect } from "react";
 import { FaTwitter } from "react-icons/fa";
+import { GiMountedKnight, GiNinjaHeroicStance } from "react-icons/gi";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -146,6 +147,7 @@ const QuestCard = ({ quest, knights, user }) => {
       <p>{quest?.description}</p>
       <HeroTitle>
         <h2>Heros</h2>
+        <GiNinjaHeroicStance size={35} />
         {!user?.token ? (
           <Link href={`/login-magic-public`}>Sign Up to Nominate Hero</Link>
         ) : (
@@ -173,7 +175,9 @@ const QuestCard = ({ quest, knights, user }) => {
         })}
       </HerosGrid>
       <h3 className="submitted">Submitted By: {quest?.owner?.name}</h3>
-      <h2 className="knights">Knights who are following this quest</h2>
+      <h2 className="knights">
+        Knights <GiMountedKnight size={35} /> who are following this quest
+      </h2>
       <FollowersGrid>
         {quest?.follower1s?.data.map((follower, i) => {
           return (

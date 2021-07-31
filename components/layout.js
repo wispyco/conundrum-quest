@@ -16,6 +16,7 @@ import { ImEarth } from "react-icons/im";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
+import { Waitlist } from "waitlistapi";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -89,19 +90,28 @@ export default function Layout({ children }) {
     role: user?.role,
   });
 
-  if (!user) return <Loading />;
+  const [jobs, setJobs] = useState(false);
+
+  // if (!user) return <Loading />;
 
   return (
     <>
       <Head>
         <title>Conundrum Quest</title>
+        <meta property="og:title" content="Conundrum Quest" />
         <meta
-          name="description"
+          property="og:description"
           content="A place to see the world’s hardest problems. 
-          And who’s working on them."
+  Who’s working on them and to follow along"
         />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:image" content="/logo-3.png" />
+        <meta property="og:url" content="https://conundrum.quest" />
+        <meta
+          property="og:image"
+          content="https://conundrum-quest.vercel.app/logo-3-large.png"
+        />
+        <meta property="og:image:width" content="148" />
+        <meta property="og:image:height" content="186" />
       </Head>
       <Script
         src="https://upload-widget.cloudinary.com/global/all.js"
@@ -126,6 +136,7 @@ export default function Layout({ children }) {
                 My Profile
                 {/* </a> */}
               </Link>
+              <button onClick={() => setJobs(true)}>Job Board</button>
 
               <a
                 target="_blank"
@@ -134,14 +145,14 @@ export default function Layout({ children }) {
               >
                 Were Open Source
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenu>
           ) : (
             <UserMenuOut>
               <Link href="/login-magic-public">login / signup</Link>
-
+              <button onClick={() => setJobs(true)}>Job Board</button>
               <a
                 target="_blank"
                 rel="noreferrer"
@@ -149,7 +160,7 @@ export default function Layout({ children }) {
               >
                 Were Open Source
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenuOut>
@@ -165,6 +176,7 @@ export default function Layout({ children }) {
                 My Profile
                 {/* </a> */}
               </Link>
+              <button onClick={() => setJobs(true)}>Job Board</button>
 
               <a
                 target="_blank"
@@ -173,13 +185,14 @@ export default function Layout({ children }) {
               >
                 Were Open Source
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenuMobile>
           ) : (
             <UserMenuMobile>
               <Link href="/login-magic-public">login / signup</Link>
+              <button onClick={() => setJobs(true)}>Job Board</button>
 
               <a
                 target="_blank"
@@ -188,7 +201,7 @@ export default function Layout({ children }) {
               >
                 Were Open Source, see our naked code
               </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user.email}>
+              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
                 <NavButton>Send feedback</NavButton>
               </FeedbackFish>
             </UserMenuMobile>
@@ -210,12 +223,49 @@ export default function Layout({ children }) {
           Made for the <ImEarth /> and its <IoIosPeople />
         </Header2>
         <p>by wispy.co</p>
+        <Link href="/privacy-policy">Privacy Policy</Link>
       </Made>
+      <>
+        {process.browser && (
+          <>
+            {jobs && (
+              <Wait>
+                <button onClick={() => setJobs(false)}>
+                  <GrClose />
+                </button>
+                <Waitlist
+                  api_key="NB4BSM"
+                  waitlist_link="https://conundrum.quest"
+                />
+              </Wait>
+            )}
+          </>
+        )}
+      </>
     </>
   );
 }
 
 const NavButton = styled.button``;
+
+const Wait = styled.div`
+  position: fixed;
+  width: 800px;
+  margin-left: -400px;
+  left: 50%;
+  top: 200px;
+  background: #c7c7c7eb;
+  padding: 200px;
+  z-index: 500;
+  border-radius: 20px;
+  @media (max-width: 1100px) {
+    padding: 0;
+    width: 300px;
+    margin-left: -150px;
+    top: 100px;
+    background: none;
+  }
+`;
 
 const Title = styled.div`
   margin: 150px auto 0 auto;
@@ -291,9 +341,9 @@ const UserMenu = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 100px 100px 200px 150px;
+  grid-template-columns: 100px 100px 125px 200px 150px;
   // grid-row-gap: 10px;
-  width: 550px;
+  width: 650px;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
@@ -325,12 +375,12 @@ const UserMenuOut = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 150px 200px 150px;
+  grid-template-columns: 150px 100px 175px 150px;
   // grid-row-gap: 10px;
   width: 550px;
   align-items: center;
   text-align: center;
-  @media (max-width: 1100px) {
+  @media (max-width: 1250px) {
     display: none;
   }
   button {
@@ -367,7 +417,7 @@ const UserMenuMobile = styled.div`
   background: #fff;
   z-index: 100;
   text-align: center;
-  @media (min-width: 1100px) {
+  @media (min-width: 1250px) {
     display: none;
   }
   button {
@@ -400,7 +450,7 @@ const Menu = styled.button`
   background: none;
   border: none;
   display: none;
-  @media (max-width: 1100px) {
+  @media (max-width: 1250px) {
     display: block;
   }
 `;
