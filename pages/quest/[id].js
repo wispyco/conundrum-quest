@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
 import {
   GET_KNIGHTS,

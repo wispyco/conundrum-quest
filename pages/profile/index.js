@@ -23,10 +23,15 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 //     error,
 //     mutate,
 //   } = useSWR("/api/user-profile", fetcher, { refreshInterval: 3 });
-  function useAuth() {
-    const { data: user, error, mutate, isValidating } = useSWR("/api/user-profile", fetcher);
+function useAuth() {
+  const {
+    data: user,
+    error,
+    mutate,
+    isValidating,
+  } = useSWR("/api/user-profile", fetcher, { refreshInterval: 1 });
 
-    console.log('user >>>> ',user)
+  console.log("user >>>> ", user);
 
   const loading = user?.token === false || user === undefined || isValidating;
 
@@ -38,71 +43,42 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 }
 
 export default function Profile() {
+  const {
+    data: user,
+    error,
+    mutate,
+    isValidating,
+  } = useSWR("/api/user-profile", fetcher, { refreshInterval: 2500 });
 
-  const { data: user, error, mutate, isValidating } = useSWR("/api/user-profile", fetcher);
+  const router = useRouter();
 
-
-  const router = useRouter()
-
-  // const { user, loading, error } = useAuth();
-
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    let isMounted = true; // note mutable flag
 
     const identify = authClient(user?.tokenId)
-    .query(q.Get(q.CurrentIdentity()))
-    .then(function (res) {
-      return res;
-    });
+      .query(q.Get(q.CurrentIdentity()))
+      .then(function (res) {
+        return res;
+      });
 
     async function setData() {
       try {
         const ref = await identify;
 
-        setUserData({ ...ref.data, id: ref.ref.value.id });
+        if (isMounted) setUserData({ ...ref.data, id: ref.ref.value.id });
       } catch (e) {
         console.log("e", e);
       }
     }
     setData();
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
 
-
-    // TODO: make this work better for thos who visit profile page but aren't logged in
-    // if(!user){
-    //   router.push("/login-magic-public")
-    // }
-
-  }, [user, error, mutate, isValidating]);
-
-  console.log('user, error, mutate, isValidating', user, error, mutate, isValidating)
-
-  async function report(e, id) {
-    var data = "action" in e ? e["document"].data : e.data;
-    setUserData({ ...data, id: id });
-  }
-
-  var stream;
-  const startStream = async () => {
-    const ref = await identify;
-
-    stream = authClient(user?.tokenId)
-      .stream.document(ref.ref)
-      .on("snapshot", (snapshot) => {
-        report(snapshot, ref.ref.value.id);
-      })
-      .on("version", (version) => {
-        report(version, ref.ref.value.id);
-      })
-      .on("error", (error) => {
-        console.log("Error:", error);
-        stream.close();
-        setTimeout(startStream, 1000);
-      })
-      .start();
-  };
-
-  //startStream();
+  console.log("user, error, isValidating", user, error, isValidating);
 
   const [addQuest, setAddQuest] = useState(false);
 
@@ -110,78 +86,77 @@ export default function Profile() {
     setAddQuest((clicked) => !clicked);
   };
 
-  console.log('userData',userData)
+  console.log("userData", userData);
 
   if (error) return <h1>{error.message}</h1>;
-  if (isValidating) return <Layout><Loading/></Layout>
-  if(user === undefined || !userData) return <Layout><Loading/>undefined</Layout>
+  if (!userData || user === undefined)
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
 
   return (
     <Layout>
       <pre>
-    {/* {JSON.stringify(userData, null,2)} */}
-    {/* {JSON.stringify(user, null,2)} */}
-    </pre>
-      {/* {!user.token ? (
-        <>
-          <Header1>SignUp</Header1>
-        </>
-      ) : ( */}
-        <>
-          <Header2>login email: {userData.email}</Header2>
-          {userData.role === "ADMIN" && (
-            <>
-              <CreateInviteWrap>
-                <CreateInvite />
-              </CreateInviteWrap>
-              <ViewInvitesWrap>
-                <ViewInvites />
-              </ViewInvitesWrap>
-            </>
-          )}
-          {userData.role === "KNIGHT" && (
-            <>
-              <Header3>Welcome Knight {userData.name}</Header3>
-              <UpdateUserName user={userData} />
-              <AddQuest onClick={clickedAddQuest}>
-                {!addQuest ? "Add a Quest" : "X"}
-              </AddQuest>
+        {/* {JSON.stringify(userData, null,2)} */}
+        {/* {JSON.stringify(user, null,2)} */}
+      </pre>
+      <>
+        <Header2>login email: {userData?.email}</Header2>
+        {userData?.role === "ADMIN" && (
+          <>
+            <CreateInviteWrap>
+              <CreateInvite />
+            </CreateInviteWrap>
+            <ViewInvitesWrap>
+              <ViewInvites />
+            </ViewInvitesWrap>
+          </>
+        )}
+        {userData?.role === "KNIGHT" && (
+          <>
+            <Header3>Welcome Knight {userData?.name}</Header3>
+            <UpdateUserName user={userData} />
+            <AddQuest onClick={clickedAddQuest}>
+              {!addQuest ? "Add a Quest" : "X"}
+            </AddQuest>
 
-              {addQuest && (
-                <CreateQuestWrap>
-                  <CreateQuest
-                    clickedAddQuest={clickedAddQuest}
-                    user={userData}
-                  />
-                </CreateQuestWrap>
-              )}
-              <QuestsWrap>
-                <QuestsProfile user={userData} />
-              </QuestsWrap>
-              <Nominations user={userData} />
-            </>
-          )}
-          {userData.role === "MODERATOR" && (
-            <>
-              <Header3>Welcome Moderator {userData.name}</Header3>
-              <AddQuest onClick={clickedAddQuest}>
-                {!addQuest ? "Add a Quest" : "X"}
-              </AddQuest>
-              {addQuest && (
-                <CreateQuestWrap>
-                  <CreateQuest
-                    clickedAddQuest={clickedAddQuest}
-                    user={userData}
-                  />
-                </CreateQuestWrap>
-              )}
-              <QuestsWrap>
-                <QuestsStatusEdit user={userData} />
-              </QuestsWrap>
-              <NominationsFull user={userData} />
-            </>
-          )}
-        </>
+            {addQuest && (
+              <CreateQuestWrap>
+                <CreateQuest
+                  clickedAddQuest={clickedAddQuest}
+                  user={userData}
+                />
+              </CreateQuestWrap>
+            )}
+            <QuestsWrap>
+              <QuestsProfile user={userData} />
+            </QuestsWrap>
+            <Nominations user={userData} />
+          </>
+        )}
+        {userData?.role === "MODERATOR" && (
+          <>
+            <Header3>Welcome Moderator {userData?.name}</Header3>
+            <AddQuest onClick={clickedAddQuest}>
+              {!addQuest ? "Add a Quest" : "X"}
+            </AddQuest>
+            {addQuest && (
+              <CreateQuestWrap>
+                <CreateQuest
+                  clickedAddQuest={clickedAddQuest}
+                  user={userData}
+                />
+              </CreateQuestWrap>
+            )}
+            <QuestsWrap>
+              <QuestsStatusEdit user={userData} />
+            </QuestsWrap>
+            <NominationsFull user={userData} />
+          </>
+        )}
+      </>
       {/* )} */}
     </Layout>
   );
@@ -254,9 +229,3 @@ const AddQuest = styled.button`
     cursor: pointer;
   }
 `;
-
-// const AddStreetWear = styled.button`
-//   position: fixed;
-//   bottom: 25px;
-//   right: 25px;
-// `;
