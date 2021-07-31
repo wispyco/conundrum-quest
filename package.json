@@ -32,7 +32,8 @@
     "react-icons": "^4.2.0",
     "react-popper": "^2.2.5",
     "styled-components": "^5.3.0",
-    "swr": "^0.5.6"
+    "swr": "^0.5.6",
+    "waitlistapi": "^0.6.2"
   },
   "devDependencies": {
     "eslint": "7.30.0",

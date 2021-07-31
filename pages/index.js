@@ -13,7 +13,11 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 export default function Home() {
   const { data: user, error: userError } = useSWR("/api/user", fetcher);
 
-  return <Layout>{user && <Data user={user} />}</Layout>;
+  return (
+    <Layout>
+      <>{user && <Data user={user} />}</>
+    </Layout>
+  );
 }
 
 const Data = ({ user }) => {

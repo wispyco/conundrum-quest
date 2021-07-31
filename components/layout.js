@@ -16,6 +16,7 @@ import { ImEarth } from "react-icons/im";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
+import { Waitlist } from "waitlistapi";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -89,6 +90,8 @@ export default function Layout({ children }) {
     role: user?.role,
   });
 
+  const [jobs, setJobs] = useState(false);
+
   // if (!user) return <Loading />;
 
   return (
@@ -130,6 +133,7 @@ export default function Layout({ children }) {
                 My Profile
                 {/* </a> */}
               </Link>
+              <button onClick={() => setJobs(true)}>Job Board</button>
 
               <a
                 target="_blank"
@@ -145,7 +149,7 @@ export default function Layout({ children }) {
           ) : (
             <UserMenuOut>
               <Link href="/login-magic-public">login / signup</Link>
-
+              <button onClick={() => setJobs(true)}>Job Board</button>
               <a
                 target="_blank"
                 rel="noreferrer"
@@ -169,6 +173,7 @@ export default function Layout({ children }) {
                 My Profile
                 {/* </a> */}
               </Link>
+              <button onClick={() => setJobs(true)}>Job Board</button>
 
               <a
                 target="_blank"
@@ -184,6 +189,7 @@ export default function Layout({ children }) {
           ) : (
             <UserMenuMobile>
               <Link href="/login-magic-public">login / signup</Link>
+              <button onClick={() => setJobs(true)}>Job Board</button>
 
               <a
                 target="_blank"
@@ -215,11 +221,47 @@ export default function Layout({ children }) {
         </Header2>
         <p>by wispy.co</p>
       </Made>
+      <>
+        {process.browser && (
+          <>
+            {jobs && (
+              <Wait>
+                <button onClick={() => setJobs(false)}>
+                  <GrClose />
+                </button>
+                <Waitlist
+                  api_key="NB4BSM"
+                  waitlist_link="https://conundrum.quest"
+                />
+              </Wait>
+            )}
+          </>
+        )}
+      </>
     </>
   );
 }
 
 const NavButton = styled.button``;
+
+const Wait = styled.div`
+  position: fixed;
+  width: 800px;
+  margin-left: -400px;
+  left: 50%;
+  top: 200px;
+  background: #c7c7c7eb;
+  padding: 200px;
+  z-index: 500;
+  border-radius: 20px;
+  @media (max-width: 1100px) {
+    padding: 0;
+    width: 300px;
+    margin-left: -150px;
+    top: 100px;
+    background: none;
+  }
+`;
 
 const Title = styled.div`
   margin: 150px auto 0 auto;
@@ -295,9 +337,9 @@ const UserMenu = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 100px 100px 200px 150px;
+  grid-template-columns: 100px 100px 200px 200px 150px;
   // grid-row-gap: 10px;
-  width: 550px;
+  width: 750px;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
@@ -329,9 +371,9 @@ const UserMenuOut = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 150px 200px 150px;
+  grid-template-columns: 150px 200px 200px 150px;
   // grid-row-gap: 10px;
-  width: 550px;
+  width: 750px;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
