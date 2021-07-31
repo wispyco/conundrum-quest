@@ -166,6 +166,9 @@ export const GET_QUESTS = gql`
     getQuests {
       data {
         name
+        followers {
+          name
+        }
         image
         description
         _id
@@ -182,7 +185,7 @@ export const GET_QUESTS = gql`
             twitter
           }
         }
-        moderator{
+        moderator {
           name
           _id
         }
@@ -208,12 +211,16 @@ export const GET_QUEST_BY_ID = gql`
     findQuestByID(id: $id) {
       name
       image
+      followers {
+        name
+        id
+      }
       description
       _id
       isAccepted
       isBeingReviewed
       category
-      owner{
+      owner {
         _id
         name
       }
@@ -300,7 +307,7 @@ export const UPDATE_HERO = gql`
         isAccepted: $isAccepted
         isBeingReviewed: $isBeingReviewed
       }
-    ){
+    ) {
       name
     }
   }
@@ -316,7 +323,7 @@ export const GET_HEROS = gql`
         isBeingReviewed
         isClaimed
         description
-        moderator{
+        moderator {
           name
           _id
         }
@@ -342,7 +349,7 @@ export const GET_HERO_BY_ID = gql`
       wikipedia
       isAccepted
       isBeingReviewed
-      quest{
+      quest {
         _id
       }
     }
@@ -350,12 +357,12 @@ export const GET_HERO_BY_ID = gql`
 `;
 
 export const DELETE_HERO_BY_ID = gql`
-  mutation($id:ID!){
-    deleteHero(id:$id){
+  mutation ($id: ID!) {
+    deleteHero(id: $id) {
       name
     }
   }
-`
+`;
 
 export const UPDATE_QUEST_CLAIMED = gql`
   mutation (
@@ -367,9 +374,9 @@ export const UPDATE_QUEST_CLAIMED = gql`
     updateQuest(
       id: $id
       data: {
-      isClaimed: $isClaimed
-      isBeingReviewed: $isBeingReviewed
-      moderator: {connect:$moderatorConnect}
+        isClaimed: $isClaimed
+        isBeingReviewed: $isBeingReviewed
+        moderator: { connect: $moderatorConnect }
       }
     ) {
       name
@@ -378,16 +385,12 @@ export const UPDATE_QUEST_CLAIMED = gql`
 `;
 
 export const UPDATE_QUEST_UNCLAIMED = gql`
-  mutation (
-    $id: ID!
-    $isClaimed: Boolean
-    $moderatorDisconnect: Boolean
-  ) {
+  mutation ($id: ID!, $isClaimed: Boolean, $moderatorDisconnect: Boolean) {
     updateQuest(
       id: $id
       data: {
-      isClaimed: $isClaimed
-      moderator: {disconnect:$moderatorDisconnect}
+        isClaimed: $isClaimed
+        moderator: { disconnect: $moderatorDisconnect }
       }
     ) {
       name
@@ -396,17 +399,10 @@ export const UPDATE_QUEST_UNCLAIMED = gql`
 `;
 
 export const UPDATE_HERO_CLAIMED = gql`
-  mutation (
-    $id: ID!
-    $isClaimed: Boolean
-    $moderatorConnect: ID!
-  ) {
+  mutation ($id: ID!, $isClaimed: Boolean, $moderatorConnect: ID!) {
     updateHero(
       id: $id
-      data: {
-      isClaimed: $isClaimed
-      moderator: {connect:$moderatorConnect}
-      }
+      data: { isClaimed: $isClaimed, moderator: { connect: $moderatorConnect } }
     ) {
       name
     }
@@ -414,16 +410,12 @@ export const UPDATE_HERO_CLAIMED = gql`
 `;
 
 export const UPDATE_HERO_UNCLAIMED = gql`
-  mutation (
-    $id: ID!
-    $isClaimed: Boolean
-    $moderatorDisconnect: Boolean
-  ) {
+  mutation ($id: ID!, $isClaimed: Boolean, $moderatorDisconnect: Boolean) {
     updateHero(
       id: $id
       data: {
-      isClaimed: $isClaimed
-      moderator: {disconnect:$moderatorDisconnect}
+        isClaimed: $isClaimed
+        moderator: { disconnect: $moderatorDisconnect }
       }
     ) {
       name
@@ -432,22 +424,38 @@ export const UPDATE_HERO_UNCLAIMED = gql`
 `;
 
 export const UPDATE_USER_NAME = gql`
-  mutation($id:ID!, $name:String){
-    updateUser(id:$id,data:{name:$name}){
+  mutation ($id: ID!, $name: String) {
+    updateUser(id: $id, data: { name: $name }) {
       name
     }
   }
-`
+`;
 
 export const GET_KNIGHTS = gql`
-  query{
-    getKnights{
-      data{
+  query {
+    getKnights {
+      data {
         name
-        quest{
+        quest {
           _id
         }
       }
     }
   }
-`
+`;
+
+export const UPDATE_QUEST_FOLLOWERS = gql`
+  mutation ($id: ID!, $followerId: ID!, $name: String, $isFollowing: Boolean) {
+    updateQuest(
+      id: $id
+      data: { followers: [{ name: $name, isFollowing: $isFollowing, id: $followerId }] }
+    ) {
+      name
+      followers {
+        name
+        isFollowing
+        id
+      }
+    }
+  }
+`;

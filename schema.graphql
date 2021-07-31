@@ -29,9 +29,17 @@ type Quest {
   isAccepted: Boolean
   isBeingReviewed: Boolean
   knights: [Knight] @relation(name: "quest_knights")
+  followers: [Follower]
   category: Category
   moderator: User
   isClaimed: Boolean
+}
+
+type Follower @embedded{
+  name:String
+  twitter: String
+  isFollowing: Boolean
+  id: ID!
 }
 
 enum Category {
