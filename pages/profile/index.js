@@ -117,7 +117,7 @@ export default function Profile() {
         {userData?.role === "KNIGHT" && (
           <>
             <Header3>Welcome Knight {userData?.name}</Header3>
-            <UpdateUserName user={userData} />
+            <UpdateUserName setUserData={setUserData} user={userData} />
             <AddQuest onClick={clickedAddQuest}>
               {!addQuest ? "Add a Quest" : "X"}
             </AddQuest>
