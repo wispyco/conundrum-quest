@@ -16,6 +16,7 @@ import { ImEarth } from "react-icons/im";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
+import { Helmet } from "react-helmet";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -93,7 +94,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <Head>
+      <Helmet>
         <title>Conundrum Quest</title>
         <meta
           name="description"
@@ -102,7 +103,7 @@ export default function Layout({ children }) {
         />
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:image" content="/logo-3.png" />
-      </Head>
+      </Helmet>
       <Script
         src="https://upload-widget.cloudinary.com/global/all.js"
         type="text/javascript"
