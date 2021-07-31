@@ -58,6 +58,29 @@ const DataRendered = ({ data }) => {
       )
     );
   };
+  const findHealth = () => {
+    setQuests(
+      data?.getQuests?.data.filter(
+        (questF) => questF.category === "HEALTHCARE_LIFE_SCIENCES"
+      )
+    );
+  };
+  const findTransport = () => {
+    setQuests(
+      data?.getQuests?.data.filter(
+        (questF) => questF.category === "TRANSPORTATION_URBAN_INFRASTRUCTURE"
+      )
+    );
+  };
+  const findDigital = () => {
+    setQuests(
+      data?.getQuests?.data.filter(
+        (questF) =>
+          questF.category ===
+          "DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING"
+      )
+    );
+  };
   const findAll = () => {
     setQuests(data?.getQuests?.data);
   };
@@ -104,6 +127,45 @@ const DataRendered = ({ data }) => {
             <span className="radio__control"></span>
           </div>
         </label>
+        <label className="radio">
+          <div>
+            <p>Healthcare + Life Sciences</p>
+
+            <input
+              onClick={findHealth}
+              {...register("category", {})}
+              type="radio"
+              value="HEALTHCARE_LIFE_SCIENCES"
+            />
+            <span className="radio__control"></span>
+          </div>
+        </label>
+        <label className="radio">
+          <div>
+            <p>Transportation + Urban Infrastructure</p>
+
+            <input
+              onClick={findTransport}
+              {...register("category", {})}
+              type="radio"
+              value="TRANSPORTATION_URBAN_INFRASTRUCTURE"
+            />
+            <span className="radio__control"></span>
+          </div>
+        </label>
+        <label className="radio">
+          <div>
+            <p>Digital Immersive Learning / Therapies + Ambient Computing</p>
+
+            <input
+              onClick={findDigital}
+              {...register("category", {})}
+              type="radio"
+              value="DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING"
+            />
+            <span className="radio__control"></span>
+          </div>
+        </label>
       </Form>
 
       {/* <pre>
@@ -141,13 +203,13 @@ const QuestCard = ({ quest }) => {
 };
 
 const Form = styled.form`
-  width: 600px;
-  @media (max-width: 1100px) {
+  width: 1125px;
+  @media (max-width: 1150px) {
     width: 50%;
     display: block;
   }
   display: grid;
-  grid-template-columns: 75px 200px 200px;
+  grid-template-columns: 75px 200px 200px 200px 200px 250px;
   grid-column-gap: 10px;
   margin: 0px auto 50px auto;
   // display: grid;
