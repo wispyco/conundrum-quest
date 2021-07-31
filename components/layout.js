@@ -95,13 +95,17 @@ export default function Layout({ children }) {
     <>
       <Head>
         <title>Conundrum Quest</title>
+        <meta property="og:title" content="Conundrum Quest" />
         <meta
-          name="description"
+          property="og:description"
           content="A place to see the world’s hardest problems. 
-          And who’s working on them."
+  And who’s working on them and follow along"
         />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:url" content="https://conundrum.quest" />
         <meta property="og:image" content="/logo-3.png" />
+        <meta property="og:image:width" content="148" />
+        <meta property="og:image:height" content="186" />
       </Head>
       <Script
         src="https://upload-widget.cloudinary.com/global/all.js"
