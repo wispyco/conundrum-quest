@@ -102,7 +102,7 @@ export default function Layout({ children }) {
         <meta
           property="og:description"
           content="A place to see the world’s hardest problems. 
-  And who’s working on them and follow along"
+  Who’s working on them and to follow along"
         />
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:url" content="https://conundrum.quest" />
@@ -340,9 +340,9 @@ const UserMenu = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 100px 100px 200px 200px 150px;
+  grid-template-columns: 100px 100px 125px 200px 150px;
   // grid-row-gap: 10px;
-  width: 750px;
+  width: 650px;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
@@ -374,9 +374,9 @@ const UserMenuOut = styled.div`
   top: 25px;
   right: 25px;
   display: grid;
-  grid-template-columns: 150px 200px 200px 150px;
+  grid-template-columns: 150px 125px 200px 150px;
   // grid-row-gap: 10px;
-  width: 750px;
+  width: 650px;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {

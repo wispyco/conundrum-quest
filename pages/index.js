@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { GiNinjaHeroicStance, GiMountedKnight } from "react-icons/gi";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -194,12 +195,17 @@ const QuestCard = ({ quest }) => {
       <Link href={`quest/${quest._id}`}>View Quest</Link>
       <h3>
         {quest.heros.data.length > 0 && (
-          <>Heros working on this: {quest.heros.data.length}</>
+          <>
+            Heros <GiNinjaHeroicStance size={35} />: {quest.heros.data.length}
+          </>
         )}
       </h3>
       <h3>
         {quest.follower1s.data.length > 0 && (
-          <>Knights following this: {quest.follower1s.data.length}</>
+          <>
+            Knights <GiMountedKnight size={35} />:{" "}
+            {quest.follower1s.data.length}
+          </>
         )}
       </h3>
     </Card>
@@ -281,6 +287,7 @@ const Card = styled.div`
   }
   h3 {
     text-align: center;
+    font-weight: 300;
   }
   a {
     border: 1px solid #000000;
