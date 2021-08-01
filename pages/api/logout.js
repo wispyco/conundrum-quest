@@ -128,7 +128,7 @@ export default async (req, res) => {
   //   "fauna_client=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=conundrum-quest.vercel.app"
   // );
 
-  const setCookie = res.getHeader("set-cookie");
+  const setCookie = res.getHeader("set-cookie", "fauna_client");
 
   console.log("req", setCookie);
 
