@@ -160,12 +160,13 @@ export default async (req, res) => {
   const MAX_AGE = 60 * 60 * 8; // 8 hours
 
   const cookie = serialize(TOKEN_NAME, "", {
-    //maxAge: -1,
-    expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    maxAge: -1,
+    // expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
+    // httpOnly: true,
+    // secure: process.env.NODE_ENV === "production",
     path: "/",
-    sameSite: "lax",
+    domain: "conundrum-quest.vercel.app",
+    // sameSite: "lax",
   });
 
   res.setHeader("Set-Cookie", cookie);
