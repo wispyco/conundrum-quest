@@ -290,6 +290,10 @@ const FollowTitle = styled.div`
 
 const Card = styled.div`
   width: 1000px;
+  p {
+    line-height: 28px;
+    text-align: center;
+  }
   @media (max-width: 1100px) {
     width: 80%;
     margin: 250px auto;
