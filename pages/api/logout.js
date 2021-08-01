@@ -111,15 +111,15 @@ export default async (req, res) => {
 
   // const MAX_AGE = 60 * 60 * 8; // 8 hours
 
-  const COOKIE_OPTIONS = {
-    maxAge: -999999999,
-    expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
-    httpOnly: true,
-    secure: true,
-    path: "/",
-    sameSite: "lax",
-    domain: "conundrum-quest.vercel.app",
-  };
+  // const COOKIE_OPTIONS = {
+  //   maxAge: -999999999,
+  //   expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
+  //   httpOnly: true,
+  //   secure: true,
+  //   path: "/",
+  //   sameSite: "lax",
+  //   domain: "conundrum-quest.vercel.app",
+  // };
 
   // res.removeCookies("fauna_client", COOKIE_OPTIONS);
 
@@ -128,18 +128,31 @@ export default async (req, res) => {
   //   "fauna_client=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=conundrum-quest.vercel.app"
   // );
 
-  const setCookie = res.getHeader("set-cookie", "fauna_client");
+  // const setCookie = res.getHeader("set-cookie", "fauna_client");
 
-  console.log("req", setCookie);
+  // console.log("req", setCookie);
 
-  /* remove cookies from request header */
-  res.setHeader("Set-Cookie", [
-    serialize("fauna_client", "", COOKIE_OPTIONS),
-    // serialize('mytoken2', '', {
-    //   maxAge: -1,
-    //   path: '/',
-    // }),
-  ]);
+  // /* remove cookies from request header */
+  // res.setHeader("Set-Cookie", [
+  //   serialize("fauna_client", "", COOKIE_OPTIONS),
+  //   // serialize('mytoken2', '', {
+  //   //   maxAge: -1,
+  //   //   path: '/',
+  //   // }),
+  // ]);
+
+  res.setHeader(
+    "Set-Cookie",
+    serialize("fauna_client", "", {
+      maxAge: -999999999,
+      expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
+      httpOnly: true,
+      secure: true,
+      path: "/",
+      sameSite: "lax",
+      domain: "conundrum-quest.vercel.app",
+    })
+  );
 
   //comment upload fdsfs
 
