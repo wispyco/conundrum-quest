@@ -86,12 +86,28 @@ export default async (req, res) => {
   //   }),
   // ]);
 
-  const test = removeCookies(req, "fauna_client", {
-    path: "/",
-    domain: ".vercel.app",
-  });
+  // const test = removeCookies(req, "fauna_client", {
+  //   path: "/",
+  //   domain: "conundrum-quest.vercel.app",
+  // });
 
-  console.log("test", test);
+  // console.log("test", test);
+
+  // res.setHeader('Set-Cookie', [
+  //   serialize('fauna_client', '', {
+  //     maxAge: -1,
+  //     path: '/',
+  //   }),
+  //   // serialize('mytoken2', '', {
+  //   //   maxAge: -1,
+  //   //   path: '/',
+  //   // }),
+  // ]);
+
+  res.setHeader(
+    "Set-Cookie",
+    "fauna_client=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+  );
 
   /* remove cookies from request header */
   // res.setHeader("Set-Cookie", [
