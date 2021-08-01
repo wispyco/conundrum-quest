@@ -388,6 +388,17 @@ const Header2 = styled.h2`
   width: 800px;
   @media (max-width: 1100px) {
     width: 75%;
+    color: #000;
+    font-size: 30px;
+    background: #d3d3d3c7;
+    padding-bottom: 20px;
+    margin-top: 50px;
+    &.title em {
+      color: #000;
+    }
+    span {
+      color: #000;
+    }
   }
   margin: 0 auto;
 `;
