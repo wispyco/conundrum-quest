@@ -93,21 +93,25 @@ export default async (req, res) => {
 
   // console.log("test", test);
 
-  // res.setHeader('Set-Cookie', [
-  //   serialize('fauna_client', '', {
-  //     maxAge: -1,
-  //     path: '/',
-  //   }),
-  //   // serialize('mytoken2', '', {
-  //   //   maxAge: -1,
-  //   //   path: '/',
-  //   // }),
-  // ]);
+  res.setHeader("Set-Cookie", [
+    serialize("fauna_client", "", {
+      maxAge: -1,
+      expires: new Date(Date.now() - 100000),
+      httpOnly: true,
+      secure: true,
+      path: "/",
+      sameSite: "lax",
+    }),
+    // serialize('mytoken2', '', {
+    //   maxAge: -1,
+    //   path: '/',
+    // }),
+  ]);
 
-  res.setHeader(
-    "Set-Cookie",
-    "fauna_client=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=conundrum-quest.vercel.app"
-  );
+  // res.setHeader(
+  //   "Set-Cookie",
+  //   "fauna_client=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=conundrum-quest.vercel.app"
+  // );
 
   /* remove cookies from request header */
   // res.setHeader("Set-Cookie", [
