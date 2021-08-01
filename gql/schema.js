@@ -33,6 +33,7 @@ export const CREATE_QUEST = gql`
     $ownerConnect: ID!
     $image: String
     $category: Category
+    $videoLink: String
   ) {
     createQuest(
       data: {
@@ -44,6 +45,7 @@ export const CREATE_QUEST = gql`
         image: $image
         category: $category
         isClaimed: false
+        videoLink: $videoLink
       }
     ) {
       name
@@ -82,6 +84,7 @@ export const UPDATE_QUEST = gql`
     $image: String
     $category: Category
     $isAccepted: Boolean
+    $videoLink: String
   ) {
     updateQuest(
       id: $id
@@ -92,6 +95,7 @@ export const UPDATE_QUEST = gql`
         isAccepted: $isAccepted
         image: $image
         category: $category
+        videoLink: $videoLink
       }
     ) {
       name
@@ -217,6 +221,7 @@ export const GET_QUEST_BY_ID = gql`
     findQuestByID(id: $id) {
       name
       image
+      videoLink
       follower1s {
         data {
           owner {

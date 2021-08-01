@@ -36,6 +36,7 @@ type Quest {
   category: Category
   moderator: User
   isClaimed: Boolean
+  videoLink: String
 }
 
 type Follower1 {
