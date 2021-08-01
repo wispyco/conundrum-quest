@@ -276,7 +276,7 @@ const Card = styled.div`
   width: 1000px;
   @media (max-width: 1100px) {
     width: 80%;
-    margin: 0 auto;
+    margin: 250px auto;
     text-align: center;
     h1 {
       height: auto !important;
