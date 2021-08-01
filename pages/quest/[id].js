@@ -19,6 +19,8 @@ import { useState, useEffect } from "react";
 import { FaTwitter } from "react-icons/fa";
 import { GiMountedKnight, GiNinjaHeroicStance } from "react-icons/gi";
 import ReactPlayer from "react-player";
+import Image from "next/image";
+import { DiscussionEmbed } from "disqus-react";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -189,6 +191,15 @@ const QuestCard = ({ quest, knights, user }) => {
           return (
             <Follower key={i}>
               <p>{follower.owner.name}</p>
+              {follower.owner.profileImage && (
+                <ImageWrap>
+                  <Image
+                    width="100"
+                    height="100"
+                    src={follower?.owner?.profileImage}
+                  />
+                </ImageWrap>
+              )}
               <a target="_blank" rel="noreferrer" href={follower.owner.twitter}>
                 <FaTwitter />
               </a>
@@ -223,9 +234,25 @@ const QuestCard = ({ quest, knights, user }) => {
           </>
         )}
       </FollowTitle>
+      <DiscussionEmbed
+        shortname="conundrum-quest"
+        config={{
+          url: `https://conundrum.quest/quest/${quest._id}`,
+          identifier: `${quest._id}`,
+          title: `${quest?.name}`,
+          language: "zh_TW", //e.g. for Traditional Chinese (Taiwan)
+        }}
+      />
     </Card>
   );
 };
+
+const ImageWrap = styled.div`
+  object-fit: cover;
+  img {
+    border-radius: 50%;
+  }
+`;
 
 const VideoWrap = styled.div`
   width: 600px;
