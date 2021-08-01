@@ -81,10 +81,6 @@ export default async (req, res) => {
     serialize("fauna_client", "", {
       maxAge: -1,
       domain: "conundrum-quest.vercel.app",
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
-      path: "/",
     }),
   ]);
 
