@@ -38,8 +38,6 @@ export default function Layout({ children }) {
       //   domain: "conundrum-quest.vercel.app",
       // });
 
-      console.log("ctx", ctx);
-
       removeCookies({}, "fauna_client", {
         path: "/",
         domain: "conudrum-quest.vercel.app",
