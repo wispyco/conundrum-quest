@@ -519,7 +519,7 @@ const UserMenuMobile = styled.div`
 `;
 
 const Menu = styled.button`
-  position: absolute;
+  position: fixed;
   right: 15px;
   z-index: 400;
   top: 15px;
@@ -546,6 +546,9 @@ const Logo = styled.img`
   box-shadow: 5px 5px 10px #dadada;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 1100px) {
+    margin-top: 0;
   }
 `;
 
