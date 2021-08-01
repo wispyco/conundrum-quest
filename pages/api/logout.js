@@ -83,7 +83,7 @@ export default async (req, res) => {
   res.setHeader("Set-Cookie", [
     serialize("fauna_client", "", {
       maxAge: -1,
-      expires: "Thu, 01 Jan 1970 00:00:00 GMT",
+      expires: new Date(0).toUTCString(),
       domain: "conundrum-quest.vercel.app",
       httpOnly: true,
       secure: true,
