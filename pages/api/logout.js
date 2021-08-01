@@ -109,8 +109,10 @@ export default async (req, res) => {
   //   // }),
   // ]);
 
+  const MAX_AGE = 60 * 60 * 8; // 8 hours
+
   const COOKIE_OPTIONS = {
-    maxAge: -9999,
+    maxAge: -MAX_AGE,
     expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
     httpOnly: true,
     secure: true,
