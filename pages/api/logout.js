@@ -93,20 +93,33 @@ export default async (req, res) => {
 
   // console.log("test", test);
 
-  res.setHeader("Set-Cookie", [
-    serialize("fauna_client", "", {
-      maxAge: -1,
-      expires: new Date(Date.now() - 100000),
-      httpOnly: true,
-      secure: true,
-      path: "/",
-      sameSite: "lax",
-    }),
-    // serialize('mytoken2', '', {
-    //   maxAge: -1,
-    //   path: '/',
-    // }),
-  ]);
+  // res.setHeader("Set-Cookie", [
+  //   serialize("fauna_client", "", {
+  //     maxAge: -1,
+  //     expires: new Date(Date.now() - 100000),
+  //     httpOnly: true,
+  //     secure: true,
+  //     path: "/",
+  //     sameSite: "lax",
+  //     domain: "conundrum-quest.vercel.app",
+  //   }),
+  //   // serialize('mytoken2', '', {
+  //   //   maxAge: -1,
+  //   //   path: '/',
+  //   // }),
+  // ]);
+
+  const COOKIE_OPTIONS = {
+    maxAge: -1,
+    expires: new Date(Date.now() - 100000),
+    httpOnly: true,
+    secure: true,
+    path: "/",
+    sameSite: "lax",
+    domain: "conundrum-quest.vercel.app",
+  };
+
+  res.clearCookie("fauna_client", COOKIE_OPTIONS);
 
   // res.setHeader(
   //   "Set-Cookie",
