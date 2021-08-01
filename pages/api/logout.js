@@ -111,7 +111,7 @@ export default async (req, res) => {
 
   const COOKIE_OPTIONS = {
     maxAge: -1,
-    expires: "Thu, 01 Jan 1970 00:00:00 GMT",
+    expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT").toUTCString(),
     httpOnly: true,
     secure: true,
     path: "/",
