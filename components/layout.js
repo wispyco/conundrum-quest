@@ -29,6 +29,10 @@ export default function Layout({ children }) {
       const res = await fetch("/api/logout", {
         method: "GET",
       });
+      document.cookie =
+        "cookieName=fauna_client; Path=/; domain=conundrum-quest.vercel.app; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      document.cookie =
+        "cookieName=fauna_client; Path=/; domain=conundrum.quest; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
       Router.push("/login-magic-public");
     });
   };
