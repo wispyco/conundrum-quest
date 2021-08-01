@@ -4,7 +4,7 @@ import { createHandlers } from "../../lib/rest-utils";
 const handlers = {
   GET: async (req, res) => {
     console.log("test");
-    await removeSession(req, res);
+    await removeSession(res, req);
 
     res.status(200).send({ done: true });
   },
