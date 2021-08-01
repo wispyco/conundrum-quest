@@ -25,11 +25,23 @@ import { serialize, parse } from "cookie";
 export default async (req, res) => {
   /* remove cookies from request header */
 
+  // res.setHeader("Set-Cookie", [
+  //   serialize("fauna_client", "", {
+  //     maxAge: Date.now(),
+  //     expires: "Thu, 01 Jan 1970 00:00:01 GMT",
+  //     domain: "conundrum.quest",
+  //     httpOnly: true,
+  //     secure: true,
+  //     sameSite: "lax",
+  //     path: "/",
+  //   }),
+  // ]);
+
   res.setHeader("Set-Cookie", [
     serialize("fauna_client", "", {
       maxAge: Date.now(),
       expires: "Thu, 01 Jan 1970 00:00:01 GMT",
-      domain: "conundrum.quest",
+      domain: ["conundrum.quest", "conundrum-quest.vercel.app", "localhost"],
       httpOnly: true,
       secure: true,
       sameSite: "lax",
@@ -37,28 +49,16 @@ export default async (req, res) => {
     }),
   ]);
 
-  res.setHeader("Set-Cookie", [
-    serialize("fauna_client", "", {
-      maxAge: Date.now(),
-      expires: "Thu, 01 Jan 1970 00:00:01 GMT",
-      domain: "conundrum-quest.vercel.app",
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
-      path: "/",
-    }),
-  ]);
-
-  res.setHeader("Set-Cookie", [
-    serialize("fauna_client", "", {
-      maxAge: Date.now(),
-      expires: "Thu, 01 Jan 1970 00:00:01 GMT",
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
-      path: "/",
-    }),
-  ]);
+  // res.setHeader("Set-Cookie", [
+  //   serialize("fauna_client", "", {
+  //     maxAge: Date.now(),
+  //     expires: "Thu, 01 Jan 1970 00:00:01 GMT",
+  //     httpOnly: true,
+  //     secure: true,
+  //     sameSite: "lax",
+  //     path: "/",
+  //   }),
+  // ]);
 
   // res.writeHead(302, { Location: '/api/login' });
   res.status(200).send({ done: true });
