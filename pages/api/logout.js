@@ -145,6 +145,7 @@ export default async (req, res) => {
     "Set-Cookie",
     serialize("fauna_client", "", {
       maxAge: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
+      expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
       // expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
       // httpOnly: true,
       // secure: true,
