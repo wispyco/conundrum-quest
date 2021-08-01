@@ -88,7 +88,7 @@ export default async (req, res) => {
 
   const test = removeCookies(req, "fauna_client", {
     path: "/",
-    domain: "conundrum-quest.vercel.app",
+    domain: ".conundrum-quest.vercel.app",
   });
 
   console.log("test", test);
