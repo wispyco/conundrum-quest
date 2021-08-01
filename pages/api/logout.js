@@ -77,11 +77,23 @@ import { serialize, parse } from "cookie";
 export default async (req, res) => {
   /* remove cookies from request header */
 
+  // res.setHeader("Set-Cookie", [
+  //   serialize("fauna_client", "", {
+  //     maxAge: -1,
+  //     domain: "conundrum-quest.vercel.app",
+  //   }),
+  // ]);
+
+  /* remove cookies from request header */
   res.setHeader("Set-Cookie", [
-    serialize("fauna_client", "", {
+    serialize("fauna_token", "", {
       maxAge: -1,
-      domain: "conundrum-quest.vercel.app",
+      path: "/",
     }),
+    // serialize('mytoken2', '', {
+    //   maxAge: -1,
+    //   path: '/',
+    // }),
   ]);
 
   //comment upload fdsfs
