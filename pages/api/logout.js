@@ -38,7 +38,7 @@ export default async (req, res) => {
   // ]);
 
   let dt = new Date();
-  dt.setDate(dt.getDate() - 100);
+  dt.setDate(dt.getDate() - 9999);
 
   console.log("dt", dt);
 
