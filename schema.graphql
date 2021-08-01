@@ -8,6 +8,7 @@ type User {
   role: UserRole
   follower1: User @relation(name: "user_follower1")
   twitter: String
+  profileImage: String
 }
 
 enum UserRole {

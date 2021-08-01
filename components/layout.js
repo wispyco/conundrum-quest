@@ -17,18 +17,24 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
 import { Waitlist } from "waitlistapi";
+import Cookies from "js-cookie";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Layout({ children }) {
   const Router = useRouter();
 
+  // console.log("ctx", ctx);
+
   const logout = () => {
     magicClient.user.logout().then(async (test) => {
       // console.log(await magicClient.user.isLoggedIn()); // => `false`
-      const res = await fetch("/api/logout", {
-        method: "GET",
-      });
+      // const res = await fetch("/api/logout", {
+      //   method: "GET",
+      // });
+
+      Cookies.remove("fauna_client");
+
       Router.push("/login-magic-public");
     });
   };

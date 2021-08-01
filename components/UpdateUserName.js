@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { GET_QUESTS, UPDATE_USER_NAME } from "../gql/schema";
-
+import Image from "next/image";
 import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 
@@ -25,6 +25,7 @@ export default function UpdateUserName({ user, setUserData }) {
         id: user.id,
         name: data.name,
         twitter: data.twitter,
+        profileImage: cloudLinks,
       },
       // refetchQueries: [{ query: GET_QUESTS }],
     }).catch(console.error);
@@ -37,6 +38,33 @@ export default function UpdateUserName({ user, setUserData }) {
 
   const toggleUserDetails = () => {
     setUserDetails((state) => !state);
+  };
+
+  const [cloudLinks, setCloudLinks] = useState(user?.profileImage);
+
+  const clickMe = () => {
+    const isBrowser = typeof window !== "undefined";
+
+    if (!isBrowser) {
+      return;
+    }
+    console.log(window.cloudinary); //
+    let widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: `kitson-co`,
+        sources: ["local", "url"],
+        uploadPreset: `conundrum`,
+        maxFiles: 1,
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          console.log(result.info.url);
+          // setCloudLinks([...cloudLinks, result.info.url])
+          setCloudLinks(result.info.url);
+        }
+      }
+    );
+    widget.open(); //
   };
 
   return (
@@ -53,13 +81,32 @@ export default function UpdateUserName({ user, setUserData }) {
             placeholder="Twitter url (https://twitter.com/anderskitson)"
             {...register("twitter", {})}
           />
-
+          <button
+            type="button"
+            onClick={clickMe}
+            id="upload_widget"
+            className="upload"
+          >
+            Choose Profile Image
+          </button>
+          {cloudLinks && (
+            <ImageWrap>
+              <Image width="100" height="100" src={cloudLinks} />
+            </ImageWrap>
+          )}
           <input type="submit" />
         </Form>
       )}
     </>
   );
 }
+
+const ImageWrap = styled.div`
+  object-fit: cover;
+  img {
+    border-radius: 50%;
+  }
+`;
 
 const Form = styled.form`
   width: 400px;
