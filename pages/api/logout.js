@@ -111,9 +111,9 @@ export default async (req, res) => {
 
   const COOKIE_OPTIONS = {
     maxAge: -1,
-    // expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT").toUTCString(),
+    expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
     httpOnly: true,
-    // secure: true,
+    secure: true,
     path: "/",
     sameSite: "lax",
     domain: "conundrum-quest.vercel.app",
