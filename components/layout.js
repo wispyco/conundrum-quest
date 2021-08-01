@@ -40,7 +40,7 @@ export default function Layout({ children }) {
 
       removeCookies({}, "fauna_client", {
         path: "/",
-        domain: ".conundrum-quest.vercel.app",
+        domain: ".vercel.app",
       });
 
       // document.cookie =
