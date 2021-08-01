@@ -116,7 +116,7 @@ export default async (req, res) => {
     secure: true,
     path: "/",
     sameSite: "lax",
-    // domain: "conundrum-quest.vercel.app",
+    domain: "conundrum-quest.vercel.app",
   };
 
   // res.removeCookies("fauna_client", COOKIE_OPTIONS);
