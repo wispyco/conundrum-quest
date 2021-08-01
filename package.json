@@ -28,6 +28,7 @@
     "markerjs2": "^2.9.0",
     "next": "^11.0.2-canary.16",
     "next-google-fonts": "^2.2.0",
+    "nookies": "^2.5.2",
     "randomcolor": "^0.6.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
