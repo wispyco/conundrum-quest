@@ -92,7 +92,7 @@ export default async (req, res) => {
     }),
   ]);
 
-  //comment upload
+  //comment upload fdsfs
 
   // res.writeHead(302, { Location: '/api/login' });
   res.status(200).send({ done: true });
