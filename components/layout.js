@@ -31,10 +31,19 @@ export default function Layout({ children }) {
       //   method: "GET",
       // });
 
-      Cookies.remove("fauna_client", {
-        path: "/",
-        domain: "conundrum-quest.vercel.app",
-      });
+      // Cookies.remove("fauna_client", {
+      //   path: "/",
+      //   domain: "conundrum-quest.vercel.app",
+      // });
+
+      try {
+        Cookies.remove("fauna_client", {
+          path: "/profile",
+          domain: "conundrum-quest.vercel.app",
+        });
+      } catch (e) {
+        console.log("e", e);
+      }
 
       // document.cookie =
       //   "cookieName=fauna_client; Path=/; domain=conundrum-quest.vercel.app; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
