@@ -87,4 +87,6 @@ export default function Profile() {
   );
 }
 
-const QuestWrap = styled.div``;
+const QuestWrap = styled.div`
+  margin-top: 150px;
+`;

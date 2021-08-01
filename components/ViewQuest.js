@@ -1,42 +1,53 @@
 import styled from "styled-components";
+import ReactPlayer from "react-player";
 
 export default function ViewQuest({ user, data, Router }) {
- 
-  const {findQuestByID} = data
+  const { findQuestByID } = data;
 
   return (
     <>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-      <QuestCard quest={findQuestByID}/>
-      
+      <QuestCard quest={findQuestByID} />
     </>
   );
 }
 
 const QuestCard = ({ quest }) => {
+  function youtube_parser(url) {
+    var regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return match && match[7].length == 11 ? match[7] : false;
+  }
+
+  const videoId = youtube_parser(quest.videoLink);
+
   return (
     <Card>
       <h1>{quest?.name}</h1>
       <p>{quest?.description}</p>
-      {quest.heros.data.map((hero)=>{
-         return( 
-             <>
-             
-             <Hero>
-            <h3>{hero?.name}</h3>
-            <p>{hero?.description}</p>
-            <a rel="noreferrer"  target="_blank" href={hero?.wikipedia}>Wikipedia Article</a>
-          </Hero>
+      <ReactPlayer url={quest.videoLink} />
+
+      {quest.heros.data.map((hero) => {
+        return (
+          <>
+            <Hero>
+              <h3>{hero?.name}</h3>
+              <p>{hero?.description}</p>
+              <a rel="noreferrer" target="_blank" href={hero?.wikipedia}>
+                Wikipedia Article
+              </a>
+            </Hero>
           </>
-        )
+        );
       })}
     </Card>
   );
 };
 
 const Hero = styled.div`
-    width:300px;
-`
+  width: 300px;
+`;
 
 const Card = styled.div`
   width: 500px;
@@ -58,5 +69,3 @@ const Card = styled.div`
     margin: 0 auto;
   }
 `;
-
-

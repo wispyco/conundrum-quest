@@ -18,6 +18,7 @@ import { authClient } from "../../utils/faunaAuth";
 import { useState, useEffect } from "react";
 import { FaTwitter } from "react-icons/fa";
 import { GiMountedKnight, GiNinjaHeroicStance } from "react-icons/gi";
+import ReactPlayer from "react-player";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -145,6 +146,11 @@ const QuestCard = ({ quest, knights, user }) => {
     <Card>
       <h1>{quest?.name}</h1>
       <p>{quest?.description}</p>
+      {quest.videoLink && (
+        <VideoWrap>
+          <ReactPlayer width="100%" height="100%" url={quest?.videoLink} />
+        </VideoWrap>
+      )}
       <HeroTitle>
         <h2>Heros</h2>
         <GiNinjaHeroicStance size={35} />
@@ -221,6 +227,16 @@ const QuestCard = ({ quest, knights, user }) => {
   );
 };
 
+const VideoWrap = styled.div`
+  width: 600px;
+  margin: 0 auto;
+  height: 300px;
+  @media (max-width: 1100px) {
+    width: 100%;
+    margin-bottom: 100px;
+  }
+`;
+
 const FollowersGrid = styled.div`
   display: grid;
   grid-template-columns: 200px 200px 200px 200px;
@@ -274,6 +290,10 @@ const FollowTitle = styled.div`
 
 const Card = styled.div`
   width: 1000px;
+  p {
+    line-height: 28px;
+    text-align: center;
+  }
   @media (max-width: 1100px) {
     width: 80%;
     margin: 250px auto;

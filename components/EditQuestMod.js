@@ -21,11 +21,18 @@ export default function EditQuestMod({ user, data, Router }) {
       category: data.findQuestByID.category,
       // isBeingReviewed: JSON.stringify(data.findQuestByID.isBeingReviewed),
       isAccepted: JSON.stringify(data.findQuestByID.isAccepted),
+      videoLink: data.findQuestByID.videoLink,
     },
   });
   const onSubmit = async (dataSubmit) => {
-    const { name, description, category, isBeingReviewed, isAccepted } =
-      dataSubmit;
+    const {
+      name,
+      description,
+      category,
+      isBeingReviewed,
+      isAccepted,
+      videoLink,
+    } = dataSubmit;
 
     const isBeingReviewedSet = isBeingReviewed === "true";
     const isAcceptedSet = isAccepted === "true";
@@ -39,6 +46,7 @@ export default function EditQuestMod({ user, data, Router }) {
         image: "https://google.com",
         // heroName: heroName,
         isAccepted: isAcceptedSet,
+        videoLink: videoLink,
         // isBeingReviewed: isBeingReviewedSet,
         // heroDescription: heroDescription,
         // heroWebsite: heroWebsite,
@@ -68,6 +76,11 @@ export default function EditQuestMod({ user, data, Router }) {
         <textarea
           placeholder="Food and climate change are linked in complicated ways. The global food industry requires an enormous amount of energy to cultivate, transport, store, prepare, and serve foods. This leads to lots of greenhouse gases, and, in the process, soils, rivers, oceans, forests, and more, are often degraded and destroyed."
           {...register("description", {})}
+        />
+        <input
+          type="text"
+          placeholder="Video Link"
+          {...register("videoLink", {})}
         />
         <h2>Category</h2>
         <select {...register("category", {})}>

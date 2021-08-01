@@ -179,9 +179,12 @@ const DataRendered = ({ data }) => {
     </pre> */}
 
       <QuestCardGrid>
-        {quests.map((quest) => {
-          return <>{quest?.isAccepted && <QuestCard quest={quest} />}</>;
-        })}
+        {quests
+          .slice(0)
+          .reverse()
+          .map((quest) => {
+            return <>{quest?.isAccepted && <QuestCard quest={quest} />}</>;
+          })}
       </QuestCardGrid>
 
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
