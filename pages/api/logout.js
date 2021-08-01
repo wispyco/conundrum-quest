@@ -119,7 +119,7 @@ export default async (req, res) => {
     // domain: "conundrum-quest.vercel.app",
   };
 
-  res.clearCookie("fauna_client", COOKIE_OPTIONS);
+  res.removeCookies("fauna_client", COOKIE_OPTIONS);
 
   // res.setHeader(
   //   "Set-Cookie",
