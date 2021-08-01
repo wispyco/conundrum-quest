@@ -4,8 +4,11 @@ import { createHandlers } from "../../lib/rest-utils";
 const handlers = {
   GET: async (req, res) => {
     console.log("test");
-    await removeSession(res);
-
+    //await removeSession(res);
+    res.setHeader(
+      "Set-Cookie",
+      "key=fauna_client; Max-Age=-1; domain=conundrum-quest.vercel.app; path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;"
+    );
     res.status(200).send({ done: true });
   },
 };
