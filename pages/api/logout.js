@@ -126,7 +126,7 @@ export default async (req, res) => {
   //   "fauna_client=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=conundrum-quest.vercel.app"
   // );
 
-  console.log("req", req.getHeader("fauna_client"));
+  console.log("req", res.getHeader());
 
   /* remove cookies from request header */
   res.setHeader("Set-Cookie", [
