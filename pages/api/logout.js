@@ -40,6 +40,8 @@ export default async (req, res) => {
   let dt = new Date();
   dt.setDate(dt.getDate() - 100);
 
+  console.log("dt", dt);
+
   res.setHeader("Set-Cookie", [
     serialize("fauna_client", "", {
       maxAge: -9999,
