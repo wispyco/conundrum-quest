@@ -17,6 +17,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
 import { Waitlist } from "waitlistapi";
+import cookieCutter from "cookie-cutter";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -29,6 +30,9 @@ export default function Layout({ children }) {
       const res = await fetch("/api/logout", {
         method: "GET",
       });
+
+      cookieCutter.set("fauna_client", "", { expires: new Date(0) });
+
       // document.cookie =
       //   "cookieName=fauna_client; Path=/; domain=conundrum-quest.vercel.app; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
       // document.cookie =
