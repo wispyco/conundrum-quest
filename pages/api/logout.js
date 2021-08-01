@@ -76,7 +76,6 @@ import { serialize, parse } from "cookie";
 
 import { removeCookies } from "cookies-next";
 
-
 export default async (req, res) => {
   /* remove cookies from request header */
 
@@ -98,11 +97,11 @@ export default async (req, res) => {
   //     maxAge: -1,
   //     path: "/",
   //   }),
-    // serialize('mytoken2', '', {
-    //   maxAge: -1,
-    //   path: '/',
-    // }),
-  ]);
+  // serialize('mytoken2', '', {
+  //   maxAge: -1,
+  //   path: '/',
+  // }),
+  // ]);
 
   //comment upload fdsfs
 
