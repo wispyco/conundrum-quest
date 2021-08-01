@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { GiNinjaHeroicStance, GiMountedKnight } from "react-icons/gi";
+import router, { useRouter } from "next/router";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -189,8 +190,14 @@ const DataRendered = ({ data }) => {
 };
 
 const QuestCard = ({ quest }) => {
+  const router = useRouter();
+
+  const cardVisit = (questId) => {
+    router.push(`/quest/${questId}`);
+  };
+
   return (
-    <Card>
+    <Card onClick={() => cardVisit(quest._id)}>
       <h1>{quest?.name}</h1>
       <Link href={`quest/${quest._id}`}>View Quest</Link>
       <h3>
@@ -219,10 +226,10 @@ const Form = styled.form`
     display: block;
     margin-top: 50px;
   }
-  position:relative;
+  position: relative;
   display: grid;
   grid-template-columns: 200px 200px 200px 200px 250px;
-  @media(max-width:1300px){
+  @media (max-width: 1300px) {
     grid-template-columns: 200px 200px 200px 200px 250px;
   }
   grid-column-gap: 10px;
@@ -230,17 +237,17 @@ const Form = styled.form`
   // display: grid;
   // grid-template-columns: 25px 200px 200px;
   label {
-    margin-top:100px;
-    &:first-child{
-      margin-top:0;
-      position:absolute;
-      left:50%;
-      width:100px;
-      margin-left:-50px;
-      @media(max-width:1150px){
-        position:relative;
-        margin:0 auto;
-        left:initial;
+    margin-top: 100px;
+    &:first-child {
+      margin-top: 0;
+      position: absolute;
+      left: 50%;
+      width: 100px;
+      margin-left: -50px;
+      @media (max-width: 1150px) {
+        position: relative;
+        margin: 0 auto;
+        left: initial;
       }
     }
     div {
@@ -291,6 +298,9 @@ const Card = styled.div`
   padding: 0 25px 25px 25px;
   border-radius: 30px;
   box-shadow: 5px 5px 10px #dadada;
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 1100px) {
     width: 75%;
   }

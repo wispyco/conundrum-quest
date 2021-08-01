@@ -119,9 +119,10 @@ export default function Layout({ children }) {
       ></Script>
       <GlobalStyle />
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300;400;500;700&display=swap" />
-      <Link href="/">
+      <GoogleFonts href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100;300;500&display=swap" />
+      {/* <Link href="/">
         <Logo src="/logo-3.png" />
-      </Link>
+      </Link> */}
       <Alpha>In Alpha</Alpha>
       <Menu onClick={toggleMenu}>
         {menuState ? <AiOutlineMenu size={40} /> : <GrClose size={40} />}
@@ -129,41 +130,53 @@ export default function Layout({ children }) {
       {menuState ? (
         <>
           {userMenu ? (
-            <UserMenu>
-              <button onClick={logout}>Logout</button>
-              <Link href="/profile">
-                {/* <a onMouseOver={wearH} onMouseOut={wearHB}> */}
-                My Profile
-                {/* </a> */}
+            <Nav>
+              <Header1>Conundrum Quest</Header1>
+              <Link href="/">
+                <Logo src="/logo-3.png" />
               </Link>
-              <button onClick={() => setJobs(true)}>Job Board</button>
+              <UserMenu>
+                <button onClick={logout}>Logout</button>
+                <Link href="/profile">
+                  {/* <a onMouseOver={wearH} onMouseOut={wearHB}> */}
+                  My Profile
+                  {/* </a> */}
+                </Link>
+                <button onClick={() => setJobs(true)}>Job Board</button>
 
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/wispyco/conundrum-quest"
-              >
-                Were Open Source
-              </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
-                <NavButton>Send feedback</NavButton>
-              </FeedbackFish>
-            </UserMenu>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://github.com/wispyco/conundrum-quest"
+                >
+                  Were Open Source
+                </a>
+                <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
+                  <NavButton>Send feedback</NavButton>
+                </FeedbackFish>
+              </UserMenu>
+            </Nav>
           ) : (
-            <UserMenuOut>
-              <Link href="/login-magic-public">login / signup</Link>
-              <button onClick={() => setJobs(true)}>Job Board</button>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/wispyco/conundrum-quest"
-              >
-                Were Open Source
-              </a>
-              <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
-                <NavButton>Send feedback</NavButton>
-              </FeedbackFish>
-            </UserMenuOut>
+            <Nav>
+              <Header1>Conundrum Quest</Header1>
+              <Link href="/">
+                <Logo src="/logo-3.png" />
+              </Link>
+              <UserMenuOut>
+                <Link href="/login-magic-public">login / signup</Link>
+                <button onClick={() => setJobs(true)}>Job Board</button>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://github.com/wispyco/conundrum-quest"
+                >
+                  Were Open Source
+                </a>
+                <FeedbackFish projectId="38f28542cb7f31" userId={user?.email}>
+                  <NavButton>Send feedback</NavButton>
+                </FeedbackFish>
+              </UserMenuOut>
+            </Nav>
           )}
         </>
       ) : (
@@ -208,11 +221,12 @@ export default function Layout({ children }) {
           )}
         </>
       )}
-      <Header1>Conundrum Quest</Header1>
+      {/* <Header1>Conundrum Quest</Header1> */}
       {Router.asPath === "/" && (
         <Title>
           <Header2 className="title">
-            The <span>Worlds</span> hardest problems and who is working on them.
+            <em>T</em>he <span>Worlds</span> hardest problems and who is working
+            on them.
           </Header2>
           <Link href="/login-magic-public">Join to Add a Quest</Link>
         </Title>
@@ -248,6 +262,30 @@ export default function Layout({ children }) {
 
 const NavButton = styled.button``;
 
+const Nav = styled.div`
+  display grid;
+  grid-template-columns: 450px 300px 1fr;
+  width:1200px;
+  margin: 0 auto;
+  align-items:center;
+  position:fixed;
+  left:50%;
+  margin-left:-600px;
+  top:0;
+  background:#fff;
+  z-index:100;
+  justify-items:center;
+  @media(max-width:1560px){
+    width:1100px;
+    margin-left:-550px;
+    grid-template-columns: 450px 150px 1fr;
+  }
+  @media(max-width:1350px){
+    grid-template-columns: 1fr;
+    grid-row-gap:25px;
+  }
+`;
+
 const Wait = styled.div`
   position: fixed;
   width: 800px;
@@ -280,10 +318,10 @@ const Title = styled.div`
   background-position: center center;
   /* height: 400px; */
   background-attachment: fixed;
-  padding: 263px 0 173px 0;
+  padding: 200px 0 173px 0;
   color: #00c4ff;
-  @media (max-width: 1100px) {
-    margin: 25px auto 0 auto;
+  @media (max-width: 1350px) {
+    margin: 100px auto 0 auto;
   }
   a {
     text-align: center;
@@ -323,6 +361,7 @@ const Alpha = styled.span`
   margin-left: -91px;
   /* box-shadow: 5px 5px 10px #dadada; */
   transform: rotate(-90deg);
+  display: none;
 `;
 
 const Header2 = styled.h2`
@@ -330,8 +369,18 @@ const Header2 = styled.h2`
   span {
     color: #00c4ff;
   }
+  font-family: "Hahmlet", serif;
+  font-weight: 100;
   &.title {
-    font-weight: 500;
+    em {
+      font-size: 64px;
+      letter-spacing: 6px;
+      color: #000;
+      @media (max-width: 620px) {
+        color: #fff;
+      }
+    }
+    font-weight: 300;
     // background: #d3d3d363;
   }
   border-radius: 10px;
@@ -356,19 +405,20 @@ const Header3 = styled.h3`
 `;
 
 const UserMenu = styled.div`
-  position: fixed;
+  //position: fixed;
   background: #fff;
-  top: 0px;
+  //top: 0px;
   // right: 0px;
-  left: 50%;
-  padding: 20px 0px 0 75px;
+  //left: 50%;
+  //padding: 80px 0px 0 75px;
   z-index: 100;
   display: grid;
-  grid-template-columns: 60px 110px 110px 100px 150px;
+  grid-template-columns: 60px 110px 110px 200px 150px;
   // grid-row-gap: 10px;
-  width: 50%;
+  //width: 50%;
   align-items: center;
   text-align: center;
+
   @media (max-width: 1100px) {
     display: none;
   }
@@ -393,17 +443,17 @@ const UserMenu = styled.div`
   }
 `;
 const UserMenuOut = styled.div`
-  position: fixed;
+  //position: fixed;
   background: #fff;
   top: 0px;
-  right: 0px;
-  left: 50%;
-  padding: 25px 0 35px 50px;
+  //right: 0px;
+  //left: 50%;
+  //padding: 25px 0 35px 50px;
   z-index: 100;
   display: grid;
   grid-template-columns: 150px 100px 175px 150px;
   // grid-row-gap: 10px;
-  width: 100%;
+  //width: 100%;
   align-items: center;
   text-align: center;
   @media (max-width: 1250px) {
@@ -482,14 +532,15 @@ const Menu = styled.button`
 `;
 
 const Logo = styled.img`
-  position: fixed;
-  top: 25px;
-  left: 50%;
-  margin-left: -50px;
+  //position: fixed;
+  //top: 25px;
+  //left: 50%;
+  //margin-left: -50px;
   padding: 15px 20px;
   //box-sizing:border-box;
   width: 100px;
   z-index: 890;
+  margin-top: 25px;
   background: #fff;
   border-radius: 30px;
   box-shadow: 5px 5px 10px #dadada;
