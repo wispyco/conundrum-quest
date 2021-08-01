@@ -92,7 +92,7 @@ export default function Layout({ children }) {
 
   const [jobs, setJobs] = useState(false);
 
-  // if (!user) return <Loading />;
+  if (!user) return <Loading />;
 
   return (
     <>
