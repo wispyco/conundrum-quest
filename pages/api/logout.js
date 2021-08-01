@@ -160,8 +160,8 @@ export default async (req, res) => {
   const MAX_AGE = 60 * 60 * 8; // 8 hours
 
   const cookie = serialize(TOKEN_NAME, "", {
-    maxAge: -1,
-    expires: new Date(Date.now() - 1),
+    //maxAge: -1,
+    expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT"),
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     path: "/",
