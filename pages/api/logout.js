@@ -86,10 +86,12 @@ export default async (req, res) => {
   //   }),
   // ]);
 
-  removeCookies(req, "fauna_client", {
+  const test = removeCookies(req, "fauna_client", {
     path: "/",
     domain: "conundrum-quest.vercel.app",
   });
+
+  console.log("test", test);
 
   /* remove cookies from request header */
   // res.setHeader("Set-Cookie", [
