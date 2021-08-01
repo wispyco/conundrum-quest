@@ -76,10 +76,14 @@ import { serialize, parse } from "cookie";
 
 export default async (req, res) => {
   /* remove cookies from request header */
+
+  var d = new Date(); //Create an date object
+  d.setTime(d.getTime() - 1000 * 60 * 60 * 24);
+
   res.setHeader("Set-Cookie", [
     serialize("fauna_client", "", {
-      maxAge: Date.now(),
-      expires: Date.now(),
+      maxAge: -1,
+      expires: d.toGMTString(),
       domain: "conundrum-quest.vercel.app",
       httpOnly: true,
       secure: true,
