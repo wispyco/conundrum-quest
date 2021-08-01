@@ -17,6 +17,7 @@
     "@popperjs/core": "^2.9.2",
     "axios": "^0.21.1",
     "cookie": "^0.4.1",
+    "cookie-universal": "^2.1.5",
     "disqus-react": "^1.1.1",
     "faunadb": "^4.3.0",
     "graphql": "^15.5.1",
