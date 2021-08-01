@@ -17,12 +17,14 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
 import { Waitlist } from "waitlistapi";
-import Cookies from "js-cookie";
+import { removeCookies } from "cookies-next";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Layout({ children }) {
   const Router = useRouter();
+
+  // console.log("ctx", ctx);
 
   const logout = () => {
     magicClient.user.logout().then(async (test) => {
@@ -36,14 +38,12 @@ export default function Layout({ children }) {
       //   domain: "conundrum-quest.vercel.app",
       // });
 
-      try {
-        Cookies.remove("fauna_client", {
-          path: "/profile",
-          domain: "conundrum-quest.vercel.app",
-        });
-      } catch (e) {
-        console.log("e", e);
-      }
+      console.log("ctx", ctx);
+
+      removeCookies({}, "fauna_client", {
+        path: "/",
+        domain: "conudrum-quest.vercel.app",
+      });
 
       // document.cookie =
       //   "cookieName=fauna_client; Path=/; domain=conundrum-quest.vercel.app; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
