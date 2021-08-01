@@ -134,7 +134,7 @@ export default async (req, res) => {
 
   /* remove cookies from request header */
   res.setHeader("Set-Cookie", [
-    serialize("fauna_token", "", COOKIE_OPTIONS),
+    serialize("fauna_client", "", COOKIE_OPTIONS),
     // serialize('mytoken2', '', {
     //   maxAge: -1,
     //   path: '/',
