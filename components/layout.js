@@ -258,9 +258,9 @@ const Wait = styled.div`
   padding: 200px;
   z-index: 500;
   border-radius: 20px;
-  @media(max-width:1600px){
-    top:100px;
-    padding:100px;
+  @media (max-width: 1600px) {
+    top: 100px;
+    padding: 100px;
   }
   @media (max-width: 1100px) {
     padding: 0;
@@ -272,13 +272,16 @@ const Wait = styled.div`
 `;
 
 const Title = styled.div`
-  margin: 150px auto 0 auto;
-  background: url("/banner.jpeg");
-  background-size:cover;
-  background-attachment:fixed;                                        
-  color:#fff;
-  padding:75px 0;
-
+  margin: -70px auto -102px auto;
+  background: url(/banner.jpeg);
+  background: url(/mountain.png);
+  background-size: 517px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* height: 400px; */
+  background-attachment: fixed;
+  padding: 263px 0 173px 0;
+  color: #00c4ff;
   @media (max-width: 1100px) {
     margin: 25px auto 0 auto;
   }
@@ -324,15 +327,14 @@ const Alpha = styled.span`
 
 const Header2 = styled.h2`
   text-align: center;
-  span{
-    color:#00c4ff;
+  span {
+    color: #00c4ff;
   }
-  &.title{
-
+  &.title {
     font-weight: 500;
-    background: #d3d3d363;
+    // background: #d3d3d363;
   }
-  border-radius:10px;
+  border-radius: 10px;
   font-size: 46px;
   width: 800px;
   @media (max-width: 1100px) {
@@ -358,13 +360,13 @@ const UserMenu = styled.div`
   background: #fff;
   top: 0px;
   // right: 0px;
-  left:50%;
+  left: 50%;
   padding: 20px 0px 0 75px;
-  z-index:100;
+  z-index: 100;
   display: grid;
   grid-template-columns: 60px 110px 110px 100px 150px;
   // grid-row-gap: 10px;
-  width:50%;
+  width: 50%;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
@@ -395,9 +397,9 @@ const UserMenuOut = styled.div`
   background: #fff;
   top: 0px;
   right: 0px;
-  left:50%;
+  left: 50%;
   padding: 25px 0 35px 50px;
-  z-index:100;
+  z-index: 100;
   display: grid;
   grid-template-columns: 150px 100px 175px 150px;
   // grid-row-gap: 10px;
