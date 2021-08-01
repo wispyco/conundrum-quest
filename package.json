@@ -21,6 +21,7 @@
     "disqus-react": "^1.1.1",
     "faunadb": "^4.3.0",
     "graphql": "^15.5.1",
+    "js-cookie": "^3.0.0",
     "logrocket": "^2.0.0",
     "magic-sdk": "^4.3.0",
     "markerjs2": "^2.9.0",

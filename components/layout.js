@@ -17,6 +17,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
 import { Waitlist } from "waitlistapi";
+import Cookies from "js-cookie";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -32,10 +33,10 @@ export default function Layout({ children }) {
         method: "GET",
       });
 
-      // Cookies.remove("fauna_client", {
-      //   path: "/",
-      //   domain: "conundrum-quest.vercel.app",
-      // });
+      Cookies.remove("fauna_client", {
+        path: "/",
+        domain: "conundrum-quest.vercel.app",
+      });
 
       // document.cookie =
       //   "cookieName=fauna_client; Path=/; domain=conundrum-quest.vercel.app; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
