@@ -113,7 +113,7 @@ export default async (req, res) => {
     maxAge: -1,
     // expires: new Date("Thu, 01 Jan 1970 00:00:00 GMT").toUTCString(),
     httpOnly: true,
-    secure: true,
+    // secure: true,
     path: "/",
     sameSite: "lax",
     domain: "conundrum-quest.vercel.app",
