@@ -182,6 +182,8 @@ export const Header1 = styled.h1`
     // position: relative;
     // width: 80%;
     // margin: 150px auto 0 auto;
+    margin-top: 50px;
+    font-size: 26px;
   }
   b {
     color: red;

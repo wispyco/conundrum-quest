@@ -388,6 +388,17 @@ const Header2 = styled.h2`
   width: 800px;
   @media (max-width: 1100px) {
     width: 75%;
+    color: #000;
+    font-size: 30px;
+    background: #d3d3d3c7;
+    padding-bottom: 20px;
+    margin-top: 50px;
+    &.title em {
+      color: #000;
+    }
+    span {
+      color: #000;
+    }
   }
   margin: 0 auto;
 `;
@@ -519,7 +530,7 @@ const UserMenuMobile = styled.div`
 `;
 
 const Menu = styled.button`
-  position: absolute;
+  position: fixed;
   right: 15px;
   z-index: 400;
   top: 15px;
@@ -546,6 +557,9 @@ const Logo = styled.img`
   box-shadow: 5px 5px 10px #dadada;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 1100px) {
+    margin-top: 0;
   }
 `;
 
