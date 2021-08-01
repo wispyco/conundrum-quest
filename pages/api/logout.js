@@ -74,6 +74,9 @@
 
 import { serialize, parse } from "cookie";
 
+import { removeCookies } from "cookies-next";
+
+
 export default async (req, res) => {
   /* remove cookies from request header */
 
@@ -84,12 +87,17 @@ export default async (req, res) => {
   //   }),
   // ]);
 
+  removeCookies(req, "fauna_client", {
+    path: "/",
+    domain: "conundrum-quest.vercel.app",
+  });
+
   /* remove cookies from request header */
-  res.setHeader("Set-Cookie", [
-    serialize("fauna_token", "", {
-      maxAge: -1,
-      path: "/",
-    }),
+  // res.setHeader("Set-Cookie", [
+  //   serialize("fauna_token", "", {
+  //     maxAge: -1,
+  //     path: "/",
+  //   }),
     // serialize('mytoken2', '', {
     //   maxAge: -1,
     //   path: '/',
