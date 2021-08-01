@@ -163,23 +163,25 @@ export default function Profile() {
 }
 
 export const Header1 = styled.h1`
-  text-align: center;
+  //text-align: right;
   font-weight: 900;
   letter-spacing: 2px;
   font-size: 42px;
-  width: 50%;
-  position: fixed;
-  background:#fff;
-  margin:0;
-  padding-top:25px;
-  padding-bottom:25px;
-  z-index:100;
-  left: 0;
-  top: 0;
+  //width: 50%;
+  //position: fixed;
+  background: #fff;
+  margin: 0;
+  //padding-top: 25px;
+  //padding-bottom: 25px;
+  z-index: 100;
+  //left: 0;
+  //padding-right: 100px;
+  //right: 50%;
+  //top: 50px;
   @media (max-width: 1100px) {
-    position: relative;
-    width: 80%;
-    margin: 150px auto 0 auto;
+    // position: relative;
+    // width: 80%;
+    // margin: 150px auto 0 auto;
   }
   b {
     color: red;
