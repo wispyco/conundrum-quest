@@ -73,6 +73,7 @@ const Card = styled.div`
   h1 {
     font-weight: 300;
     height: 150px;
+    font-size: 26px;
   }
   a {
     border: 1px solid aqua;

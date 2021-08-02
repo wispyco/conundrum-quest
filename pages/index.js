@@ -213,7 +213,8 @@ const QuestCard = ({ quest }) => {
       <h3>
         {quest.follower1s.data.length > 0 && (
           <>
-            Knights <GiMountedKnight size={35} />:{" "}
+            {/* Knights <GiMountedKnight size={35} />:{" "} */}
+            Followers:
             {quest.follower1s.data.length}
           </>
         )}

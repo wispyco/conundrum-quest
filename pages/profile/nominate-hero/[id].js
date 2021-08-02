@@ -6,6 +6,8 @@ import styled from "styled-components";
 import Layout from "../../../components/layout";
 import useSWR from "swr";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import Image from "next/image";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -86,7 +88,7 @@ const QuestCard = ({ quest, user }) => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const { name, description, wikipedia } = data;
+    const { name, description, wikipedia, youtube } = data;
 
     const createHeroResponse = await createHero({
       variables: {
@@ -98,12 +100,42 @@ const QuestCard = ({ quest, user }) => {
         isBeingReviewed: false,
         // knightConnect: user.id,
         ownerConnect: user.id,
+        avatar: cloudLinks,
+        youtube: youtube,
       },
     }).catch(console.error);
 
     Router.push("/profile");
   };
   console.log(errors);
+
+  const [cloudLinks, setCloudLinks] = useState(null);
+
+  const clickMe = () => {
+    const isBrowser = typeof window !== "undefined";
+
+    if (!isBrowser) {
+      return;
+    }
+    console.log(window.cloudinary); //
+    let widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: `kitson-co`,
+        sources: ["local", "url"],
+        uploadPreset: `conundrum`,
+        maxFiles: 1,
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          console.log(result.info.url);
+          // setCloudLinks([...cloudLinks, result.info.url])
+          setCloudLinks(result.info.url);
+        }
+      }
+    );
+    widget.open(); //
+  };
+
   return (
     <Card>
       <h1>{quest?.name}</h1>
@@ -120,12 +152,33 @@ const QuestCard = ({ quest, user }) => {
           placeholder="Wikipedia url (https://wikipedia.com/hero)"
           {...register("wikipedia", {})}
         />
+        <input type="text" placeholder="youtube" {...register("youtube", {})} />
+        <button
+          type="button"
+          onClick={clickMe}
+          id="upload_widget"
+          className="upload"
+        >
+          Choose Profile Image
+        </button>
+        {cloudLinks && (
+          <ImageWrap>
+            <Image width="100" height="100" src={cloudLinks} />
+          </ImageWrap>
+        )}
 
         <input type="submit" />
       </form>
     </Card>
   );
 };
+
+const ImageWrap = styled.div`
+  object-fit: cover;
+  img {
+    border-radius: 50%;
+  }
+`;
 
 const Card = styled.div`
   width: 900px;

@@ -79,6 +79,7 @@ type Hero {
   twitter: String
   avatar: String
   wikipedia: String
+  youtube: String
   knight: Knight
   quest: Quest @relation(name: "quest_heros")
   owner: User
