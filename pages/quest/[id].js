@@ -44,7 +44,11 @@ export default function QuestSingle() {
   } = useQuery(GET_KNIGHTS);
 
   if (getError || knightsError)
-    return <h1>failed to get {JSON.stringify(knightsError, null, 2)} </h1>;
+    return (
+      <Layout>
+        <Troubles>Were having troubles please refresh your browser</Troubles>
+      </Layout>
+    );
 
   if (getLoading || knightsLoading) return <Loading />;
   const { findQuestByID } = data;
@@ -139,9 +143,9 @@ const QuestCard = ({ quest, knights, user }) => {
 
   if (following || unfollowing)
     return (
-      <Layout>
-        <Loading />
-      </Layout>
+      // <Layout>
+      <Loading />
+      // </Layout>
     );
 
   return (
@@ -155,9 +159,10 @@ const QuestCard = ({ quest, knights, user }) => {
       )}
       <HeroTitle>
         <h2>Heros</h2>
+        <h3>People Working on this Quest</h3>
         <GiNinjaHeroicStance size={35} />
         {!user?.token ? (
-          <Link href={`/login-magic-public`}>Sign Up to Nominate Hero</Link>
+          <Link href={`/login-magic-public`}>Sign-Up to Nominate a Hero</Link>
         ) : (
           <Link href={`/profile/nominate-hero/${quest._id}`}>
             Nominate Hero
@@ -260,6 +265,11 @@ const QuestCard = ({ quest, knights, user }) => {
   );
 };
 
+const Troubles = styled.h1`
+  margin: 150px 0 0 0;
+  text-align: center;
+`;
+
 const ImageWrap = styled.div`
   object-fit: cover;
   img {
@@ -333,6 +343,8 @@ const Card = styled.div`
   p {
     line-height: 28px;
     text-align: center;
+    width: 75%;
+    margin: 25px auto;
   }
   @media (max-width: 1100px) {
     width: 80%;
@@ -352,7 +364,12 @@ const Card = styled.div`
   margin: 150px auto;
   h1 {
     font-weight: 300;
-    height: 50px;
+    // height: 50px;
+    height: auto;
+    width: 85%;
+    margin: 25px auto;
+    line-height: 46px;
+    text-align: center;
   }
   .knights,
   .submitted {
