@@ -110,6 +110,9 @@ export default function CreateQuest({ user, clickedAddQuest }) {
           <option value="DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING">
             Digital Immersive Learning / Therapies + Ambient Computing
           </option>
+          <option value="PHILOSOPHY">
+            Philosophy
+          </option>
         </select>
         {/* <h2>Hero</h2>
         <input
