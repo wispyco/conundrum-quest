@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 export default function Loading() {
   return (
     <ImageRotate>
-      <Image width="50" height="62.48" src="/logo-3.png" />
+      <Image width="124" height="124" src="/logo-5.png" />
     </ImageRotate>
   );
 }

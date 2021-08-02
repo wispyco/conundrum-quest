@@ -110,7 +110,7 @@ export default function Layout({ children }) {
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300;400;500;700&display=swap" />
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100;300;500&display=swap" />
       {/* <Link href="/">
-        <Logo src="/logo-3.png" />
+        <Logo src="/logo-5.png" />
       </Link> */}
       <Alpha>In Alpha</Alpha>
       <Menu onClick={toggleMenu}>
@@ -122,7 +122,7 @@ export default function Layout({ children }) {
             <Nav>
               <Header1>Conundrum Quest</Header1>
               <Link href="/">
-                <Logo src="/logo-3.png" />
+                <Logo src="/logo-5.png" />
               </Link>
               <UserMenu>
                 <button onClick={logout}>Logout</button>
@@ -149,7 +149,7 @@ export default function Layout({ children }) {
             <Nav>
               <Header1>Conundrum Quest</Header1>
               <Link href="/">
-                <Logo src="/logo-3.png" />
+                <Logo src="/logo-5.png" />
               </Link>
               <UserMenuOut>
                 <Link href="/login-magic-public">login / signup</Link>
@@ -578,14 +578,15 @@ const Logo = styled.img`
   //top: 25px;
   //left: 50%;
   //margin-left: -50px;
-  padding: 15px 20px;
+  padding: 2px;
   //box-sizing:border-box;
   width: 100px;
   z-index: 890;
   margin-top: 25px;
-  background: #fff;
-  border-radius: 30px;
-  box-shadow: 5px 5px 10px #dadada;
+  // background: #fff;
+   border-radius: 50%;
+
+    box-shadow: 5px 5px 10px #dadada;
   &:hover {
     cursor: pointer;
   }
