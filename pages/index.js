@@ -244,6 +244,12 @@ const Form = styled.form`
   @media (max-width: 1300px) {
     grid-template-columns: 200px 200px 200px 200px 250px;
   }
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    width:2050px;
+    margin-top:200px;
+    grid-template-columns: 400px 400px 400px 400px 450px;
+    
+  }
   grid-column-gap: 10px;
   margin: 0px auto 50px auto;
   // display: grid;
@@ -261,6 +267,11 @@ const Form = styled.form`
         margin: 0 auto;
         left: initial;
       }
+      @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+        width:300px;
+        margin-left:-150px;
+        top:-75px;
+      }
     }
     div {
       // display: grid;
@@ -270,10 +281,17 @@ const Form = styled.form`
       p {
         text-align: center;
         font-size: 12px;
-        padding: 5px 20px;
+        padding: 5px 25px;
+        @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+          font-size: 26px;
+          padding: 0px 35px
+        }
       }
       @media (max-width: 1150px) {
         height: 66px;
+      }
+      @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+        height: 75px;
       }
     }
     .radio__control {
@@ -289,8 +307,13 @@ const Form = styled.form`
       @media (max-width: 1150px) {
         height: 66px;
       }
+      @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+        height: 75px;
+        border-radius:100px;
+      }
       &:hover {
         cursor: pointer;
+        background:#25cec873;
       }
     }
     input {
@@ -301,6 +324,7 @@ const Form = styled.form`
         background: #25cec873;
         color: #fff;
       }
+      
     }
   }
 `;
@@ -310,6 +334,9 @@ const Card = styled.div`
   padding: 0 25px 25px 25px;
   border-radius: 30px;
   box-shadow: 5px 5px 10px #dadada;
+  @media(min-width:2500px){
+    margin-top:100px;
+  }
   &:hover {
     cursor: pointer;
   }
@@ -354,5 +381,9 @@ const QuestCardGrid = styled.div`
     grid-template-columns: 1fr;
     justify-items: center;
     width: 100%;
+  }
+  @media(min-width:2500px){
+    width:1800px;
+    grid-template-columns:1fr 1fr 1fr;
   }
 `;

@@ -108,7 +108,7 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:url" content="https://conundrum.quest" />
         <meta
           property="og:image"
-          content="https://conundrum.quest/logo-3-large.png"
+          content="https://conundrum.quest/logo-5.png"
         />
         <meta property="og:image:width" content="148" />
         <meta property="og:image:height" content="186" />

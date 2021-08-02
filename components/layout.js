@@ -110,7 +110,7 @@ export default function Layout({ children }) {
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300;400;500;700&display=swap" />
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100;300;500&display=swap" />
       {/* <Link href="/">
-        <Logo src="/logo-3.png" />
+        <Logo src="/logo-5.png" />
       </Link> */}
       <Alpha>In Alpha</Alpha>
       <Menu onClick={toggleMenu}>
@@ -118,11 +118,11 @@ export default function Layout({ children }) {
       </Menu>
       {menuState ? (
         <>
-          {userMenu ? (
+          {!userMenu ? (
             <Nav>
               <Header1>Conundrum Quest</Header1>
               <Link href="/">
-                <Logo src="/logo-3.png" />
+                <Logo src="/logo-5.png" />
               </Link>
               <UserMenu>
                 <button onClick={logout}>Logout</button>
@@ -149,7 +149,7 @@ export default function Layout({ children }) {
             <Nav>
               <Header1>Conundrum Quest</Header1>
               <Link href="/">
-                <Logo src="/logo-3.png" />
+                <Logo src="/logo-5.png" />
               </Link>
               <UserMenuOut>
                 <Link href="/login-magic-public">login / signup</Link>
@@ -273,6 +273,23 @@ const Nav = styled.div`
     grid-template-columns: 1fr;
     grid-row-gap:25px;
   }
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    width:3000px;
+    padding-top:50px;
+    margin-left:-1500px;
+    grid-template-columns: 1350px 250px 1350px;
+    img{
+      justify-self:center;
+      display:block;
+    }
+    div{
+      justify-self:self-start;
+    }
+    h1{
+      font-size:40px;
+      justify-self:self-end;
+    }
+  }
 `;
 
 const Wait = styled.div`
@@ -307,11 +324,12 @@ const Title = styled.div`
   background-position: center center;
   /* height: 400px; */
   background-attachment: fixed;
-  padding: 200px 0 173px 0;
-  color: #00c4ff;
+  padding: 300px 0 173px 0;
+  color: #000;
   @media (max-width: 1350px) {
     margin: 100px auto 0 auto;
   }
+  
   a {
     text-align: center;
     display: block;
@@ -321,6 +339,22 @@ const Title = styled.div`
     padding: 15px;
     background: #25cec8;
     color: #fff;
+  }
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    margin: 170px auto -102px auto;
+    background-size:600px;
+    background-position-y:300px;
+    padding: 600px 0 0px 0;
+    h2{
+      margin-top:-150px;
+      font-size:76px;
+    }
+    a{
+      font-size:34px;
+      width:450px;
+      padding:25px;
+      border-radius:200px;
+    }
   }
 `;
 
@@ -356,7 +390,14 @@ const Alpha = styled.span`
 const Header2 = styled.h2`
   text-align: center;
   span {
-    color: #00c4ff;
+    color: #fff;
+    background:#000;
+    padding:5px;
+    border-radius:10px;
+    @media(max-width:1100px){
+      color:#fff;
+      background:none;
+    }
   }
   font-family: "Hahmlet", serif;
   font-weight: 100;
@@ -375,6 +416,10 @@ const Header2 = styled.h2`
   border-radius: 10px;
   font-size: 46px;
   width: 800px;
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    width:1400px;
+    font-size:86px;
+  }
   @media (max-width: 1100px) {
     width: 75%;
     color: #000;
@@ -441,6 +486,12 @@ const UserMenu = styled.div`
       text-decoration: underline;
     }
   }
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    grid-template-columns: 200px 200px 250px 275px 200px;
+    a,button{
+      font-size:36px;
+    }
+  }
 `;
 const UserMenuOut = styled.div`
   //position: fixed;
@@ -476,6 +527,12 @@ const UserMenuOut = styled.div`
     font-size: 16px;
     &:hover {
       text-decoration: underline;
+    }
+  }
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    grid-template-columns: 250px 200px 350px 350px;
+    a,button{
+      font-size:36px;
     }
   }
 `;
@@ -536,19 +593,25 @@ const Logo = styled.img`
   //top: 25px;
   //left: 50%;
   //margin-left: -50px;
-  padding: 15px 20px;
+  padding: 2px;
   //box-sizing:border-box;
   width: 100px;
   z-index: 890;
   margin-top: 25px;
-  background: #fff;
-  border-radius: 30px;
-  box-shadow: 5px 5px 10px #dadada;
+  // background: #fff;
+   border-radius: 50%;
+
+    box-shadow: 5px 5px 10px #dadada;
   &:hover {
     cursor: pointer;
   }
   @media (max-width: 1100px) {
     margin-top: 0;
+  }
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    // img{
+      width:150px;
+    // }
   }
 `;
 
@@ -566,5 +629,8 @@ const GlobalStyle = createGlobalStyle`
     // @media(max-width:1100px){
     //   overflow:hidden;
     // }
+  }
+  *{
+    //border: 1px solid aqua;
   }
 `;
