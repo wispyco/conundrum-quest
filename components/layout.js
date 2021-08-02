@@ -413,7 +413,7 @@ const UserMenu = styled.div`
   //padding: 80px 0px 0 75px;
   z-index: 100;
   display: grid;
-  grid-template-columns: 60px 110px 110px 200px 150px;
+  grid-template-columns: 60px 110px 110px 110px 150px;
   // grid-row-gap: 10px;
   //width: 50%;
   align-items: center;
