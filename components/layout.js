@@ -118,7 +118,7 @@ export default function Layout({ children }) {
       </Menu>
       {menuState ? (
         <>
-          {!userMenu ? (
+          {userMenu ? (
             <Nav>
               <Header1>Conundrum Quest</Header1>
               <Link href="/">
