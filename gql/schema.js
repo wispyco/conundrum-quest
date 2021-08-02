@@ -264,6 +264,8 @@ export const GET_QUEST_BY_ID = gql`
           avatar
           description
           wikipedia
+          youtube
+          avatar
           _id
           isAccepted
           isBeingReviewed
@@ -291,6 +293,8 @@ export const CREATE_HERO = gql`
     $questConnect: ID!
     $wikipedia: String
     $ownerConnect: ID!
+    $avatar: String
+    $youtube: String
   ) {
     createHero(
       data: {
@@ -302,6 +306,8 @@ export const CREATE_HERO = gql`
         quest: { connect: $questConnect }
         owner: { connect: $ownerConnect }
         isClaimed: false
+        avatar: $avatar
+        youtube: $youtube
       }
     ) {
       name
@@ -319,6 +325,8 @@ export const UPDATE_HERO = gql`
     $questConnect: ID!
     $isAccepted: Boolean
     $isBeingReviewed: Boolean
+    $youtube: String
+    $avatar: String
   ) {
     updateHero(
       id: $id
@@ -330,6 +338,8 @@ export const UPDATE_HERO = gql`
         quest: { connect: $questConnect }
         isAccepted: $isAccepted
         isBeingReviewed: $isBeingReviewed
+        youtube: $youtube
+        avatar: $avatar
       }
     ) {
       name
@@ -373,6 +383,8 @@ export const GET_HERO_BY_ID = gql`
       wikipedia
       isAccepted
       isBeingReviewed
+      avatar
+      youtube
       quest {
         _id
       }

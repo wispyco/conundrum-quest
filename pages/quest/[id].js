@@ -171,11 +171,23 @@ const QuestCard = ({ quest, knights, user }) => {
             <>
               {hero.isAccepted && (
                 <Hero>
+                  {hero.avatar && (
+                    <ImageWrap>
+                      <Image width="100" height="100" src={hero?.avatar} />
+                    </ImageWrap>
+                  )}
                   <h3>{hero?.name}</h3>
                   <p>{hero?.description}</p>
-                  <a rel="noreferrer" target="_blank" href={hero?.wikipedia}>
-                    Wikipedia Article
-                  </a>
+                  {hero.wikipedia && (
+                    <a rel="noreferrer" target="_blank" href={hero?.wikipedia}>
+                      Wikipedia Article
+                    </a>
+                  )}
+                  {hero.youtube && (
+                    <a rel="noreferrer" target="_blank" href={hero?.youtube}>
+                      Youtube Link
+                    </a>
+                  )}
                 </Hero>
               )}
             </>
@@ -184,7 +196,8 @@ const QuestCard = ({ quest, knights, user }) => {
       </HerosGrid>
       <h3 className="submitted">Submitted By: {quest?.owner?.name}</h3>
       <h2 className="knights">
-        Knights <GiMountedKnight size={35} /> who are following this quest
+        {/* Knights <GiMountedKnight size={35} /> who are following this quest */}
+        People following this Quest
       </h2>
       <FollowersGrid>
         {quest?.follower1s?.data.map((follower, i) => {
