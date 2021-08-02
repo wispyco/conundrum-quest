@@ -340,12 +340,16 @@ const Title = styled.div`
       background-position: center -30px;
     }
     @media (max-width: 400px) {
-      background-size: 1800px;
-      background-position: center -50px;
+      background-size: 2000px;
+      background-position: center -80px;
     }
   }
   @media (max-width: 1350px) {
     margin: 100px auto 0 auto;
+  }
+  @media (max-width: 1100px) {
+    background-position: center 200px;
+    padding: 100px 0 173px 0;
   }
   h2 {
   }
