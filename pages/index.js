@@ -89,6 +89,15 @@ const DataRendered = ({ data }) => {
       )
     );
   };
+  const findPhilosophy = () => {
+    setQuests(
+      data?.getQuests?.data.filter(
+        (questF) =>
+          questF.category ===
+          "PHILOSOPHY"
+      )
+    );
+  };
   const findAll = () => {
     setQuests(data?.getQuests?.data);
   };
@@ -179,7 +188,7 @@ const DataRendered = ({ data }) => {
             <p>Philosophy</p>
 
             <input
-              onClick={findDigital}
+              onClick={findPhilosophy}
               {...register("category", {})}
               type="radio"
               value="PHILOSOPHY"
