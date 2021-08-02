@@ -118,7 +118,7 @@ export default function Layout({ children }) {
       </Menu>
       {menuState ? (
         <>
-          {userMenu ? (
+          {!userMenu ? (
             <Nav>
               <Header1>Conundrum Quest</Header1>
               <Link href="/">
@@ -273,28 +273,11 @@ const Nav = styled.div`
     grid-template-columns: 1fr;
     grid-row-gap:25px;
   }
-  @media(min-width:2500px){
-    width:2500px;
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    width:3000px;
     padding-top:50px;
     margin-left:-1500px;
-    grid-template-columns: 1225px 350px 1625px;
-    img{
-      justify-self:self-end;
-      display:block;
-    }
-    div{
-      justify-self:self-start;
-    }
-    h1{
-      font-size:80px;
-      justify-self:self-end;
-    }
-  }
-  @media(min-width:3000px){
-    width:2500px;
-    padding-top:50px;
-    margin-left:-1500px;
-    grid-template-columns: 1250px 250px 1250px;
+    grid-template-columns: 1350px 250px 1350px;
     img{
       justify-self:center;
       display:block;
@@ -303,7 +286,7 @@ const Nav = styled.div`
       justify-self:self-start;
     }
     h1{
-      font-size:80px;
+      font-size:40px;
       justify-self:self-end;
     }
   }
@@ -357,19 +340,19 @@ const Title = styled.div`
     background: #25cec8;
     color: #fff;
   }
-  @media(min-width:2500px){
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
     margin: 170px auto -102px auto;
-    background-size:1000px;
+    background-size:600px;
     background-position-y:300px;
-    padding: 600px 0 173px 0;
+    padding: 600px 0 0px 0;
     h2{
-      margin-top:200px;
-      font-size:80px;
+      margin-top:-150px;
+      font-size:76px;
     }
     a{
-      font-size:64px;
-      width:850px;
-      padding:50px;
+      font-size:34px;
+      width:450px;
+      padding:25px;
       border-radius:200px;
     }
   }
@@ -433,8 +416,9 @@ const Header2 = styled.h2`
   border-radius: 10px;
   font-size: 46px;
   width: 800px;
-  @media(min-width:2500px){
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
     width:1400px;
+    font-size:86px;
   }
   @media (max-width: 1100px) {
     width: 75%;
@@ -502,6 +486,12 @@ const UserMenu = styled.div`
       text-decoration: underline;
     }
   }
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+    grid-template-columns: 200px 200px 250px 275px 200px;
+    a,button{
+      font-size:36px;
+    }
+  }
 `;
 const UserMenuOut = styled.div`
   //position: fixed;
@@ -539,7 +529,7 @@ const UserMenuOut = styled.div`
       text-decoration: underline;
     }
   }
-  @media(min-width:2500px){
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
     grid-template-columns: 250px 200px 350px 350px;
     a,button{
       font-size:36px;
@@ -618,9 +608,9 @@ const Logo = styled.img`
   @media (max-width: 1100px) {
     margin-top: 0;
   }
-  @media(min-width:2500px){
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
     // img{
-      width:200px;
+      width:150px;
     // }
   }
 `;
@@ -639,5 +629,8 @@ const GlobalStyle = createGlobalStyle`
     // @media(max-width:1100px){
     //   overflow:hidden;
     // }
+  }
+  *{
+    //border: 1px solid aqua;
   }
 `;
