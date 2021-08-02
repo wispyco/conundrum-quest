@@ -12,6 +12,8 @@ import LogRocket from "logrocket";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import * as Fathom from "fathom-client";
+
 LogRocket.init("oaksw4/conundrum-quest");
 
 const createApolloClient = (accessToken) => {
