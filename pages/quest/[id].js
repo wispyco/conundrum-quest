@@ -46,7 +46,7 @@ export default function QuestSingle() {
   if (getError || knightsError)
     return (
       <Layout>
-        <h1>Were having troubles please refresh your browser</h1>
+        <Troubles>Were having troubles please refresh your browser</Troubles>
       </Layout>
     );
 
@@ -143,9 +143,9 @@ const QuestCard = ({ quest, knights, user }) => {
 
   if (following || unfollowing)
     return (
-      <Layout>
-        <Loading />
-      </Layout>
+      // <Layout>
+      <Loading />
+      // </Layout>
     );
 
   return (
@@ -264,6 +264,11 @@ const QuestCard = ({ quest, knights, user }) => {
     </Card>
   );
 };
+
+const Troubles = styled.h1`
+  margin: 150px 0 0 0;
+  text-align: center;
+`;
 
 const ImageWrap = styled.div`
   object-fit: cover;
