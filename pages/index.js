@@ -291,7 +291,7 @@ const Form = styled.form`
         height: 66px;
       }
       @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
-        height: 125px;
+        height: 75px;
       }
     }
     .radio__control {
@@ -307,12 +307,13 @@ const Form = styled.form`
       @media (max-width: 1150px) {
         height: 66px;
       }
-      @media(min-width:2500px){
-        height: 125px;
+      @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+        height: 75px;
         border-radius:100px;
       }
       &:hover {
         cursor: pointer;
+        background:#25cec873;
       }
     }
     input {
@@ -323,6 +324,7 @@ const Form = styled.form`
         background: #25cec873;
         color: #fff;
       }
+      
     }
   }
 `;
