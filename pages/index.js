@@ -89,6 +89,15 @@ const DataRendered = ({ data }) => {
       )
     );
   };
+  const findPhilosophy = () => {
+    setQuests(
+      data?.getQuests?.data.filter(
+        (questF) =>
+          questF.category ===
+          "PHILOSOPHY"
+      )
+    );
+  };
   const findAll = () => {
     setQuests(data?.getQuests?.data);
   };
@@ -174,6 +183,19 @@ const DataRendered = ({ data }) => {
             <span className="radio__control"></span>
           </div>
         </label>
+        <label className="radio">
+          <div>
+            <p>Philosophy</p>
+
+            <input
+              onClick={findPhilosophy}
+              {...register("category", {})}
+              type="radio"
+              value="PHILOSOPHY"
+            />
+            <span className="radio__control"></span>
+          </div>
+        </label>
       </Form>
 
       {/* <pre>
@@ -233,6 +255,7 @@ const QuestCard = ({ quest }) => {
 
 const Form = styled.form`
   width: 1125px;
+  padding-top:75px;
   @media (max-width: 1150px) {
     width: 66%;
     display: block;
@@ -255,7 +278,7 @@ const Form = styled.form`
   // display: grid;
   // grid-template-columns: 25px 200px 200px;
   label {
-    margin-top: 100px;
+    margin-top: 0px;
     &:first-child {
       margin-top: 0;
       position: absolute;

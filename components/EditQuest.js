@@ -85,11 +85,23 @@ export default function EditQuest({ user, data, Router }) {
         />
         <h2>Category</h2>
         <select {...register("category", {})}>
-          <option value="SUSTAINABILITY_HUMAN_DEVELOPMENT">
+        <option value="SUSTAINABILITY_HUMAN_DEVELOPMENT">
             Sustainability + Human Development
           </option>
           <option value="TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE">
             Technology Infrastructure + Artificial Intelligence
+          </option>
+          <option value="HEALTHCARE_LIFE_SCIENCES">
+            Healthcare + Life Sciences
+          </option>
+          <option value="TRANSPORTATION_URBAN_INFRASTRUCTURE">
+            Transportation + Urban Infrastructure
+          </option>
+          <option value="DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING">
+            Digital Immersive Learning / Therapies + Ambient Computing
+          </option>
+          <option value="PHILOSOPHY">
+            Philosophy
           </option>
         </select>
 

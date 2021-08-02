@@ -99,6 +99,7 @@ export default function EditQuestMod({ user, data, Router }) {
           <option value="DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING">
             Digital Immersive Learning / Therapies + Ambient Computing
           </option>
+          <option value="PHILOSOPHY">Philosophy</option>
         </select>
         {/* <h2>In Review</h2> */}
         {/* Not reviewing yet
