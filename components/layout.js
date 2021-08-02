@@ -269,7 +269,7 @@ const Nav = styled.div`
     margin-left:-550px;
     grid-template-columns: 450px 150px 1fr;
   }
-  @media(max-width:1350px){
+  @media(max-width:1150px){
     grid-template-columns: 1fr;
     grid-row-gap:25px;
   }
