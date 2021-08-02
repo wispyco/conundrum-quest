@@ -13,14 +13,14 @@ export default function ViewQuest({ user, data, Router }) {
 }
 
 const QuestCard = ({ quest }) => {
-  function youtube_parser(url) {
-    var regExp =
-      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-    var match = url.match(regExp);
-    return match && match[7].length == 11 ? match[7] : false;
-  }
+  // function youtube_parser(url) {
+  //   var regExp =
+  //     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  //   var match = url.match(regExp);
+  //   return match && match[7].length == 11 ? match[7] : false;
+  // }
 
-  const videoId = youtube_parser(quest.videoLink);
+  // const videoId = youtube_parser(quest.videoLink);
 
   return (
     <Card>
