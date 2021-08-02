@@ -355,4 +355,8 @@ const QuestCardGrid = styled.div`
     justify-items: center;
     width: 100%;
   }
+  @media(min-width:3000px){
+    width:1800px;
+    grid-template-columns:1fr 1fr 1fr;
+  }
 `;

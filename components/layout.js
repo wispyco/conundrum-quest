@@ -273,6 +273,15 @@ const Nav = styled.div`
     grid-template-columns: 1fr;
     grid-row-gap:25px;
   }
+  @media(min-width:3000px){
+    width:3000px;
+    padding-top:50px;
+    margin-left:-1500px;
+    grid-template-columns: 1325px 1fr 1325px;
+    h1{
+      font-size:80px;
+    }
+  }
 `;
 
 const Wait = styled.div`
@@ -307,11 +316,12 @@ const Title = styled.div`
   background-position: center center;
   /* height: 400px; */
   background-attachment: fixed;
-  padding: 200px 0 173px 0;
-  color: #00c4ff;
+  padding: 300px 0 173px 0;
+  color: #000;
   @media (max-width: 1350px) {
     margin: 100px auto 0 auto;
   }
+  
   a {
     text-align: center;
     display: block;
@@ -321,6 +331,22 @@ const Title = styled.div`
     padding: 15px;
     background: #25cec8;
     color: #fff;
+  }
+  @media(min-width:3000px){
+    margin: 170px auto -102px auto;
+    background-size:1000px;
+    background-position-y:300px;
+    padding: 600px 0 173px 0;
+    h2{
+      margin-top:200px;
+      font-size:80px;
+    }
+    a{
+      font-size:64px;
+      width:850px;
+      padding:50px;
+      border-radius:200px;
+    }
   }
 `;
 
@@ -356,7 +382,14 @@ const Alpha = styled.span`
 const Header2 = styled.h2`
   text-align: center;
   span {
-    color: #00c4ff;
+    color: #fff;
+    background:#000;
+    padding:5px;
+    border-radius:10px;
+    @media(max-width:1100px){
+      color:#fff;
+      background:none;
+    }
   }
   font-family: "Hahmlet", serif;
   font-weight: 100;
@@ -375,6 +408,9 @@ const Header2 = styled.h2`
   border-radius: 10px;
   font-size: 46px;
   width: 800px;
+  @media(min-width:3000px){
+    width:1400px;
+  }
   @media (max-width: 1100px) {
     width: 75%;
     color: #000;
@@ -478,6 +514,12 @@ const UserMenuOut = styled.div`
       text-decoration: underline;
     }
   }
+  @media(min-width:3000px){
+    grid-template-columns: 275px 200px 400px 350px;
+    a,button{
+      font-size:36px;
+    }
+  }
 `;
 const UserMenuMobile = styled.div`
   position: fixed;
@@ -549,6 +591,11 @@ const Logo = styled.img`
   }
   @media (max-width: 1100px) {
     margin-top: 0;
+  }
+  @media(min-width:3000px){
+    // img{
+      width:200px;
+    // }
   }
 `;
 
