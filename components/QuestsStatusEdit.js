@@ -12,6 +12,8 @@ import {
 import Loading from "./Loading";
 import { useEffect, useState } from "react";
 import { Router } from "next/router";
+import urlSlug from 'url-slug'
+
 
 export default function QuestsStatusEdit({ user }) {
   const { loading, error, data, startPolling, stopPolling, refetch } = useQuery(
@@ -153,6 +155,9 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
 
   if (claiming || unclaiming) return <Loading />;
 
+  // const slug = urlSlug(quest?.name)
+
+
   return (
     <Card
       claimedByYou={quest?.moderator?._id === user.id}
@@ -184,7 +189,7 @@ const QuestCard = ({ quest, user, startPolling, stopPolling, refetch }) => {
               Claim
             </button>
           )}
-          <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
+          <Link href={`profile/quest-view-temp/${quest._id}`}>View Quest</Link>
         </>
       )}
       <p>{quest.isBeingReviewed ? "Reviewing" : "Not yet reviewing"}</p>

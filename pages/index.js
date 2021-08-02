@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { GiNinjaHeroicStance, GiMountedKnight } from "react-icons/gi";
 import router, { useRouter } from "next/router";
+import urlSlug from 'url-slug'
+
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -195,14 +197,20 @@ const DataRendered = ({ data }) => {
 const QuestCard = ({ quest }) => {
   const router = useRouter();
 
-  const cardVisit = (questId) => {
-    router.push(`/quest/${questId}`);
+  const cardVisit = (questName, questId) => {
+
+
+    let finalVal = urlSlug(questName);
+
+    router.push(`/quest-view/${finalVal}/${questId}`);
   };
 
+  const slug = urlSlug(quest.name)
+
   return (
-    <Card onClick={() => cardVisit(quest._id)}>
+    <Card onClick={() => cardVisit(quest.name,quest._id)}>
       <h1>{quest?.name}</h1>
-      <Link href={`quest/${quest._id}`}>View Quest</Link>
+      <Link href={`quest-view/${slug}/${quest._id}`}>View Quest</Link>
       <h3>
         {quest.heros.data.length > 0 && (
           <>

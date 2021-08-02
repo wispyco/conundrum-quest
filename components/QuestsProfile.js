@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { GET_QUESTS_BY_USER_ID } from "../gql/schema";
 import Loading from "./Loading";
 import Link from "next/link";
+import urlSlug from 'url-slug'
+
 
 export default function QuestsProfile({ user }) {
   const { loading, error, data } = useQuery(GET_QUESTS_BY_USER_ID, {
@@ -26,7 +28,10 @@ export default function QuestsProfile({ user }) {
   );
 }
 
+
+
 const QuestCard = ({ quest }) => {
+  const slug = urlSlug(quest?.name)
   return (
     <Card>
       <h1>{quest?.name}</h1>
@@ -41,9 +46,9 @@ const QuestCard = ({ quest }) => {
       {quest.isBeingReviewed || quest.isAccepted ? (
         <>
           {quest.isAccepted ? (
-            <Link href={`quest/${quest._id}`}>View Quest</Link>
+            <Link href={`quest-view/${slug}/${quest._id}`}>View Quest</Link>
           ) : (
-            <Link href={`profile/quest-view/${quest._id}`}>View Quest</Link>
+            <Link href={`profile/quest-view-temp/${quest._id}`}>View Quest</Link>
           )}
           <p>
             {quest.isBeingReviewed && (
