@@ -273,13 +273,38 @@ const Nav = styled.div`
     grid-template-columns: 1fr;
     grid-row-gap:25px;
   }
-  @media(min-width:3000px){
-    width:3000px;
+  @media(min-width:2500px){
+    width:2500px;
     padding-top:50px;
     margin-left:-1500px;
-    grid-template-columns: 1325px 1fr 1325px;
+    grid-template-columns: 1225px 350px 1625px;
+    img{
+      justify-self:self-end;
+      display:block;
+    }
+    div{
+      justify-self:self-start;
+    }
     h1{
       font-size:80px;
+      justify-self:self-end;
+    }
+  }
+  @media(min-width:3000px){
+    width:2500px;
+    padding-top:50px;
+    margin-left:-1500px;
+    grid-template-columns: 1250px 250px 1250px;
+    img{
+      justify-self:center;
+      display:block;
+    }
+    div{
+      justify-self:self-start;
+    }
+    h1{
+      font-size:80px;
+      justify-self:self-end;
     }
   }
 `;
@@ -332,7 +357,7 @@ const Title = styled.div`
     background: #25cec8;
     color: #fff;
   }
-  @media(min-width:3000px){
+  @media(min-width:2500px){
     margin: 170px auto -102px auto;
     background-size:1000px;
     background-position-y:300px;
@@ -408,7 +433,7 @@ const Header2 = styled.h2`
   border-radius: 10px;
   font-size: 46px;
   width: 800px;
-  @media(min-width:3000px){
+  @media(min-width:2500px){
     width:1400px;
   }
   @media (max-width: 1100px) {
@@ -514,8 +539,8 @@ const UserMenuOut = styled.div`
       text-decoration: underline;
     }
   }
-  @media(min-width:3000px){
-    grid-template-columns: 275px 200px 400px 350px;
+  @media(min-width:2500px){
+    grid-template-columns: 250px 200px 350px 350px;
     a,button{
       font-size:36px;
     }
@@ -593,7 +618,7 @@ const Logo = styled.img`
   @media (max-width: 1100px) {
     margin-top: 0;
   }
-  @media(min-width:3000px){
+  @media(min-width:2500px){
     // img{
       width:200px;
     // }

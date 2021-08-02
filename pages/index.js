@@ -244,7 +244,7 @@ const Form = styled.form`
   @media (max-width: 1300px) {
     grid-template-columns: 200px 200px 200px 200px 250px;
   }
-  @media(min-width:3000px){
+  @media(min-width:2500px){
     width:2050px;
     margin-top:100px;
     grid-template-columns: 400px 400px 400px 400px 450px;
@@ -267,7 +267,7 @@ const Form = styled.form`
         margin: 0 auto;
         left: initial;
       }
-      @media(min-width:3000px){
+      @media(min-width:2500px){
         width:300px;
         margin-left:-150px;
         top:-100px;
@@ -282,7 +282,7 @@ const Form = styled.form`
         text-align: center;
         font-size: 12px;
         padding: 5px 25px;
-        @media(min-width:3000px){
+        @media(min-width:2500px){
           font-size: 26px;
           padding: 15px 35px;
         }
@@ -290,7 +290,7 @@ const Form = styled.form`
       @media (max-width: 1150px) {
         height: 66px;
       }
-      @media(min-width:3000px){
+      @media(min-width:2500px){
         height: 100px;
       }
     }
@@ -307,7 +307,7 @@ const Form = styled.form`
       @media (max-width: 1150px) {
         height: 66px;
       }
-      @media(min-width:3000px){
+      @media(min-width:2500px){
         height: 100px;
         border-radius:100px;
       }
@@ -332,6 +332,9 @@ const Card = styled.div`
   padding: 0 25px 25px 25px;
   border-radius: 30px;
   box-shadow: 5px 5px 10px #dadada;
+  @media(min-width:2500px){
+    margin-top:100px;
+  }
   &:hover {
     cursor: pointer;
   }
@@ -377,7 +380,7 @@ const QuestCardGrid = styled.div`
     justify-items: center;
     width: 100%;
   }
-  @media(min-width:3000px){
+  @media(min-width:2500px){
     width:1800px;
     grid-template-columns:1fr 1fr 1fr;
   }
