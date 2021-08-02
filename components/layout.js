@@ -213,10 +213,12 @@ export default function Layout({ children }) {
       {/* <Header1>Conundrum Quest</Header1> */}
       {Router.asPath === "/" && (
         <Title>
-          <Header2 className="title">
-            <em>T</em>he <span>Worlds</span> hardest problems and who is working
-            on them.
-          </Header2>
+          <div>
+            <Header2 className="title">
+              <em>T</em>he <span>Worlds</span> hardest problems and who is
+              working on them.
+            </Header2>
+          </div>
           <Link href="/login-magic-public">Join to Add a Quest</Link>
         </Title>
       )}
@@ -316,20 +318,37 @@ const Wait = styled.div`
 `;
 
 const Title = styled.div`
-  margin: -70px auto -102px auto;
+  margin: -100px auto -102px auto;
   background: url(/banner.jpeg);
-  background: url(/mountain.png);
-  background-size: 517px;
+  background: url(/mountain-lines.png);
+  background-size: 1017px;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center 200px;
   /* height: 400px; */
   background-attachment: fixed;
-  padding: 300px 0 173px 0;
+  padding: 500px 0 173px 0;
   color: #000;
+  div {
+    margin-top: 0px;
+    background: url(/title.png);
+    background-size: 900px;
+    background-repeat: no-repeat;
+    background-position: center -0px;
+    padding-bottom: 50px;
+    @media (max-width: 600px) {
+      background-size: 1250px;
+      background-position: center -30px;
+    }
+    @media (max-width: 400px) {
+      background-size: 1800px;
+      background-position: center -50px;
+    }
+  }
   @media (max-width: 1350px) {
     margin: 100px auto 0 auto;
   }
-  
+  h2 {
+  }
   a {
     text-align: center;
     display: block;
@@ -340,20 +359,20 @@ const Title = styled.div`
     background: #25cec8;
     color: #fff;
   }
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
     margin: 170px auto -102px auto;
-    background-size:600px;
-    background-position-y:300px;
+    background-size: 600px;
+    background-position-y: 300px;
     padding: 600px 0 0px 0;
-    h2{
-      margin-top:-150px;
-      font-size:76px;
+    h2 {
+      margin-top: -150px;
+      font-size: 76px;
     }
-    a{
-      font-size:34px;
-      width:450px;
-      padding:25px;
-      border-radius:200px;
+    a {
+      font-size: 34px;
+      width: 450px;
+      padding: 25px;
+      border-radius: 200px;
     }
   }
 `;
@@ -389,14 +408,16 @@ const Alpha = styled.span`
 
 const Header2 = styled.h2`
   text-align: center;
+  //background: lightgrey;
+
   span {
     color: #fff;
-    background:#000;
-    padding:5px;
-    border-radius:10px;
-    @media(max-width:1100px){
-      color:#fff;
-      background:none;
+    background: #000;
+    padding: 5px;
+    border-radius: 10px;
+    @media (max-width: 1100px) {
+      color: #fff;
+      background: none;
     }
   }
   font-family: "Hahmlet", serif;
@@ -416,15 +437,15 @@ const Header2 = styled.h2`
   border-radius: 10px;
   font-size: 46px;
   width: 800px;
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
-    width:1400px;
-    font-size:86px;
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
+    width: 1400px;
+    font-size: 86px;
   }
   @media (max-width: 1100px) {
     width: 75%;
     color: #000;
     font-size: 30px;
-    background: #d3d3d3c7;
+    // background: #d3d3d3c7;
     padding-bottom: 20px;
     margin-top: 50px;
     &.title em {
@@ -486,10 +507,11 @@ const UserMenu = styled.div`
       text-decoration: underline;
     }
   }
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
     grid-template-columns: 200px 200px 250px 275px 200px;
-    a,button{
-      font-size:36px;
+    a,
+    button {
+      font-size: 36px;
     }
   }
 `;
@@ -529,10 +551,11 @@ const UserMenuOut = styled.div`
       text-decoration: underline;
     }
   }
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
     grid-template-columns: 250px 200px 350px 350px;
-    a,button{
-      font-size:36px;
+    a,
+    button {
+      font-size: 36px;
     }
   }
 `;
@@ -599,18 +622,18 @@ const Logo = styled.img`
   z-index: 890;
   margin-top: 25px;
   // background: #fff;
-   border-radius: 50%;
+  border-radius: 50%;
 
-    box-shadow: 5px 5px 10px #dadada;
+  box-shadow: 5px 5px 10px #dadada;
   &:hover {
     cursor: pointer;
   }
   @media (max-width: 1100px) {
     margin-top: 0;
   }
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
     // img{
-      width:150px;
+    width: 150px;
     // }
   }
 `;
