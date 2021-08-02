@@ -44,7 +44,11 @@ export default function QuestSingle() {
   } = useQuery(GET_KNIGHTS);
 
   if (getError || knightsError)
-    return <h1>failed to get {JSON.stringify(knightsError, null, 2)} </h1>;
+    return (
+      <Layout>
+        <h1>Were having troubles please refresh your browser</h1>
+      </Layout>
+    );
 
   if (getLoading || knightsLoading) return <Loading />;
   const { findQuestByID } = data;
