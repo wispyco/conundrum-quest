@@ -326,7 +326,7 @@ const Title = styled.div`
   background-position: center 200px;
   /* height: 400px; */
   background-attachment: fixed;
-  padding: 500px 0 173px 0;
+  padding: 300px 0 173px 0;
   color: #000;
   div {
     margin-top: 0px;
