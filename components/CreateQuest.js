@@ -90,7 +90,7 @@ export default function CreateQuest({ user, clickedAddQuest }) {
         />
         <input
           type="text"
-          placeholder="Video Link"
+          placeholder="Youtube Video Link"
           {...register("videoLink", {})}
         />
         <h2>Category</h2>
@@ -110,9 +110,7 @@ export default function CreateQuest({ user, clickedAddQuest }) {
           <option value="DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING">
             Digital Immersive Learning / Therapies + Ambient Computing
           </option>
-          <option value="PHILOSOPHY">
-            Philosophy
-          </option>
+          <option value="PHILOSOPHY">Philosophy</option>
         </select>
         {/* <h2>Hero</h2>
         <input
@@ -135,7 +133,7 @@ export default function CreateQuest({ user, clickedAddQuest }) {
           {...register("heroTwitter", {})}
         /> */}
 
-        <input type="submit" />
+        <input className="submit" type="submit" />
       </Form>
       <pre>{JSON.stringify(createQuestData, null, 2)}</pre>
     </>
@@ -152,5 +150,20 @@ const Form = styled.form`
   textarea {
     padding: 10px;
     line-height: 20px;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+  }
+  textarea {
+    height: 100px;
+  }
+  .submit {
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 40px;
+    background: #25cec8;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 75px;
   }
 `;

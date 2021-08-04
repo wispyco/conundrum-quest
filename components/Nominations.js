@@ -71,6 +71,9 @@ const Hero = styled.div`
   border: 1px solid #000;
   border-radius: 30px;
   padding: 25px;
+  @media (max-width: 1100px) {
+    margin: 0 auto;
+  }
 `;
 
 const HeroWrap = styled.div`
@@ -79,6 +82,10 @@ const HeroWrap = styled.div`
   display: grid;
   grid-template-columns: 300px 300px 300px;
   grid-column-gap: 25px;
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
 `;
 
 const Wrap = styled.div`

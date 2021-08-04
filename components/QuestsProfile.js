@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { GET_QUESTS_BY_USER_ID } from "../gql/schema";
 import Loading from "./Loading";
 import Link from "next/link";
-import urlSlug from 'url-slug'
-
+import urlSlug from "url-slug";
 
 export default function QuestsProfile({ user }) {
   const { loading, error, data } = useQuery(GET_QUESTS_BY_USER_ID, {
@@ -28,10 +27,8 @@ export default function QuestsProfile({ user }) {
   );
 }
 
-
-
 const QuestCard = ({ quest }) => {
-  const slug = urlSlug(quest?.name)
+  const slug = urlSlug(quest?.name);
   return (
     <Card>
       <h1>{quest?.name}</h1>
@@ -48,7 +45,9 @@ const QuestCard = ({ quest }) => {
           {quest.isAccepted ? (
             <Link href={`quest-view/${slug}/${quest._id}`}>View Quest</Link>
           ) : (
-            <Link href={`profile/quest-view-temp/${quest._id}`}>View Quest</Link>
+            <Link href={`profile/quest-view-temp/${quest._id}`}>
+              View Quest
+            </Link>
           )}
           <p>
             {quest.isBeingReviewed && (
@@ -75,6 +74,9 @@ const Card = styled.div`
   border: 1px solid #000;
   padding: 0 25px 25px 25px;
   border-radius: 30px;
+  @media (max-width: 1100px) {
+    margin: 0 auto;
+  }
   h1 {
     font-weight: 300;
     height: 150px;
@@ -96,6 +98,10 @@ const QuestCardGrid = styled.div`
   margin: 0 auto;
   display: grid;
   grid-template-columns: 300px 300px 300px;
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
   grid-column-gap: 25px;
   grid-row-gap: 25px;
 `;
