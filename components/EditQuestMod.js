@@ -22,6 +22,7 @@ export default function EditQuestMod({ user, data, Router }) {
       // isBeingReviewed: JSON.stringify(data.findQuestByID.isBeingReviewed),
       isAccepted: JSON.stringify(data.findQuestByID.isAccepted),
       videoLink: data.findQuestByID.videoLink,
+      wikipediaLink: data.findQuestByID.wikipedia,
     },
   });
   const onSubmit = async (dataSubmit) => {
@@ -32,6 +33,7 @@ export default function EditQuestMod({ user, data, Router }) {
       isBeingReviewed,
       isAccepted,
       videoLink,
+      wikipediaLink,
     } = dataSubmit;
 
     const isBeingReviewedSet = isBeingReviewed === "true";
@@ -55,6 +57,7 @@ export default function EditQuestMod({ user, data, Router }) {
         knightName: user.name,
         knightConnect: user.id,
         category: category,
+        wikipediaLink: wikipediaLink,
       },
     }).catch(console.error);
 
@@ -76,6 +79,11 @@ export default function EditQuestMod({ user, data, Router }) {
         <textarea
           placeholder="Food and climate change are linked in complicated ways. The global food industry requires an enormous amount of energy to cultivate, transport, store, prepare, and serve foods. This leads to lots of greenhouse gases, and, in the process, soils, rivers, oceans, forests, and more, are often degraded and destroyed."
           {...register("description", {})}
+        />
+        <input
+          type="text"
+          placeholder="Wikipedia Link"
+          {...register("wikipediaLink", {})}
         />
         <input
           type="text"

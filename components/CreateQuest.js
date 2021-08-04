@@ -50,6 +50,7 @@ export default function CreateQuest({ user, clickedAddQuest }) {
       heroTwitter,
       category,
       videoLink,
+      wikipediaLink,
     } = data;
 
     const createQuestResponse = await createQuest({
@@ -64,6 +65,7 @@ export default function CreateQuest({ user, clickedAddQuest }) {
         // heroTwitter: heroTwitter,
         heroAvatar: "https://google.com",
         videoLink: videoLink,
+        wikipediaLink: wikipediaLink,
         // knightName: user.name,
         // knightConnect: user.id,
         category: category,
@@ -87,6 +89,11 @@ export default function CreateQuest({ user, clickedAddQuest }) {
         <textarea
           placeholder="Food and climate change are linked in complicated ways. The global food industry requires an enormous amount of energy to cultivate, transport, store, prepare, and serve foods. This leads to lots of greenhouse gases, and, in the process, soils, rivers, oceans, forests, and more, are often degraded and destroyed."
           {...register("description", {})}
+        />
+        <input
+          type="text"
+          placeholder="Wikipedia Link"
+          {...register("wikipediaLink", {})}
         />
         <input
           type="text"

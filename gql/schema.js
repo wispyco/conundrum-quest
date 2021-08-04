@@ -34,6 +34,7 @@ export const CREATE_QUEST = gql`
     $image: String
     $category: Category
     $videoLink: String
+    $wikipediaLink: String
   ) {
     createQuest(
       data: {
@@ -46,6 +47,7 @@ export const CREATE_QUEST = gql`
         category: $category
         isClaimed: false
         videoLink: $videoLink
+        wikipedia: $wikipediaLink
       }
     ) {
       name
@@ -85,6 +87,7 @@ export const UPDATE_QUEST = gql`
     $category: Category
     $isAccepted: Boolean
     $videoLink: String
+    $wikipediaLink: String
   ) {
     updateQuest(
       id: $id
@@ -96,6 +99,7 @@ export const UPDATE_QUEST = gql`
         image: $image
         category: $category
         videoLink: $videoLink
+        wikipedia: $wikipediaLink
       }
     ) {
       name
@@ -222,6 +226,7 @@ export const GET_QUEST_BY_ID = gql`
       name
       image
       videoLink
+      wikipedia
       follower1s {
         data {
           owner {

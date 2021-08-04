@@ -98,8 +98,6 @@ export default function Layout({ children }) {
 
   const [jobs, setJobs] = useState(false);
 
-  console.log("Router >>>>>>> ", Router);
-
   if (!user) return <Loading />;
 
   return (
