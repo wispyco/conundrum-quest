@@ -3,6 +3,7 @@ import { GET_FOLLOWER_QUEST } from "../gql/schema";
 import Loading from "./Loading";
 import urlSlug from "url-slug";
 import Link from "next/link";
+import styled from "styled-components";
 
 export default function PostsYouFollow({ user }) {
   const { loading, error, data } = useQuery(GET_FOLLOWER_QUEST);
@@ -28,23 +29,55 @@ export default function PostsYouFollow({ user }) {
 
   if (error) return <p>{error.message}</p>;
 
-  if (loading) return <Loading />;
+  if (loading || !data) return <Loading />;
 
   // return <pre>{JSON.stringify(final, null, 2)}</pre>;
 
   return (
     <>
-      <h1>Quests you are following</h1>
-      {final.map((following) => {
-        return (
-          <>
-            <h2>{following.quest}</h2>
-            <Link href={`/quest-view/${following.quest}/${following.id}`}>
-              View Quest to Unfollow
-            </Link>
-          </>
-        );
-      })}
+      <FollowH>Quests you are following</FollowH>
+      <Following>
+        {final.map((following) => {
+          return (
+            <div>
+              <h2>{following.quest}</h2>
+              <Link href={`/quest-view/${following.quest}/${following.id}`}>
+                View Quest to Unfollow
+              </Link>
+            </div>
+          );
+        })}
+      </Following>
     </>
   );
 }
+
+const FollowH = styled.h1`
+  text-align:center;
+  margin:50px; 0;
+`;
+
+const Following = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+  width: 75%;
+  margin: 0 auto;
+  grid-row-gap: 50px;
+  text-align: center;
+  h2 {
+    font-weight: 300;
+  }
+  a {
+    text-decoration: underline;
+    background: #25cec8;
+    padding: 20px;
+    border-radius: 40px;
+    color: #fff;
+    display: block;
+    width: 250px;
+    margin: 25px auto;
+  }
+`;
