@@ -152,6 +152,11 @@ const QuestCard = ({ quest, knights, user }) => {
     <Card>
       <h1>{quest?.name}</h1>
       <p>{quest?.description}</p>
+      {quest.wikipedia && (
+        <a rel="noreferrer" target="_blank" href={`${quest?.wikipedia}`}>
+          Wikipedia Link
+        </a>
+      )}
       {quest.videoLink && (
         <VideoWrap>
           <ReactPlayer width="100%" height="100%" url={quest?.videoLink} />

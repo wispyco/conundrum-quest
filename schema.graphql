@@ -38,6 +38,7 @@ type Quest {
   moderator: User
   isClaimed: Boolean
   videoLink: String
+  wikipedia: String
 }
 
 type Follower1 {
