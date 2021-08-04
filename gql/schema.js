@@ -548,3 +548,28 @@ export const DELETE_FOLLOWER = gql`
     }
   }
 `;
+
+export const GET_FOLLOWER_QUEST = gql`
+  query {
+    getFollowers {
+      data {
+        quests {
+          data {
+            name
+            _id
+            description
+            follower1s {
+              data {
+                name
+                owner {
+                  name
+                  _id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

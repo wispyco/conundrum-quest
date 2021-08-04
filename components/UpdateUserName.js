@@ -125,6 +125,9 @@ const UserDetailsToggle = styled.button`
   padding: 20px;
   border-radius: 30px;
   display: block;
+  background: #25cec8;
+  color: #fff;
+  border: none;
   &:hover {
     cursor: pointer;
   }

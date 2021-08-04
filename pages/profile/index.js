@@ -14,6 +14,7 @@ import UpdateUserName from "../../components/UpdateUserName";
 import { query as q } from "faunadb";
 import { authClient } from "../../utils/faunaAuth";
 import { useRouter } from "next/router";
+import PostsYouFollow from "../../components/PostsYouFollow";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -116,8 +117,23 @@ export default function Profile() {
         )}
         {userData?.role === "KNIGHT" && (
           <>
-            <Header3>Welcome Knight {userData?.name}</Header3>
+            <Header3>Welcome {userData?.name}</Header3>
+            <Instruct>
+              In order for your social media and image to show up on a Quest or
+              (post) that you follow you must update them here
+            </Instruct>
             <UpdateUserName setUserData={setUserData} user={userData} />
+            <QuestInstructions>
+              <h1>
+                Quests are problems in the World that are to you considered very
+                hard?
+              </h1>
+              <p>All quests go into moderation, for community safety</p>
+              <p>
+                We are looking for moderators please email hi@wispy.co with re:
+                Quest Moderation
+              </p>
+            </QuestInstructions>
             <AddQuest onClick={clickedAddQuest}>
               {!addQuest ? "Add a Quest" : "X"}
             </AddQuest>
@@ -134,6 +150,7 @@ export default function Profile() {
               <QuestsProfile user={userData} />
             </QuestsWrap>
             <Nominations user={userData} />
+            <PostsYouFollow user={userData} />
           </>
         )}
         {userData?.role === "MODERATOR" && (
@@ -161,6 +178,22 @@ export default function Profile() {
     </Layout>
   );
 }
+
+const Instruct = styled.p`
+  width: 75%;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+`;
+
+const QuestInstructions = styled.div`
+  text-align: center;
+  h1 {
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+  }
+`;
 
 export const Header1 = styled.h1`
   //text-align: right;
@@ -229,11 +262,15 @@ const QuestsWrap = styled.div`
 `;
 
 const AddQuest = styled.button`
-  width: 200px;
-  padding: 10px;
-  border-radius: 30px;
-  margin: 0 auto;
+  width: 250px;
+  padding: 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 22px;
+  margin: 50px auto;
   display: block;
+  background: #25cec8;
+  color: #fff;
   &:hover {
     cursor: pointer;
   }

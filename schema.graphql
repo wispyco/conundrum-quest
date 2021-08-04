@@ -111,4 +111,5 @@ type Query {
   getInvites: [Invite!]
   getHeros: [Hero!]
   getKnights: [Knight!]
+  getFollowers: [Follower1]
 }
