@@ -16,10 +16,6 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 export default function Home() {
   const { data: user, error: userError } = useSWR("/api/user", fetcher);
 
-  if (typeof window !== "undefined") {
-    window.history.replaceState(null, "", "/");
-  }
-
   return (
     <Layout>
       <>{user && <Data user={user} />}</>
