@@ -8,9 +8,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { GiNinjaHeroicStance, GiMountedKnight } from "react-icons/gi";
-import router, { useRouter } from "next/router";
-import urlSlug from 'url-slug'
-
+import { useRouter } from "next/router";
+import urlSlug from "url-slug";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -91,11 +90,7 @@ const DataRendered = ({ data }) => {
   };
   const findPhilosophy = () => {
     setQuests(
-      data?.getQuests?.data.filter(
-        (questF) =>
-          questF.category ===
-          "PHILOSOPHY"
-      )
+      data?.getQuests?.data.filter((questF) => questF.category === "PHILOSOPHY")
     );
   };
   const findAll = () => {
@@ -220,17 +215,15 @@ const QuestCard = ({ quest }) => {
   const router = useRouter();
 
   const cardVisit = (questName, questId) => {
-
-
     let finalVal = urlSlug(questName);
 
     router.push(`/quest-view/${finalVal}/${questId}`);
   };
 
-  const slug = urlSlug(quest.name)
+  const slug = urlSlug(quest.name);
 
   return (
-    <Card onClick={() => cardVisit(quest.name,quest._id)}>
+    <Card onClick={() => cardVisit(quest.name, quest._id)}>
       <h1>{quest?.name}</h1>
       <Link href={`quest-view/${slug}/${quest._id}`}>View Quest</Link>
       <h3>
@@ -255,7 +248,7 @@ const QuestCard = ({ quest }) => {
 
 const Form = styled.form`
   width: 1125px;
-  padding-top:75px;
+  padding-top: 75px;
   @media (max-width: 1150px) {
     width: 66%;
     display: block;
@@ -267,11 +260,10 @@ const Form = styled.form`
   @media (max-width: 1300px) {
     grid-template-columns: 200px 200px 200px 200px 250px;
   }
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
-    width:2050px;
-    margin-top:200px;
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
+    width: 2050px;
+    margin-top: 200px;
     grid-template-columns: 400px 400px 400px 400px 450px;
-    
   }
   grid-column-gap: 10px;
   margin: 0px auto 50px auto;
@@ -290,10 +282,10 @@ const Form = styled.form`
         margin: 0 auto;
         left: initial;
       }
-      @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
-        width:300px;
-        margin-left:-150px;
-        top:-75px;
+      @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
+        width: 300px;
+        margin-left: -150px;
+        top: -75px;
       }
     }
     div {
@@ -305,15 +297,15 @@ const Form = styled.form`
         text-align: center;
         font-size: 12px;
         padding: 5px 25px;
-        @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+        @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
           font-size: 26px;
-          padding: 0px 35px
+          padding: 0px 35px;
         }
       }
       @media (max-width: 1150px) {
         height: 66px;
       }
-      @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+      @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
         height: 75px;
       }
     }
@@ -330,13 +322,13 @@ const Form = styled.form`
       @media (max-width: 1150px) {
         height: 66px;
       }
-      @media (-webkit-min-device-pixel-ratio: 2) and (min-width:2500px)   {
+      @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
         height: 75px;
-        border-radius:100px;
+        border-radius: 100px;
       }
       &:hover {
         cursor: pointer;
-        background:#25cec873;
+        background: #25cec873;
       }
     }
     input {
@@ -347,7 +339,6 @@ const Form = styled.form`
         background: #25cec873;
         color: #fff;
       }
-      
     }
   }
 `;
@@ -357,8 +348,8 @@ const Card = styled.div`
   padding: 0 25px 25px 25px;
   border-radius: 30px;
   box-shadow: 5px 5px 10px #dadada;
-  @media(min-width:2500px){
-    margin-top:100px;
+  @media (min-width: 2500px) {
+    margin-top: 100px;
   }
   &:hover {
     cursor: pointer;
@@ -405,8 +396,8 @@ const QuestCardGrid = styled.div`
     justify-items: center;
     width: 100%;
   }
-  @media(min-width:2500px){
-    width:1800px;
-    grid-template-columns:1fr 1fr 1fr;
+  @media (min-width: 2500px) {
+    width: 1800px;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 `;

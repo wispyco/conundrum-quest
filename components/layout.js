@@ -98,6 +98,8 @@ export default function Layout({ children }) {
 
   const [jobs, setJobs] = useState(false);
 
+  console.log("Router >>>>>>> ", Router);
+
   if (!user) return <Loading />;
 
   return (
@@ -211,7 +213,7 @@ export default function Layout({ children }) {
         </>
       )}
       {/* <Header1>Conundrum Quest</Header1> */}
-      {Router.asPath === "/" && (
+      {Router.pathname === "/" && (
         <Title>
           <div>
             <Header2 className="title">
