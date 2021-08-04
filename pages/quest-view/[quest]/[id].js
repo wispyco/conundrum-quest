@@ -218,9 +218,15 @@ const QuestCard = ({ quest, knights, user }) => {
                   />
                 </ImageWrap>
               )}
-              <a target="_blank" rel="noreferrer" href={follower.owner.twitter}>
-                <FaTwitter />
-              </a>
+              {follower.owner.twitter && (
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={follower.owner.twitter}
+                >
+                  <FaTwitter />
+                </a>
+              )}
               {/* <p>followerId{follower._id}</p>
             <p>ownerID{follower.owner._id}</p> */}
             </Follower>
