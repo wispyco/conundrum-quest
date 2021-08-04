@@ -37,9 +37,9 @@ export default function PostsYouFollow({ user }) {
     <>
       <FollowH>Quests you are following</FollowH>
       <Following>
-        {final.map((following) => {
+        {final.map((following, i) => {
           return (
-            <div>
+            <div key={i}>
               <h2>{following.quest}</h2>
               <Link href={`/quest-view/${following.quest}/${following.id}`}>
                 View Quest to Unfollow
