@@ -103,6 +103,7 @@ const QuestCard = ({ hero, user }) => {
       isBeingReviewed: JSON.stringify(hero.isBeingReviewed),
       isAccepted: JSON.stringify(hero.isAccepted),
       youtube: hero.youtube,
+      twitter: hero.twitter
     },
   });
   const onSubmit = async (data) => {
@@ -113,6 +114,7 @@ const QuestCard = ({ hero, user }) => {
       isBeingReviewed,
       isAccepted,
       youtube,
+      twitter
     } = data;
 
     const isBeingReviewedSet = isBeingReviewed === "true";
@@ -130,6 +132,7 @@ const QuestCard = ({ hero, user }) => {
         ownerConnect: user.id,
         youtube: youtube,
         avatar: cloudLinks,
+        twitter: twitter
       },
     }).catch(console.error);
 
@@ -181,6 +184,11 @@ const QuestCard = ({ hero, user }) => {
             type="text"
             placeholder="wikipedia"
             {...register("wikipedia", {})}
+          />
+          <input
+            type="text"
+            placeholder="twitter url"
+            {...register("twitter", {})}
           />
           <input
             type="text"

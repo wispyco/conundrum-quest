@@ -88,7 +88,7 @@ const QuestCard = ({ quest, user }) => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const { name, description, wikipedia, youtube } = data;
+    const { name, description, wikipedia, youtube, twitter } = data;
 
     const createHeroResponse = await createHero({
       variables: {
@@ -102,6 +102,7 @@ const QuestCard = ({ quest, user }) => {
         ownerConnect: user.id,
         avatar: cloudLinks,
         youtube: youtube,
+        twitter: twitter
       },
     }).catch(console.error);
 
@@ -151,6 +152,11 @@ const QuestCard = ({ quest, user }) => {
           type="text"
           placeholder="Wikipedia url (https://wikipedia.com/hero)"
           {...register("wikipedia", {})}
+        />
+        <input
+          type="text"
+          placeholder="Twitter Url"
+          {...register("twitter", {})}
         />
         <input type="text" placeholder="youtube" {...register("youtube", {})} />
         <button

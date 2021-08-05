@@ -300,6 +300,7 @@ export const CREATE_HERO = gql`
     $ownerConnect: ID!
     $avatar: String
     $youtube: String
+    $twitter: String
   ) {
     createHero(
       data: {
@@ -313,6 +314,7 @@ export const CREATE_HERO = gql`
         isClaimed: false
         avatar: $avatar
         youtube: $youtube
+        twitter: $twitter
       }
     ) {
       name
@@ -332,6 +334,7 @@ export const UPDATE_HERO = gql`
     $isBeingReviewed: Boolean
     $youtube: String
     $avatar: String
+    $twitter: String
   ) {
     updateHero(
       id: $id
@@ -345,6 +348,7 @@ export const UPDATE_HERO = gql`
         isBeingReviewed: $isBeingReviewed
         youtube: $youtube
         avatar: $avatar
+        twitter: $twitter
       }
     ) {
       name
@@ -389,6 +393,7 @@ export const GET_HERO_BY_ID = gql`
       isAccepted
       isBeingReviewed
       avatar
+      twitter
       youtube
       quest {
         _id
