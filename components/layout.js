@@ -228,6 +228,7 @@ export default function Layout({ children }) {
           Made for the <ImEarth /> and its <IoIosPeople />
         </Header2>
         <p>by wispy.co</p>
+        <a target="_blank" rel="noreferrer" href="https://www.conundrum-public.quest">Updates, Roadmap, Expenses, Project Board, Income, Public posts and Analytics</a>
         <Link href="/privacy-policy">Privacy Policy</Link>
       </Made>
       <>
@@ -389,6 +390,11 @@ const Made = styled.a`
     color: blue;
   }
   text-align: center;
+  display:grid;
+  a{
+    color:blue;
+    padding:10px;
+  }
 `;
 
 const Alpha = styled.span`
