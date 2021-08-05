@@ -193,11 +193,17 @@ const QuestCard = ({ quest, knights, user }) => {
                       Wikipedia Article
                     </a>
                   )}
+                  {hero.twitter &&
+                    <a rel="noreferrer" target="_blank" href={hero?.twitter}>
+                      <FaTwitter />
+                    </a>
+                  }
                   {hero.youtube && (
                     <a rel="noreferrer" target="_blank" href={hero?.youtube}>
                       Youtube Link
                     </a>
                   )}
+                  
                 </Hero>
               )}
             </>

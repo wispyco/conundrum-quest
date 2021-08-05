@@ -46,7 +46,7 @@ export default function QuestSingle() {
   if (getError || knightsError)
     return (
       <Layout>
-        <Troubles>Were having troubles please refresh your browser</Troubles>
+        <Troubles>Were having troubles please refresh your browser {getError.message}</Troubles>
       </Layout>
     );
 
@@ -193,6 +193,11 @@ const QuestCard = ({ quest, knights, user }) => {
                       Youtube Link
                     </a>
                   )}
+                  {hero.twitter &&
+                    <a rel="noreferrer" target="_blank" href={hero?.twitter}>
+                      <FaTwitter />
+                    </a>
+                  }
                 </Hero>
               )}
             </>
