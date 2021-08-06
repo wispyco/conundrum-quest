@@ -3,6 +3,7 @@ import { useUser, useIsMounted } from "../lib/hooks";
 import { Magic } from "magic-sdk";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
+import styled from "styled-components";
 
 export default function Login() {
   const router = useRouter();
@@ -62,30 +63,33 @@ export default function Login() {
 
   return (
     <Layout>
-      <form onSubmit={onSubmit}>
-        <h2>Log in / Signup </h2>
-        <p>(no need for a password, we use a magic link)</p>
-        <label htmlFor="email">
-          Email<span aria-hidden={true}>*</span>
-        </label>
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="hello@magic.link"
-        />
+      <FormWrap>
+        <form onSubmit={onSubmit}>
+          <h2>Log in / Signup </h2>
+          <p>(no need for a password, we use a magic link)</p>
+          <label htmlFor="email">
+            Email<span aria-hidden={true}>*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="hello@magic.link"
+          />
 
-        <button disabled={isLoggingIn} type="submit">
-          Sign Up / Login
-        </button>
+          <button disabled={isLoggingIn} type="submit">
+            Sign Up / Login
+          </button>
 
-        {errorMsg && <p className="error">{errorMsg}</p>}
-      </form>
+          {errorMsg && <p className="error">{errorMsg}</p>}
+        </form>
+      </FormWrap>
 
       <style jsx>{`
         form {
           padding: 3rem;
           width: 600px;
+
           margin: 150px auto 0 auto;
         }
         p {
@@ -128,3 +132,12 @@ export default function Login() {
     </Layout>
   );
 }
+
+const FormWrap = styled.div`
+  form {
+    @media (max-width: 700px) {
+      width: 100% !important;
+      margin: 200px auto 0 auto !important;
+    }
+  }
+`;
