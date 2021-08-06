@@ -207,7 +207,7 @@ const DataRendered = ({ data }) => {
             );
           })}
         <QuestDummyJoin>
-          <p>What is a hard problem that someone is or isn't working on?</p>
+          <p>What is a hard problem that someone is or is not working on?</p>
           <Link href="/login-magic-public">Add a Quest</Link>
         </QuestDummyJoin>
       </QuestCardGrid>
