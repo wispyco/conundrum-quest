@@ -223,13 +223,20 @@ export default function Layout({ children }) {
         </Title>
       )}
       <Main>{children}</Main>
-      <Made href="https://wispy.co">
+      <Made>
         <Header2>
           Made for the <ImEarth /> and its <IoIosPeople />
         </Header2>
-        <p>by wispy.co</p>
-        <a target="_blank" rel="noreferrer" href="https://www.conundrum-public.quest">Updates, Roadmap, Expenses, Project Board, Income, Public posts and Analytics</a>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://www.conundrum-public.quest"
+        >
+          Updates, Roadmap, Expenses, Project Board, Income, Public posts,
+          Analytics and Public Roam
+        </a>
         <Link href="/privacy-policy">Privacy Policy</Link>
+        <a href="https://wispy.co">by wispy.co</a>
       </Made>
       <>
         {process.browser && (
@@ -382,18 +389,26 @@ const Title = styled.div`
   }
 `;
 
-const Made = styled.a`
+const Made = styled.div`
   margin-top: 50px;
   display: block;
   margin-bottom: 50px;
   span {
-    color: blue;
+    color: #000;
+  }
+  p {
+    &:hover {
+      text-decoration: underline;
+    }
   }
   text-align: center;
-  display:grid;
-  a{
-    color:blue;
-    padding:10px;
+  display: grid;
+  a {
+    color: #000;
+    padding: 10px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -652,6 +667,7 @@ const Main = styled.main`
   margin-top: 50px;
   margin: 0 auto;
   padding: 50px 0;
+
   @media (max-width: 1100px) {
     padding: 0;
   }
