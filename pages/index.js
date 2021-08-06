@@ -206,6 +206,10 @@ const DataRendered = ({ data }) => {
               <>{quest?.isAccepted && <QuestCard key={i} quest={quest} />}</>
             );
           })}
+        <QuestDummyJoin>
+          <p>What is a hard problem that someone is or is not working on?</p>
+          <Link href="/login-magic-public">Add a Quest</Link>
+        </QuestDummyJoin>
       </QuestCardGrid>
 
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
@@ -247,6 +251,40 @@ const QuestCard = ({ quest }) => {
     </Card>
   );
 };
+
+const QuestDummyJoin = styled.div`
+  width: 500px;
+  padding: 0px 25px 25px 25px;
+  border-radius: 30px;
+  box-shadow: 5px 5px 10px #dadada;
+  text-align: center;
+  @media(max-width:1100px){
+    width:80%;
+  }
+  p{
+    font-size:32px;
+    font-weight:100;
+  }
+  a {
+    font-size: 22px;
+    font-weight: 100;
+    border: 1px solid #25cec8;
+    padding: 10px;
+    border-radius: 50px;
+    display: block;
+    width: 250px;
+    margin: 75px auto;
+    letter-spacing: 2px;
+    color: #000;
+    box-shadow: 5px 5px 10px #dadada;
+    &:hover{
+      color:#fff;
+      background: #25cec8;
+    }
+    border-radius: 50px;
+    display block;
+  }
+`;
 
 const Form = styled.form`
   width: 1125px;
