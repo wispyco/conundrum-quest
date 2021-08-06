@@ -64,7 +64,7 @@ export default function Login() {
     <Layout>
       <form onSubmit={onSubmit}>
         <h2>Log in / Signup </h2>
-
+        <p>(no need for a password, we use a magic link)</p>
         <label htmlFor="email">
           Email<span aria-hidden={true}>*</span>
         </label>
@@ -88,11 +88,14 @@ export default function Login() {
           width: 600px;
           margin: 150px auto 0 auto;
         }
+        p {
+          text-align: center;
+        }
         h2 {
           margin-top: 0;
           margin-bottom: 25px;
-          font-weight:100;
-          text-align:center;
+          font-weight: 100;
+          text-align: center;
         }
         label {
           display: block;
