@@ -25,24 +25,30 @@ export default function PostsYouFollow({ user }) {
 
   // const slug = urlSlug(quest.name);
 
-  const final = test?.flat().filter((f) => JSON.stringify(f.three) !== "[]");
+  const final1 = test?.flat().filter((f) => JSON.stringify(f.three) !== "[]");
+
+  const lookup = final1
+    ?.map((e) => e["id"])
+    .map((e, i, final) => final.indexOf(e) === i && i)
+    .filter((obj) => final1[obj])
+    .map((e) => final1[e]);
 
   if (error) return <p>{error.message}</p>;
 
   if (loading || !data) return <Loading />;
 
-  // return <pre>{JSON.stringify(final, null, 2)}</pre>;
+  // return <pre>{JSON.stringify(lookup, null, 2)}</pre>;
 
   return (
     <>
       <FollowH>Quests you are following</FollowH>
       <Following>
-        {final.map((following, i) => {
+        {lookup.map((following, i) => {
           return (
             <div key={i}>
               <h2>{following.quest}</h2>
               <Link href={`/quest-view/${following.quest}/${following.id}`}>
-                View Quest to Unfollow
+                View Quest
               </Link>
             </div>
           );
