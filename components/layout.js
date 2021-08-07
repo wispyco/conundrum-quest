@@ -235,7 +235,7 @@ export default function Layout({ children }) {
           href="https://www.conundrum-public.quest"
         >
           Updates, Roadmap, Expenses, Project Board, Income, Public posts,
-          Analytics and Public Roam
+          Analytics, Public Roam, and Figma
         </a>
         <Link href="/privacy-policy">Privacy Policy</Link>
         <a href="https://wispy.co">by nwispy.co</a>
