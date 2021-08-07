@@ -217,7 +217,7 @@ export default function Layout({ children }) {
             <Header2 className="title">
               {/* <em>T</em>he <span>Worlds</span> hardest problems and who is
               working on them. */}
-              <em>A</em> place to share new problems, ideas and connect who is
+              <em>A</em> place to share new problems, ideas and see who is
               working on them.
             </Header2>
           </div>
