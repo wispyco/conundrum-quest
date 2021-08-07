@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import { request, GraphQLClient, gql } from "graphql-request";
 import React from "react";
+import Loading from "../../../components/Loading";
 
 // const fetcher = (mutation) =>
 //   request("https://api.podchaser.com/graphql", mutation);
@@ -34,11 +35,28 @@ export default function HeroPage() {
   //   );
 
   const query = gql`
+    query getGuests($identifier: PodcastIdentifier!) {
+		podcast(
+			identifier:$identifier
+		  ){
+			 credits{
+				 data{
+					episodeCredits{
+						characters
+					}
+				 }
+			 } 
+		  }	
+		}  
+    }
+  `;
+
+  const search = gql`
     query {
-      podcasts {
+      podcasts(searchTerm: "syntax") {
         data {
+          id
           title
-          description
         }
       }
     }
@@ -47,16 +65,50 @@ export default function HeroPage() {
   const [data, setData] = React.useState("");
   React.useEffect(() => {
     const fetchPodcasts = async () => {
-      const data = await graphQLClient.request(query);
-      setData(data);
+      try {
+        const data = await graphQLClient.request(search);
+        console.log(JSON.stringify(data, undefined, 2));
+        setData(data);
+      } catch (error) {
+        console.error(JSON.stringify(error, undefined, 2));
+        process.exit(1);
+      }
     };
     fetchPodcasts();
   }, []);
 
+  const [data1, setData1] = React.useState("");
+
+  const checkForGuests = (id) => {
+    const variables = {
+      identifier: {
+        id: id,
+        type: "SPOTIFY",
+      },
+    };
+
+    const fetchPodcastsGuests = async () => {
+      const data1 = await graphQLClient.request(query, variables);
+      setData1(data1);
+    };
+    fetchPodcastsGuests();
+  };
+
+  if (!data) return <Loading />;
+
   return (
     <>
       <h1>Hero Page</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(data1, null, 2)}</pre>
+      {data?.podcasts?.data.map((podcast) => {
+        return (
+          <React.Fragment key={podcast.id}>
+            <button onClick={() => checkForGuests(podcast.id)}>
+              Check for Guests from {podcast.title}
+            </button>
+          </React.Fragment>
+        );
+      })}
       {/* <pre>{JSON.stringify(error, null, 2)}</pre> */}
     </>
   );
