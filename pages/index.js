@@ -288,7 +288,7 @@ const QuestDummyJoin = styled.div`
 
 const Form = styled.form`
   width: 1125px;
-  padding-top: 75px;
+  padding-top: 0px;
   @media (max-width: 1150px) {
     width: 66%;
     display: block;
@@ -312,7 +312,7 @@ const Form = styled.form`
   label {
     margin-top: 0px;
     &:first-child {
-      margin-top: 0;
+      margin-top: -75px;
       position: absolute;
       left: 50%;
       width: 100px;

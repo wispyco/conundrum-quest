@@ -101,8 +101,8 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:title" content="Conundrum Quest" />
         <meta
           property="og:description"
-          content="A place to see the world’s hardest problems. 
-  Who’s working on them and to follow along"
+          content="A place to share new problems, ideas and connect who is
+          working on them."
         />
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:url" content="https://conundrum.quest" />

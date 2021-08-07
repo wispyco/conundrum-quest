@@ -215,7 +215,9 @@ export default function Layout({ children }) {
         <Title>
           <div>
             <Header2 className="title">
-              <em>T</em>he <span>Worlds</span> hardest problems and who is
+              {/* <em>T</em>he <span>Worlds</span> hardest problems and who is
+              working on them. */}
+              <em>A</em> place to share new problems, ideas and connect who is
               working on them.
             </Header2>
           </div>
@@ -236,7 +238,7 @@ export default function Layout({ children }) {
           Analytics and Public Roam
         </a>
         <Link href="/privacy-policy">Privacy Policy</Link>
-        <a href="https://wispy.co">by wispy.co</a>
+        <a href="https://wispy.co">by nwispy.co</a>
       </Made>
       <>
         {process.browser && (
@@ -326,41 +328,17 @@ const Wait = styled.div`
 `;
 
 const Title = styled.div`
-  margin: -100px auto -102px auto;
+  margin: 100px auto -102px auto;
   background: url(/banner.jpeg);
-  background: url(/mountain-lines.png);
-  background-size: 1017px;
+  background: url(/mountain-lines-1.png);
+  background-size: 575px;
   background-repeat: no-repeat;
-  background-position: center 200px;
+  background-position: center 100px;
   /* height: 400px; */
-  background-attachment: fixed;
+  // background-attachment: fixed;
   padding: 300px 0 173px 0;
   color: #000;
-  div {
-    margin-top: 0px;
-    background: url(/title.png);
-    background-size: 900px;
-    background-repeat: no-repeat;
-    background-position: center -0px;
-    padding-bottom: 50px;
-    @media (max-width: 600px) {
-      background-size: 1250px;
-      background-position: center -30px;
-    }
-    @media (max-width: 400px) {
-      background-size: 2000px;
-      background-position: center -80px;
-    }
-  }
-  @media (max-width: 1350px) {
-    margin: 100px auto 0 auto;
-  }
-  @media (max-width: 1100px) {
-    background-position: center 200px;
-    padding: 100px 0 173px 0;
-  }
-  h2 {
-  }
+
   a {
     text-align: center;
     display: block;
@@ -370,22 +348,6 @@ const Title = styled.div`
     padding: 15px;
     background: #25cec8;
     color: #fff;
-  }
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
-    margin: 170px auto -102px auto;
-    background-size: 600px;
-    background-position-y: 300px;
-    padding: 600px 0 0px 0;
-    h2 {
-      margin-top: -150px;
-      font-size: 76px;
-    }
-    a {
-      font-size: 34px;
-      width: 450px;
-      padding: 25px;
-      border-radius: 200px;
-    }
   }
 `;
 
@@ -433,8 +395,6 @@ const Alpha = styled.span`
 
 const Header2 = styled.h2`
   text-align: center;
-  //background: lightgrey;
-
   span {
     color: #fff;
     background: #000;
@@ -461,7 +421,7 @@ const Header2 = styled.h2`
   }
   border-radius: 10px;
   font-size: 46px;
-  width: 800px;
+  width: 900px;
   @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 2500px) {
     width: 1400px;
     font-size: 86px;
@@ -480,7 +440,7 @@ const Header2 = styled.h2`
       color: #000;
     }
   }
-  margin: 0 auto;
+  margin: 75px auto;
 `;
 
 const Header3 = styled.h3`
