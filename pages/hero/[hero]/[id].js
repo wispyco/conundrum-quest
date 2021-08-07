@@ -2,11 +2,17 @@ import useSWR from "swr";
 import { request, GraphQLClient, gql } from "graphql-request";
 import React from "react";
 import Loading from "../../../components/Loading";
+import { GET_HERO_BY_ID } from "../../../gql/schema";
+import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 
 // const fetcher = (mutation) =>
 //   request("https://api.podchaser.com/graphql", mutation);
 
-const endpoint = "https://api.podchaser.com/graphql";
+const fetchWithId = (url, id) => fetch(`${url}?id=${id}`).then((r) => r.json());
+
+
+const endpoint = "https://api.podchaser.com/graphql/cost";
 
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
@@ -77,10 +83,20 @@ export default function HeroPage() {
     }
   `;
 
+  const Router = useRouter()
+
+  const {
+    loading: heroLoading,
+    error: heroError,
+    data: heroData,
+  } = useQuery(GET_HERO_BY_ID, {
+    variables: { id: Router.query.id },
+  });
+
   const search1 = gql`
-    query {
+    query test($searchTerm: String) {
       creators(
-      searchTerm: "daniel schmachtenberger" 
+      searchTerm: $searchTerm
     ){
       data{
         name
@@ -98,11 +114,16 @@ export default function HeroPage() {
   }
 `;
 
+
+
   const [data, setData] = React.useState("");
   React.useEffect(() => {
+    const variables = {
+      searchTerm:heroData?.findHeroByID?.name
+    }
     const fetchPodcasts = async () => {
       try {
-        const data = await graphQLClient.request(search1);
+        const data = await graphQLClient.request(search1, variables);
         console.log(JSON.stringify(data, undefined, 2));
         setData(data);
       } catch (error) {
@@ -130,12 +151,17 @@ export default function HeroPage() {
     fetchPodcastsGuests();
   };
 
+  const { data, error } = useSWR([`/api/spotify/`, id], fetcher);
+
+
+  
+
   if (!data) return <Loading />;
 
   return (
     <>
       <h1>Hero Page</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {data?.podcasts?.data.map((podcast) => {
         return (
           <React.Fragment key={podcast.id}>
@@ -145,7 +171,7 @@ export default function HeroPage() {
           </React.Fragment>
         );
       })}
-      {/* <pre>{JSON.stringify(error, null, 2)}</pre> */}
+      <pre>{JSON.stringify(heroData, null,2)}</pre>
     </>
   );
 }

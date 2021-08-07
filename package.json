@@ -38,6 +38,7 @@
     "react-icons": "^4.2.0",
     "react-player": "^2.9.0",
     "react-popper": "^2.2.5",
+    "spotify-web-api-js": "^1.5.1",
     "styled-components": "^5.3.0",
     "swr": "^0.5.6",
     "url-slug": "^3.0.2",
