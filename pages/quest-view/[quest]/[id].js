@@ -21,6 +21,8 @@ import { GiMountedKnight, GiNinjaHeroicStance } from "react-icons/gi";
 import ReactPlayer from "react-player";
 import Image from "next/image";
 import { DiscussionEmbed } from "disqus-react";
+import urlSlug from 'url-slug'
+
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -141,6 +143,13 @@ const QuestCard = ({ quest, knights, user }) => {
 
   console.log(test, "test");
 
+  const viewHero = (name, id) =>{
+
+    const name1 = urlSlug(name)
+
+    router.push(`/hero/${name1}/${id}`)
+  }
+
   if (following || unfollowing)
     return (
       // <Layout>
@@ -180,7 +189,7 @@ const QuestCard = ({ quest, knights, user }) => {
           return (
             <>
               {hero.isAccepted && (
-                <Hero>
+                <Hero onClick={() => viewHero(hero.name,hero._id)}>
                   {hero.avatar && (
                     <ImageWrap>
                       <Image width="100" height="100" src={hero?.avatar} />
@@ -324,6 +333,11 @@ const Hero = styled.div`
     width: 100%;
   }
   text-align: center;
+  box-shadow: 5px 5px 10px #dadada;
+  &:hover{
+    background:lightgrey;
+    cursor:pointer;
+  }
 `;
 
 const HerosGrid = styled.div`

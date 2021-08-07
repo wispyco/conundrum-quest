@@ -10,29 +10,32 @@ const endpoint = "https://api.podchaser.com/graphql";
 
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
-    authorization: `Bearer ${process.env.NEXT_PUBLIC_POD_CHASER_API_KEY}`,
+    authorization: `Bearer ${process.env.NEXT_PUBLIC_POD_CHASER_API_KEY_PROD}`,
   },
 });
 
 export default function HeroPage() {
   //USE TO REGENERATE PODCHASER API, RUNS OUT IN A YEAR TODAY IS AUG 7TH 2021
 
-  //   const { data, error } = useSWR(
-  //     `mutation {
-  // 		requestAccessToken(
-  // 			input: {
-  // 				grant_type: CLIENT_CREDENTIALS
-  // 				client_id: "94190bfc-f543-4dd8-be04-04b2a76390b4"
-  // 				client_secret: "cy1kKr4iZ19SNTB3IGV6K1M8h05SHOHKokLIk70E"
-  // 			}
-  // 		) {
-  // 			access_token
-  // 			token_type    # Optional, will always be "Bearer"
-  // 			expires_in    # Optional, will almost always be 31536000
+  // const { data: data2, error } = useSWR(
+  //   `mutation {
+  // 	requestAccessToken(
+  // 		input: {
+  // 			grant_type: CLIENT_CREDENTIALS
+  // 			client_id: "94190bfd-7531-43da-96d6-0253691696a7"
+  // 			client_secret: "DCSFgCdyE1S1SHw6tt6Klg2SzDfLuvr4wm8O5aiK"
   // 		}
-  // 	}`,
-  //     fetcher
-  //   );
+  // 	) {
+  // 		access_token
+  // 		token_type    # Optional, will always be "Bearer"
+  // 		expires_in    # Optional, will almost always be 31536000
+  // 	}
+  // }`,
+  //   fetcher
+  // );
+
+  // console.log('data2',data2)
+  // console.log('error',error)
 
   const query = gql`
     query getGuests($identifier: PodcastIdentifier!) {
@@ -57,21 +60,54 @@ export default function HeroPage() {
         data {
           id
           title
+          episodes {
+            data {
+              title
+              credits {
+                data {
+                  characters {
+                    name
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   `;
 
+  const search1 = gql`
+    query {
+      creators(
+      searchTerm: "daniel schmachtenberger" 
+    ){
+      data{
+        name
+        credits{
+          data{
+            podcast{
+              title
+              url
+              webUrl
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
   const [data, setData] = React.useState("");
   React.useEffect(() => {
     const fetchPodcasts = async () => {
       try {
-        const data = await graphQLClient.request(search);
+        const data = await graphQLClient.request(search1);
         console.log(JSON.stringify(data, undefined, 2));
         setData(data);
       } catch (error) {
         console.error(JSON.stringify(error, undefined, 2));
-        process.exit(1);
+        // process.exit(1);
       }
     };
     fetchPodcasts();
@@ -99,7 +135,7 @@ export default function HeroPage() {
   return (
     <>
       <h1>Hero Page</h1>
-      <pre>{JSON.stringify(data1, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
       {data?.podcasts?.data.map((podcast) => {
         return (
           <React.Fragment key={podcast.id}>
