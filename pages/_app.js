@@ -37,14 +37,16 @@ export const initializeApollo = (accessToken) => {
 
   if (accessToken === undefined) {
     _apolloClient = createApolloClient(
-      process.env.NEXT_PUBLIC_FAUNA_CLIENT_KEY
+      // process.env.NEXT_PUBLIC_FAUNA_CLIENT_KEY
+      process.env.NEXT_PUBLIC_FAUNA_CLIENT_KEY_STAGING
     );
     return _apolloClient;
   }
 
   if (accessToken.token === false) {
     _apolloClient = createApolloClient(
-      process.env.NEXT_PUBLIC_FAUNA_CLIENT_KEY
+      // process.env.NEXT_PUBLIC_FAUNA_CLIENT_KEY
+      process.env.NEXT_PUBLIC_FAUNA_CLIENT_KEY_STAGING
     );
     return _apolloClient;
   } else {
