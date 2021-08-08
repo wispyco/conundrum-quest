@@ -184,7 +184,7 @@ const QuestCard = ({ quest, knights, user }) => {
       </HeroTitle>
 
       <HerosGrid>
-        {quest.heros.data.map((hero) => {
+        {quest.heros1.data.map((hero) => {
           return (
             <>
               {hero.isAccepted && (

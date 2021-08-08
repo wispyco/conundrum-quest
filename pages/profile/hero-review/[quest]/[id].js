@@ -1,14 +1,14 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Router, useRouter } from "next/router";
-import Loading from "../../../components/Loading";
+import Loading from "../../../../components/Loading";
 import {
   CREATE_HERO,
   GET_HERO_BY_ID,
   GET_QUEST_BY_ID,
   UPDATE_HERO,
-} from "../../../gql/schema";
+} from "../../../../gql/schema";
 import styled from "styled-components";
-import Layout from "../../../components/layout";
+import Layout from "../../../../components/layout";
 import useSWR from "swr";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
@@ -103,7 +103,7 @@ const QuestCard = ({ hero, user }) => {
       isBeingReviewed: JSON.stringify(hero.isBeingReviewed),
       isAccepted: JSON.stringify(hero.isAccepted),
       youtube: hero.youtube,
-      twitter: hero.twitter
+      twitter: hero.twitter,
     },
   });
   const onSubmit = async (data) => {
@@ -114,7 +114,7 @@ const QuestCard = ({ hero, user }) => {
       isBeingReviewed,
       isAccepted,
       youtube,
-      twitter
+      twitter,
     } = data;
 
     const isBeingReviewedSet = isBeingReviewed === "true";
@@ -132,7 +132,7 @@ const QuestCard = ({ hero, user }) => {
         ownerConnect: user.id,
         youtube: youtube,
         avatar: cloudLinks,
-        twitter: twitter
+        twitter: twitter,
       },
     }).catch(console.error);
 
