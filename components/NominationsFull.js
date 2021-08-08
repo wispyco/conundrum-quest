@@ -157,11 +157,9 @@ export default function NominationsFull({ user }) {
           );
         })}
 
-        <h1>Nominations</h1>
+        {/* <h1>Nominations</h1>
         <HeroWrap>
-          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
           {data.getHeros.data
-            // .filter((heroF) => heroF?.isClaimed === false)
             .map((hero, i) => {
               return (
                 <Hero
@@ -179,7 +177,6 @@ export default function NominationsFull({ user }) {
                   {!hero?.isClaimed && (
                     <button onClick={() => clickClaim(hero._id)}>Claim</button>
                   )}
-                  {/* // )} */}
                   <h3>Name: {hero.name}</h3>
                   <p>Description: {hero.description}</p>
                   <h4>
@@ -208,7 +205,7 @@ export default function NominationsFull({ user }) {
                 </Hero>
               );
             })}
-        </HeroWrap>
+        </HeroWrap> */}
       </Wrap>
     </>
   );

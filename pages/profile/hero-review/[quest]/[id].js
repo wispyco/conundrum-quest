@@ -126,7 +126,7 @@ const QuestCard = ({ hero, user }) => {
         name: name,
         description: description,
         wikipedia: wikipedia,
-        questConnect: hero.quest._id,
+        questConnect: Router.query.quest,
         isAccepted: isAcceptedSet,
         isBeingReviewed: isBeingReviewedSet,
         ownerConnect: user.id,

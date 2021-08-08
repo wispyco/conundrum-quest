@@ -193,6 +193,13 @@ const QuestCard = ({ quest, user, herosData }) => {
     Router.push("/");
   };
 
+  const currentHeros = quest?.heros1;
+  const allheros = herosData;
+
+  const final = quest?.heros1.data.map((item) => {
+    return herosData.getHeros.data.filter((f) => f._id !== item._id);
+  });
+
   return (
     <Card>
       <h1>{quest?.name}</h1>
@@ -262,6 +269,8 @@ const QuestCard = ({ quest, user, herosData }) => {
       </form>
       {/* <pre>{JSON.stringify(filtered, null, 2)}</pre> */}
       <pre>{JSON.stringify(quest?.heros1, null, 2)}</pre>
+      <pre>{JSON.stringify(herosData, null, 2)}</pre>
+      <pre>{JSON.stringify(final, null, 2)}</pre>
     </Card>
   );
 };
