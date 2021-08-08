@@ -181,7 +181,21 @@ export default function HeroPage() {
         );
       })} */}
       <pre>{JSON.stringify(heroData, null, 2)}</pre>
-      {/* <pre>{JSON.stringify(spotifyData, null, 2)}</pre> */}
+      {spotifyData?.data?.items.map((item) => {
+        return (
+          <div>
+            <a href={item.audio_preview_url}>{item.name}</a>
+            {item.images.map((image) => {
+              return (
+                <>
+                  <img src={image.url} />
+                </>
+              );
+            })}
+          </div>
+        );
+      })}
+      <pre>{JSON.stringify(spotifyData, null, 2)}</pre>
     </>
   );
 }

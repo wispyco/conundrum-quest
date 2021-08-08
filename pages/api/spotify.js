@@ -9,29 +9,7 @@ import qs from "qs";
 // });
 
 export default async (req, res) => {
-  // const str = `189239b06d63481981ed50287f51ad29:fdb8dc03865949dfb633af12c71e3b87`;
-
-  // let auth = Buffer.from(str, "utf-8");
-
-  // auth = auth.toString("base64");
-
-  // axios({
-  //   method: "post",
-  //   url: "https://accounts.spotify.com/api/token",
-  //   data: {
-  //     grant_type: "client_credentials",
-  //   },
-  //   headers: { Authorization: `Basic ${auth}` },
-  // })
-  //   .then((res) => {
-  //     console.log(`statusCode: ${res.status}`);
-  //     console.log(res);
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-
-  //Stack overflow https://stackoverflow.com/questions/62682783/getting-http-415-unsupported-media-type-during-authorization-in-the-spotify-api
+  console.log("req", req.query.id);
 
   const client_id = "189239b06d63481981ed50287f51ad29";
   const client_secret = "fdb8dc03865949dfb633af12c71e3b87";
@@ -52,7 +30,13 @@ export default async (req, res) => {
 
   auth = auth.toString("base64");
 
-  axios
+  let name = req.query.id;
+
+  name = encodeURIComponent(name);
+
+  console.log("name", name);
+
+  const data = axios
     .post(
       "https://accounts.spotify.com/api/token",
       serialize({
@@ -65,9 +49,9 @@ export default async (req, res) => {
       }
     )
     .then((res) => {
-      axios
+      const test = axios
         .get(
-          "https://api.spotify.com/v1/search?q=conor%20white%20sullivan&type=episode&market=US",
+          `https://api.spotify.com/v1/search?q=${name}&type=episode&market=US`,
           {
             headers: {
               Authorization: `Bearer ${res.data.access_token}`,
@@ -77,19 +61,23 @@ export default async (req, res) => {
         )
         .then(function (response) {
           // handle success
-          console.log(response.data.episodes);
+          // console.log(response.data.episodes);
+          return response.data.episodes;
         })
         .catch(function (error) {
           // handle error
           console.log(error);
-        })
-        .then(function () {
-          // always executed
         });
+
+      return test;
     })
     .catch((err) => {
       console.log(err);
     });
 
-  res.status(200).json({ test: "hello" });
+  const boy = async () => {
+    // console.log("data", await data);
+    res.status(200).json({ data: await data });
+  };
+  boy();
 };
