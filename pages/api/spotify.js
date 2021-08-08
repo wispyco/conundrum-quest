@@ -2,17 +2,11 @@
 const axios = require("axios");
 import qs from "qs";
 
-// credentials are optional
-// var spotifyApi = new SpotifyWebApi({
-//   clientId: "189239b06d63481981ed50287f51ad29",
-//   clientSecret: "fdb8dc03865949dfb633af12c71e3b87",
-// });
-
 export default async (req, res) => {
   console.log("req", req.query.id);
 
   const client_id = "189239b06d63481981ed50287f51ad29";
-  const client_secret = "fdb8dc03865949dfb633af12c71e3b87";
+  const client_secret = process.env.CLIENT_SECRET_SPOTIFY;
 
   const serialize = function (obj) {
     var str = [];
