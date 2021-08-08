@@ -5,12 +5,12 @@ import Loading from "../../../components/Loading";
 import { GET_HERO_BY_ID } from "../../../gql/schema";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+// import SpotifyWebApi from "spotify-web-api-js";
 
 // const fetcher = (mutation) =>
 //   request("https://api.podchaser.com/graphql", mutation);
 
 const fetchWithId = (url, id) => fetch(`${url}?id=${id}`).then((r) => r.json());
-
 
 const endpoint = "https://api.podchaser.com/graphql/cost";
 
@@ -83,7 +83,7 @@ export default function HeroPage() {
     }
   `;
 
-  const Router = useRouter()
+  const Router = useRouter();
 
   const {
     loading: heroLoading,
@@ -93,46 +93,59 @@ export default function HeroPage() {
     variables: { id: Router.query.id },
   });
 
+  const { data: spotifyData, error: spotifyError } = useSWR(
+    [`/api/spotify/`, heroData?.findHeroByID?.name],
+    fetchWithId
+  );
+
+  //   var spotifyApi = new SpotifyWebApi();
+
+  //   spotifyApi.setAccessToken("fdb8dc03865949dfb633af12c71e3b87");
+
+  //   const eps = spotifyApi.searchEpisodes(
+  //     "conor white sullivan",
+  //     function (err, data) {
+  //       if (err) console.error(err);
+  //       else console.log("data", data);
+  //     }
+  //   );
+
   const search1 = gql`
     query test($searchTerm: String) {
-      creators(
-      searchTerm: $searchTerm
-    ){
-      data{
-        name
-        credits{
-          data{
-            podcast{
-              title
-              url
-              webUrl
+      creators(searchTerm: $searchTerm) {
+        data {
+          name
+          credits {
+            data {
+              podcast {
+                title
+                url
+                webUrl
+              }
             }
           }
         }
       }
     }
-  }
-`;
+  `;
 
-
-
-  const [data, setData] = React.useState("");
-  React.useEffect(() => {
-    const variables = {
-      searchTerm:heroData?.findHeroByID?.name
-    }
-    const fetchPodcasts = async () => {
-      try {
-        const data = await graphQLClient.request(search1, variables);
-        console.log(JSON.stringify(data, undefined, 2));
-        setData(data);
-      } catch (error) {
-        console.error(JSON.stringify(error, undefined, 2));
-        // process.exit(1);
-      }
-    };
-    fetchPodcasts();
-  }, []);
+  //   const [data, setData] = React.useState("");
+  //   React.useEffect(() => {
+  //     const variables = {
+  //       searchTerm:heroData?.findHeroByID?.name
+  //     }
+  //     const fetchPodcasts = async () => {
+  //       try {
+  //         const data = await graphQLClient.request(search1, variables);
+  //         console.log(JSON.stringify(data, undefined, 2));
+  //         setData(data);
+  //       } catch (error) {
+  //         console.error(JSON.stringify(error, undefined, 2));
+  //         // process.exit(1);
+  //       }
+  //     };
+  //     fetchPodcasts();
+  //   }, []);
 
   const [data1, setData1] = React.useState("");
 
@@ -151,18 +164,14 @@ export default function HeroPage() {
     fetchPodcastsGuests();
   };
 
-  const { data, error } = useSWR([`/api/spotify/`, id], fetcher);
-
-
-  
-
-  if (!data) return <Loading />;
+  //   if (!data1 || !spotifyData) return <Loading />;
+  //   if (!spotifyData) return <Loading />;
 
   return (
     <>
       <h1>Hero Page</h1>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-      {data?.podcasts?.data.map((podcast) => {
+      {/* {data?.podcasts?.data.map((podcast) => {
         return (
           <React.Fragment key={podcast.id}>
             <button onClick={() => checkForGuests(podcast.id)}>
@@ -170,8 +179,9 @@ export default function HeroPage() {
             </button>
           </React.Fragment>
         );
-      })}
-      <pre>{JSON.stringify(heroData, null,2)}</pre>
+      })} */}
+      <pre>{JSON.stringify(heroData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(spotifyData, null, 2)}</pre> */}
     </>
   );
 }
