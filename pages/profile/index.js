@@ -15,6 +15,7 @@ import { query as q } from "faunadb";
 import { authClient } from "../../utils/faunaAuth";
 import { useRouter } from "next/router";
 import PostsYouFollow from "../../components/PostsYouFollow";
+import ViewEmails from "../../components/ViewEmails";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -113,6 +114,7 @@ export default function Profile() {
             <ViewInvitesWrap>
               <ViewInvites />
             </ViewInvitesWrap>
+            <ViewEmails />
           </>
         )}
         {userData?.role === "KNIGHT" && (
