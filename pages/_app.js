@@ -100,6 +100,11 @@ function MyApp({ Component, pageProps }) {
         <title>Conundrum Quest</title>
         <meta property="og:title" content="Conundrum Quest" />
         <meta
+          name="description"
+          content="A place to share new problems, ideas and see who is
+          working on them."
+        ></meta>
+        <meta
           property="og:description"
           content="A place to share new problems, ideas and see who is
           working on them."
