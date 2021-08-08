@@ -217,14 +217,16 @@ export default function HeroPage() {
               onPlay={(e) => console.log("onPlay")}
               // other props here
             /> */}
-            <iframe
-              src={`https://open.spotify.com/embed-podcast/episode/${item.id}`}
-              width="100%"
-              height="232"
-              frameBorder="0"
-              allowTransparency="true"
-              allow="encrypted-media"
-            ></iframe>
+            {item && (
+              <iframe
+                src={`https://open.spotify.com/embed-podcast/episode/${item.id}`}
+                width="100%"
+                height="232"
+                frameBorder="0"
+                allowTransparency="true"
+                allow="encrypted-media"
+              ></iframe>
+            )}
             {i < 1 && (
               <div className="iframe">
                 <ReactPlayer

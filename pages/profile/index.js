@@ -124,15 +124,12 @@ export default function Profile() {
             </Instruct>
             <UpdateUserName setUserData={setUserData} user={userData} />
             <QuestInstructions>
-              <h1>
-                Quests are problems in the World that are to you considered very
-                hard?
-              </h1>
+              <h1>Quests are problems or ideas that are on your mind.</h1>
               <p>All quests go into moderation, for community safety</p>
-              <p>
+              {/* <p>
                 We are looking for moderators please email hi@wispy.co with re:
                 Quest Moderation
-              </p>
+              </p> */}
             </QuestInstructions>
             <AddQuest onClick={clickedAddQuest}>
               {!addQuest ? "Add a Quest" : "X"}

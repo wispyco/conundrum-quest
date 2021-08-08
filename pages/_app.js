@@ -101,12 +101,12 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:title" content="Conundrum Quest" />
         <meta
           name="description"
-          content="A place to share new problems, ideas and see who is
+          content="A place to share new problems and ideas and see who is
           working on them."
         ></meta>
         <meta
           property="og:description"
-          content="A place to share new problems, ideas and see who is
+          content="A place to share new problems and ideas and see who is
           working on them."
         />
         <link rel="icon" href="/favicon.ico" />
