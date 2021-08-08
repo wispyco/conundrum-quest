@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 import ReactPlayer from "react-player";
 import AudioPlayer from "react-h5-audio-player";
 import styled from "styled-components";
+import Layout from "../../../components/layout";
+import Image from "next/image";
+import { FaTwitter } from "react-icons/fa";
 
 const fetchWithId = (url, id) => fetch(`${url}?id=${id}`).then((r) => r.json());
 
@@ -146,29 +149,51 @@ export default function HeroPage() {
   //     fetchPodcasts();
   //   }, []);
 
-  const [data1, setData1] = React.useState("");
+  //   const [data1, setData1] = React.useState("");
 
-  const checkForGuests = (id) => {
-    const variables = {
-      identifier: {
-        id: id,
-        type: "SPOTIFY",
-      },
-    };
+  //   const checkForGuests = (id) => {
+  //     const variables = {
+  //       identifier: {
+  //         id: id,
+  //         type: "SPOTIFY",
+  //       },
+  //     };
 
-    const fetchPodcastsGuests = async () => {
-      const data1 = await graphQLClient.request(query, variables);
-      setData1(data1);
-    };
-    fetchPodcastsGuests();
-  };
+  //     const fetchPodcastsGuests = async () => {
+  //       const data1 = await graphQLClient.request(query, variables);
+  //       setData1(data1);
+  //     };
+  //     fetchPodcastsGuests();
+  //   };
 
-  //   if (!data1 || !spotifyData) return <Loading />;
+  if (!heroData || !spotifyData) return <Loading />;
   //   if (!spotifyData) return <Loading />;
 
   return (
-    <>
-      <h1>Hero Page</h1>
+    <Layout>
+      {/* <Link href={heroData.findHeroByID.request.id} */}
+      <Card>
+        <h1>{heroData?.findHeroByID?.name}</h1>
+        {heroData.findHeroByID.avatar && (
+          <ImageWrap>
+            <Image
+              width="100"
+              height="100"
+              src={heroData?.findHeroByID?.avatar}
+            />
+          </ImageWrap>
+        )}
+        {heroData.findHeroByID.twitter && (
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href={heroData?.findHeroByID?.twitter}
+          >
+            <FaTwitter />
+          </a>
+        )}
+        <p>{heroData?.findHeroByID?.description}</p>
+      </Card>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {/* {data?.podcasts?.data.map((podcast) => {
         return (
@@ -181,7 +206,7 @@ export default function HeroPage() {
       })} */}
       {/* <ReactPlayer url={item.audio_preview_url} /> */}
 
-      <pre>{JSON.stringify(heroData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(heroData, null, 2)}</pre> */}
       {spotifyData?.data?.items.map((item, i) => {
         return (
           <Podcasts key={i}>
@@ -200,6 +225,15 @@ export default function HeroPage() {
               allowTransparency="true"
               allow="encrypted-media"
             ></iframe>
+            {i < 1 && (
+              <div className="iframe">
+                <ReactPlayer
+                  width="100%"
+                  height="100%"
+                  url={heroData?.findHeroByID?.youtube}
+                />
+              </div>
+            )}
             {/* {item.images.map((image, i) => {
               return (
                 <div key={i}>
@@ -211,14 +245,62 @@ export default function HeroPage() {
         );
       })}
       {/* <pre>{JSON.stringify(spotifyData, null, 2)}</pre> */}
-    </>
+    </Layout>
   );
 }
+
+const ImageWrap = styled.div`
+  object-fit: cover;
+  img {
+    border-radius: 50%;
+  }
+`;
+
+const Card = styled.div`
+  display: grid;
+  width: 1000px;
+  margin: 150px auto 0 auto;
+  grid-template-columns: 1fr 100px 100px 1fr;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  @media (max-width: 1100px) {
+    margin: 250px auto 0 auto;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+  }
+  @media (max-width: 400px) {
+    margin: 250px auto 0 auto;
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+  p {
+    width: 300px;
+    margin: 0 auto;
+  }
+`;
 
 const Podcasts = styled.div`
   width: 50%;
   margin: 0 auto;
+  @media (max-width: 1100px) {
+    width: 90%;
+  }
+  @media (max-width: 400px) {
+    width: 80%;
+  }
   iframe {
     margin: 25px 0;
+  }
+  .iframe {
+    margin: 0px auto 50px auto;
+    width: 600px;
+    height: 300px;
+    @media (max-width: 1100px) {
+      width: 100%;
+    }
+    @media (max-width: 400px) {
+      width: 100%;
+    }
   }
 `;
