@@ -179,7 +179,7 @@ const QuestCard = ({ quest, user, herosData }) => {
         name: name,
         description: description,
         wikipedia: wikipedia,
-        questConnect: [questId, Router.query.id],
+        questConnect: [Router.query.id],
         isAccepted: false,
         isBeingReviewed: false,
         knightConnect: user.id,
@@ -197,7 +197,7 @@ const QuestCard = ({ quest, user, herosData }) => {
   const allheros = herosData;
 
   const final = quest?.heros1.data.map((item) => {
-    return herosData.getHeros.data.filter((f) => f._id !== item._id);
+    return herosData?.getHeros?.data.filter((f) => f._id !== item._id);
   });
 
   return (
@@ -212,7 +212,7 @@ const QuestCard = ({ quest, user, herosData }) => {
         }}
       /> */}
       <h2>Click to choose a existing Hero</h2>
-      {/* {filtered?.map((item) => {
+      {final.flat().map((item) => {
         return (
           <>
             <button
@@ -232,7 +232,7 @@ const QuestCard = ({ quest, user, herosData }) => {
             </button>
           </>
         );
-      })} */}
+      })}
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="Full Name" {...register("name", {})} />
         <input
@@ -268,8 +268,8 @@ const QuestCard = ({ quest, user, herosData }) => {
         <input type="submit" />
       </form>
       {/* <pre>{JSON.stringify(filtered, null, 2)}</pre> */}
-      <pre>{JSON.stringify(quest?.heros1, null, 2)}</pre>
-      <pre>{JSON.stringify(herosData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(quest?.heros1, null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(herosData, null, 2)}</pre> */}
       <pre>{JSON.stringify(final, null, 2)}</pre>
     </Card>
   );
