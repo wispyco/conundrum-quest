@@ -5,10 +5,9 @@ import Loading from "../../../components/Loading";
 import { GET_HERO_BY_ID } from "../../../gql/schema";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-// import SpotifyWebApi from "spotify-web-api-js";
-
-// const fetcher = (mutation) =>
-//   request("https://api.podchaser.com/graphql", mutation);
+import ReactPlayer from "react-player";
+import AudioPlayer from "react-h5-audio-player";
+import styled from "styled-components";
 
 const fetchWithId = (url, id) => fetch(`${url}?id=${id}`).then((r) => r.json());
 
@@ -43,45 +42,45 @@ export default function HeroPage() {
   // console.log('data2',data2)
   // console.log('error',error)
 
-  const query = gql`
-    query getGuests($identifier: PodcastIdentifier!) {
-		podcast(
-			identifier:$identifier
-		  ){
-			 credits{
-				 data{
-					episodeCredits{
-						characters
-					}
-				 }
-			 } 
-		  }	
-		}  
-    }
-  `;
+  //   const query = gql`
+  //     query getGuests($identifier: PodcastIdentifier!) {
+  // 		podcast(
+  // 			identifier:$identifier
+  // 		  ){
+  // 			 credits{
+  // 				 data{
+  // 					episodeCredits{
+  // 						characters
+  // 					}
+  // 				 }
+  // 			 }
+  // 		  }
+  // 		}
+  //     }
+  //   `;
 
-  const search = gql`
-    query {
-      podcasts(searchTerm: "syntax") {
-        data {
-          id
-          title
-          episodes {
-            data {
-              title
-              credits {
-                data {
-                  characters {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
+  //   const search = gql`
+  //     query {
+  //       podcasts(searchTerm: "syntax") {
+  //         data {
+  //           id
+  //           title
+  //           episodes {
+  //             data {
+  //               title
+  //               credits {
+  //                 data {
+  //                   characters {
+  //                     name
+  //                   }
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `;
 
   const Router = useRouter();
 
@@ -180,22 +179,46 @@ export default function HeroPage() {
           </React.Fragment>
         );
       })} */}
+      {/* <ReactPlayer url={item.audio_preview_url} /> */}
+
       <pre>{JSON.stringify(heroData, null, 2)}</pre>
-      {spotifyData?.data?.items.map((item) => {
+      {spotifyData?.data?.items.map((item, i) => {
         return (
-          <div>
-            <a href={item.audio_preview_url}>{item.name}</a>
-            {item.images.map((image) => {
+          <Podcasts key={i}>
+            {/* <a href={item.audio_preview_url}>{item.name}</a>
+            <AudioPlayer
+              autoPlay
+              src={item.audio_preview_url}
+              onPlay={(e) => console.log("onPlay")}
+              // other props here
+            /> */}
+            <iframe
+              src={`https://open.spotify.com/embed-podcast/episode/${item.id}`}
+              width="100%"
+              height="232"
+              frameborder="0"
+              allowtransparency="true"
+              allow="encrypted-media"
+            ></iframe>
+            {/* {item.images.map((image, i) => {
               return (
-                <>
+                <div key={i}>
                   <img src={image.url} />
-                </>
+                </div>
               );
-            })}
-          </div>
+            })} */}
+          </Podcasts>
         );
       })}
-      <pre>{JSON.stringify(spotifyData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(spotifyData, null, 2)}</pre> */}
     </>
   );
 }
+
+const Podcasts = styled.div`
+  width: 50%;
+  margin: 0 auto;
+  iframe {
+    margin: 25px 0;
+  }
+`;
