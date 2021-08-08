@@ -196,8 +196,8 @@ export default function HeroPage() {
               src={`https://open.spotify.com/embed-podcast/episode/${item.id}`}
               width="100%"
               height="232"
-              frameborder="0"
-              allowtransparency="true"
+              frameBorder="0"
+              allowTransparency="true"
               allow="encrypted-media"
             ></iframe>
             {/* {item.images.map((image, i) => {
