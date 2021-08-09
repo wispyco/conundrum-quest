@@ -1,0 +1,118 @@
+type User {
+  email: String @unique
+  name: String
+  quests: [Quest] @relation(name: "user_quests")
+  #knight: Knight @relation(name: "user_knight")
+  heros: [Hero] @relation(name: "user_knights")
+  jobs: [Job] @relation(name: "user_jobs")
+  role: UserRole
+  follower1: User @relation(name: "user_follower1")
+  twitter: String
+  profileImage: String
+}
+
+enum UserRole {
+  # Admin | Able to edit, post & delete Quests and Users & add Invites, Accept Job
+  ADMIN
+  # Moderator | Able to review, edit and accept Quests
+  MODERATOR
+  # Knights | Able to view quests, Join them, Submit Quests, nominate a Hero, Post to Job board
+  KNIGHT
+  # Hero | Able to edit their profile, or delete themself from a Quest, nominate a Peer, or post to Job Board
+  HERO
+}
+
+type Quest {
+  name: String
+  description: String
+  heros: [Hero] @relation(name: "quest_heros")
+  heros1: [Hero] @relation(name: "quest_heros1")
+  image: String
+  owner: User @relation(name: "user_quests")
+  # need to set permissions that only MODERATOR could not set
+  isAccepted: Boolean
+  isBeingReviewed: Boolean
+  knights: [Knight] @relation(name: "quest_knights")
+  followers: [Follower]
+  follower1s: [Follower1] @relation(name: "quest_follower1")
+  category: Category
+  moderator: User
+  isClaimed: Boolean
+  videoLink: String
+  wikipedia: String
+}
+
+type Follower1 {
+  name: String
+  twitter: String
+  isFollowing: Boolean
+  owner: User @relation(name: "user_follower1")
+  quests: [Quest] @relation(name: "quest_follower1")
+}
+type Follower @embedded {
+  name: String
+  twitter: String
+  isFollowing: Boolean
+  id: ID!
+}
+
+enum Category {
+  SUSTAINABILITY_HUMAN_DEVELOPMENT
+  TECHNOLOGY_INFRASTRUCTURE_ARTIFICIAL_INTELLIGENCE
+  HEALTHCARE_LIFE_SCIENCES
+  TRANSPORTATION_URBAN_INFRASTRUCTURE
+  DIGITAL_IMMERSIVE_LEARNING_THERAPIES_AMBIENT_COMPUTING
+  PHILOSOPHY
+}
+
+type Knight {
+  name: String
+  avatar: String
+  twitter: String
+  website: String
+  quest: Quest @relation(name: "quest_knights")
+  owner: User!
+  heros: [Hero]
+}
+
+type Hero {
+  name: String
+  description: String
+  website: String
+  twitter: String
+  avatar: String
+  wikipedia: String
+  youtube: String
+  knight: Knight
+  quest: Quest @relation(name: "quest_heros")
+  quests1: [Quest] @relation(name: "quest_heros1")
+  owner: User
+  isAccepted: Boolean
+  isBeingReviewed: Boolean
+  moderator: User @relation(name: "user_knights")
+  isClaimed: Boolean
+}
+
+type Job {
+  name: String
+  website: String
+  description: String
+  # need to set permissions that only ADMIN could not set
+  isAccepted: Boolean
+  isBeingReviewed: Boolean
+  owner: User! @relation(name: "user_jobs")
+}
+
+type Invite {
+  inviteCode: Int!
+  email: String!
+  role: UserRole!
+}
+
+type Query {
+  getQuests: [Quest!]
+  getInvites: [Invite!]
+  getHeros: [Hero!]
+  getKnights: [Knight!]
+  getFollowers: [Follower1]
+}

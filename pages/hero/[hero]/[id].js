@@ -11,6 +11,7 @@ import styled from "styled-components";
 import Layout from "../../../components/layout";
 import Image from "next/image";
 import { FaTwitter } from "react-icons/fa";
+import urlSlug from "url-slug";
 
 const fetchWithId = (url, id) => fetch(`${url}?id=${id}`).then((r) => r.json());
 
@@ -166,6 +167,11 @@ export default function HeroPage() {
   //     fetchPodcastsGuests();
   //   };
 
+  const visitQuest = (name, id) => {
+    const nameNew = urlSlug(name);
+    Router.push(`/quest-view/${nameNew}/${id}`);
+  };
+
   if (!heroData || !spotifyData) return <Loading />;
   //   if (!spotifyData) return <Loading />;
 
@@ -205,47 +211,66 @@ export default function HeroPage() {
         );
       })} */}
       {/* <ReactPlayer url={item.audio_preview_url} /> */}
-
       {/* <pre>{JSON.stringify(heroData, null, 2)}</pre> */}
-      {spotifyData?.data?.items.map((item, i) => {
-        return (
-          <Podcasts key={i}>
-            {/* <a href={item.audio_preview_url}>{item.name}</a>
+
+      <Quests>
+        <h2>Quests this hero is on</h2>
+        {heroData?.findHeroByID?.quests1?.data.map((item) => {
+          return (
+            <>
+              {item?.isAccepted && (
+                <button onClick={() => visitQuest(item?.name, item?._id)}>
+                  {item?.name}
+                </button>
+              )}
+            </>
+          );
+        })}
+      </Quests>
+      <HeaderPod>Podcasts this hero has appeared on</HeaderPod>
+      <PodcastsWrap>
+        {/* <pre>{JSON.stringify(heroData, null, 2)}</pre> */}
+        {spotifyData?.data?.items.map((item, i) => {
+          return (
+            <Podcasts key={i}>
+              {/* <a href={item.audio_preview_url}>{item.name}</a>
             <AudioPlayer
               autoPlay
               src={item.audio_preview_url}
               onPlay={(e) => console.log("onPlay")}
               // other props here
             /> */}
-            {item && (
-              <iframe
-                src={`https://open.spotify.com/embed-podcast/episode/${item.id}`}
-                width="100%"
-                height="232"
-                frameBorder="0"
-                allowTransparency="true"
-                allow="encrypted-media"
-              ></iframe>
-            )}
-            {i < 1 && (
-              <div className="iframe">
-                <ReactPlayer
+              {item && (
+                <iframe
+                  src={`https://open.spotify.com/embed-podcast/episode/${item.id}`}
                   width="100%"
-                  height="100%"
-                  url={heroData?.findHeroByID?.youtube}
-                />
-              </div>
-            )}
-            {/* {item.images.map((image, i) => {
+                  height="232"
+                  frameBorder="0"
+                  allowTransparency="true"
+                  allow="encrypted-media"
+                ></iframe>
+              )}
+              {i < 1 && heroData?.findHeroByID?.youtube && (
+                <div className="iframe">
+                  <ReactPlayer
+                    width="100%"
+                    height="100%"
+                    url={heroData?.findHeroByID?.youtube}
+                  />
+                </div>
+              )}
+              {/* {item.images.map((image, i) => {
               return (
                 <div key={i}>
                   <img src={image.url} />
                 </div>
               );
             })} */}
-          </Podcasts>
-        );
-      })}
+            </Podcasts>
+          );
+        })}
+      </PodcastsWrap>
+
       {/* <pre>{JSON.stringify(spotifyData, null, 2)}</pre> */}
     </Layout>
   );
@@ -258,17 +283,55 @@ const ImageWrap = styled.div`
   }
 `;
 
+const Quests = styled.div`
+  text-align: center;
+  button {
+    margin: 20px;
+    background: none;
+    padding: 20px;
+    border-radius: 30px;
+    &:hover {
+      cursor: pointer;
+      background: #000;
+      color: #fff;
+    }
+  }
+`;
+
+const HeaderPod = styled.h2`
+  text-align: center;
+  font-size: ;
+`;
+
+const PodcastsWrap = styled.div`
+  width: 50%;
+  margin: 0 auto;
+  grid-column-gap: 50px;
+  h2 {
+    text-align: center;
+  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @media (max-width: 1250px) {
+    grid-template-columns: 1fr;
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+`;
+
 const Card = styled.div`
   display: grid;
   width: 1000px;
   margin: 150px auto 0 auto;
-  grid-template-columns: 1fr 100px 100px 1fr;
+  // grid-template-columns: 1fr 100px 100px 1fr;
   justify-items: center;
   align-items: center;
   text-align: center;
   @media (max-width: 1100px) {
     margin: 250px auto 0 auto;
-    grid-template-columns: 1fr 1fr;
+    // grid-template-columns: 1fr 1fr;
     width: 90%;
   }
   @media (max-width: 400px) {
@@ -283,8 +346,9 @@ const Card = styled.div`
 `;
 
 const Podcasts = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
+
   @media (max-width: 1100px) {
     width: 90%;
   }

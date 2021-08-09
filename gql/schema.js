@@ -215,6 +215,25 @@ export const GET_QUESTS = gql`
             twitter
           }
         }
+        heros1 {
+          data {
+            website
+            name
+            avatar
+            description
+            _id
+            isAccepted
+            isBeingReviewed
+            twitter
+            isBeingReviewed
+            isClaimed
+            youtube
+            moderator {
+              name
+              _id
+            }
+          }
+        }
       }
     }
   }
@@ -262,6 +281,21 @@ export const GET_QUEST_BY_ID = gql`
           twitter
         }
       }
+      heros1 {
+        data {
+          website
+          name
+          avatar
+          description
+          wikipedia
+          youtube
+          avatar
+          _id
+          isAccepted
+          isBeingReviewed
+          twitter
+        }
+      }
       heros {
         data {
           website
@@ -295,7 +329,7 @@ export const CREATE_HERO = gql`
     $isAccepted: Boolean
     $isBeingReviewed: Boolean
     $description: String
-    $questConnect: ID!
+    $questConnect: [ID!]
     $wikipedia: String
     $ownerConnect: ID!
     $avatar: String
@@ -309,7 +343,7 @@ export const CREATE_HERO = gql`
         isBeingReviewed: $isBeingReviewed
         description: $description
         wikipedia: $wikipedia
-        quest: { connect: $questConnect }
+        quests1: { connect: $questConnect }
         owner: { connect: $ownerConnect }
         isClaimed: false
         avatar: $avatar
@@ -329,7 +363,6 @@ export const UPDATE_HERO = gql`
     $description: String
     $wikipedia: String
     $ownerConnect: ID!
-    $questConnect: ID!
     $isAccepted: Boolean
     $isBeingReviewed: Boolean
     $youtube: String
@@ -343,7 +376,6 @@ export const UPDATE_HERO = gql`
         description: $description
         wikipedia: $wikipedia
         owner: { connect: $ownerConnect }
-        quest: { connect: $questConnect }
         isAccepted: $isAccepted
         isBeingReviewed: $isBeingReviewed
         youtube: $youtube
@@ -352,6 +384,18 @@ export const UPDATE_HERO = gql`
       }
     ) {
       name
+    }
+  }
+`;
+
+export const UPDATE_HERO_CONNECT = gql`
+  mutation ($id: ID!, $connect: [ID!]) {
+    updateHero(id: $id, data: { quests1: { connect: $connect } }) {
+      quests1 {
+        data {
+          name
+        }
+      }
     }
   }
 `;
@@ -366,6 +410,9 @@ export const GET_HEROS = gql`
         isBeingReviewed
         isClaimed
         description
+        avatar
+        youtube
+        twitter
         moderator {
           name
           _id
@@ -397,6 +444,13 @@ export const GET_HERO_BY_ID = gql`
       youtube
       quest {
         _id
+      }
+      quests1 {
+        data {
+          name
+          isAccepted
+          _id
+        }
       }
     }
   }

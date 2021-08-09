@@ -238,7 +238,7 @@ export default function Layout({ children }) {
           Analytics, Public Roam, and Figma
         </a>
         <Link href="/privacy-policy">Privacy Policy</Link>
-        <a href="https://wispy.co">by nwispy.co</a>
+        <a href="https://wispy.co">by wispy.co</a>
       </Made>
       <>
         {process.browser && (

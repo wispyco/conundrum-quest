@@ -9,10 +9,12 @@ const handlers = {
       req.headers.authorization
     );
 
+    console.log("didToken", didToken);
+
     magic.token.validate(didToken);
     const { email, issuer } = await magic.users.getMetadataByToken(didToken);
 
-    console.log("email", email);
+    console.log("email", email, "issuer", issuer);
 
     const userModel = new UserModel();
     // We auto-detect signups if `getUserByEmail` resolves to `undefined`
@@ -20,6 +22,8 @@ const handlers = {
 
     if (await userModel.getUserByEmail(email)) {
       user = await userModel.getUserByEmail(email);
+
+      console.log("user", user);
     } else {
       let invited;
       let inviteCodeSent;
