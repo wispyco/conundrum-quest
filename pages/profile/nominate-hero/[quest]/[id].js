@@ -208,7 +208,7 @@ const QuestCard = ({ quest, user, herosData }) => {
   let final;
 
   if (currentHeros.data.length < 1) {
-    //final = herosData?.getHeros?.data;
+    final = herosData?.getHeros?.data;
   } else {
     final = quest?.heros1.data.map((item, i) => {
       if (item.isAccepted && i < 1) {
