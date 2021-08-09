@@ -24,7 +24,7 @@ export default function Nominations({ user }) {
         {dataFiltered.map((hero, i) => {
           return (
             <Hero key={i}>
-              <h2>{dataFiltered[i].quest.name}</h2>
+              <h2>{dataFiltered[i].quest?.name}</h2>
               <h3>Name: {hero.name}</h3>
               <p>Description: {hero.description}</p>
               <h4>
@@ -39,7 +39,7 @@ export default function Nominations({ user }) {
               </h4>
               {hero.isBeingReviewed || hero.isAccepted ? (
                 <>
-                  <Link href={`/quest/${dataFiltered[i].quest._id}`}>
+                  <Link href={`/quest/${dataFiltered[i].quest?._id}`}>
                     View Heros Quest
                   </Link>
                   <p>
