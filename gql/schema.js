@@ -363,7 +363,6 @@ export const UPDATE_HERO = gql`
     $description: String
     $wikipedia: String
     $ownerConnect: ID!
-    $questConnect: ID!
     $isAccepted: Boolean
     $isBeingReviewed: Boolean
     $youtube: String
@@ -377,7 +376,6 @@ export const UPDATE_HERO = gql`
         description: $description
         wikipedia: $wikipedia
         owner: { connect: $ownerConnect }
-        quest: { connect: $questConnect }
         isAccepted: $isAccepted
         isBeingReviewed: $isBeingReviewed
         youtube: $youtube
@@ -386,6 +384,18 @@ export const UPDATE_HERO = gql`
       }
     ) {
       name
+    }
+  }
+`;
+
+export const UPDATE_HERO_CONNECT = gql`
+  mutation ($id: ID!, $connect: [ID!]) {
+    updateHero(id: $id, data: { quests1: { connect: $connect } }) {
+      quests1 {
+        data {
+          name
+        }
+      }
     }
   }
 `;
@@ -437,6 +447,8 @@ export const GET_HERO_BY_ID = gql`
       }
       quests1 {
         data {
+          name
+          isAccepted
           _id
         }
       }

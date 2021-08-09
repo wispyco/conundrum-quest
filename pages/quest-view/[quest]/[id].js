@@ -137,7 +137,7 @@ const QuestCard = ({ quest, knights, user }) => {
     }).catch(console.error);
   };
 
-  const test = quest.follower1s?.data.filter(
+  const test = quest?.follower1s?.data.filter(
     (follower) => follower?.owner?._id === userData.id
   );
 
@@ -148,6 +148,8 @@ const QuestCard = ({ quest, knights, user }) => {
 
     router.push(`/hero/${name1}/${id}`);
   };
+
+  const hero = urlSlug(quest?.name);
 
   if (following || unfollowing)
     return (
@@ -160,12 +162,12 @@ const QuestCard = ({ quest, knights, user }) => {
     <Card>
       <h1>{quest?.name}</h1>
       <p>{quest?.description}</p>
-      {quest.wikipedia && (
+      {quest?.wikipedia && (
         <a rel="noreferrer" target="_blank" href={`${quest?.wikipedia}`}>
           Wikipedia Link
         </a>
       )}
-      {quest.videoLink && (
+      {quest?.videoLink && (
         <VideoWrap>
           <ReactPlayer width="100%" height="100%" url={quest?.videoLink} />
         </VideoWrap>
@@ -177,14 +179,14 @@ const QuestCard = ({ quest, knights, user }) => {
         {!user?.token ? (
           <Link href={`/login-magic-public`}>Nominate a Hero</Link>
         ) : (
-          <Link href={`/profile/nominate-hero/${quest._id}`}>
+          <Link href={`/profile/nominate-hero/${hero}/${quest?._id}`}>
             Nominate Hero
           </Link>
         )}
       </HeroTitle>
 
       <HerosGrid>
-        {quest.heros1.data.map((hero) => {
+        {quest?.heros1?.data.map((hero) => {
           return (
             <>
               {hero.isAccepted && (
@@ -282,8 +284,8 @@ const QuestCard = ({ quest, knights, user }) => {
       <DiscussionEmbed
         shortname="conundrum-quest"
         config={{
-          url: `https://conundrum.quest/quest/${quest._id}`,
-          identifier: `${quest._id}`,
+          url: `https://conundrum.quest/quest/${quest?._id}`,
+          identifier: `${quest?._id}`,
           title: `${quest?.name}`,
           language: "zh_TW", //e.g. for Traditional Chinese (Taiwan)
         }}

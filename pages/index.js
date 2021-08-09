@@ -233,9 +233,9 @@ const QuestCard = ({ quest }) => {
       <h1>{quest?.name}</h1>
       <Link href={`quest-view/${slug}/${quest._id}`}>View Quest</Link>
       <h3>
-        {quest.heros.data.length > 0 && (
+        {quest.heros1.data.length > 0 && (
           <>
-            Heros <GiNinjaHeroicStance size={35} />: {quest.heros.data.length}
+            Heros <GiNinjaHeroicStance size={35} />: {quest.heros1.data.length}
           </>
         )}
       </h3>

@@ -88,7 +88,7 @@ export default function NominationsFull({ user }) {
 
   return (
     <>
-      <pre>{JSON.stringify(questsData?.getQuests?.data, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(questsData?.getQuests?.data, null, 2)}</pre> */}
       <Wrap>
         <h1>Nomination by Quest</h1>
 
