@@ -238,8 +238,10 @@ const QuestCard = ({ quest }) => {
           <>
             <h2>Heros</h2>
             <ImageWrap>
-              {quest?.heros1.data.map((item) => {
-                return <Image src={item?.avatar} width="50" height="50" />;
+              {quest?.heros1.data.map((item, i) => {
+                return (
+                  <Image key={i} src={item?.avatar} width="50" height="50" />
+                );
               })}
             </ImageWrap>
           </>
