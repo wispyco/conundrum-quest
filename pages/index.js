@@ -229,8 +229,15 @@ const QuestCard = ({ quest }) => {
 
   const slug = urlSlug(quest.name);
 
+  const viewHero = (name, id) => {
+    const name1 = urlSlug(name);
+
+    router.push(`/hero/${name1}/${id}`);
+  };
+
   return (
-    <Card onClick={() => cardVisit(quest.name, quest._id)}>
+    <Card>
+      {/* <Card onClick={() => cardVisit(quest.name, quest._id)}> */}
       <h1>{quest?.name}</h1>
       <Link href={`quest-view/${slug}/${quest._id}`}>View Quest</Link>
       <h3>
@@ -240,7 +247,13 @@ const QuestCard = ({ quest }) => {
             <ImageWrap>
               {quest?.heros1.data.map((item, i) => {
                 return (
-                  <Image key={i} src={item?.avatar} width="50" height="50" />
+                  <Image
+                    onClick={() => viewHero(item?.name, item?._id)}
+                    key={i}
+                    src={item?.avatar}
+                    width="50"
+                    height="50"
+                  />
                 );
               })}
             </ImageWrap>
@@ -265,6 +278,12 @@ const ImageWrap = styled.div`
   grid-template-columns: repeat(3, 50px);
   grid-column-gap: 20px;
   margin: 0 auto;
+  div {
+    &:hover {
+      transition: ease-in-out all 0.5s;
+      transform: scale(1.2);
+    }
+  }
   img {
     border-radius: 50%;
   }
