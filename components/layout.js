@@ -218,8 +218,8 @@ export default function Layout({ children }) {
             <Header2 className="title">
               {/* <em>T</em>he <span>Worlds</span> hardest problems and who is
               working on them. */}
-              <em>A</em> place to share new problems and ideas and see who is
-              working on them.
+              <em>A</em> place to see who is working on hard problems and new
+              ideas.
             </Header2>
           </div>
           <HeroIconGrid>
