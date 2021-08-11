@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { GiNinjaHeroicStance, GiMountedKnight } from "react-icons/gi";
 import { useRouter } from "next/router";
 import urlSlug from "url-slug";
+import Image from "next/image";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -235,7 +236,12 @@ const QuestCard = ({ quest }) => {
       <h3>
         {quest.heros1.data.length > 0 && (
           <>
-            Heros <GiNinjaHeroicStance size={35} />: {quest.heros1.data.length}
+            <h2>Heros</h2>
+            <ImageWrap>
+              {quest?.heros1.data.map((item) => {
+                return <Image src={item?.avatar} width="50" height="50" />;
+              })}
+            </ImageWrap>
           </>
         )}
       </h3>
@@ -251,6 +257,16 @@ const QuestCard = ({ quest }) => {
     </Card>
   );
 };
+
+const ImageWrap = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  grid-column-gap: 20px;
+  margin: 0 auto;
+  img {
+    border-radius: 50%;
+  }
+`;
 
 const QuestDummyJoin = styled.div`
   width: 500px;
