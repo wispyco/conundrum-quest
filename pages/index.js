@@ -273,6 +273,9 @@ const QuestDummyJoin = styled.div`
     border-radius: 50px;
     display: block;
     width: 250px;
+    @media(max-width:1100px){
+      width:80%;
+    }
     margin: 75px auto;
     letter-spacing: 2px;
     color: #000;
