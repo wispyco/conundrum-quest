@@ -18,6 +18,7 @@ import { GrClose } from "react-icons/gr";
 import LogRocket from "logrocket";
 import { Waitlist } from "waitlistapi";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -221,6 +222,16 @@ export default function Layout({ children }) {
               working on them.
             </Header2>
           </div>
+          <HeroIconGrid>
+            <div className="img">
+              <p>Paul’s is working on bringing communities together</p>
+              <Image src="/paul.png" width="97.59px" height="146.29px" />
+            </div>
+            <div className="img">
+              <p>Kate is working on new way’s to Electrify the world</p>
+              <Image src="/kate.png" width="97px" height="150px" />
+            </div>
+          </HeroIconGrid>
           <Link href="/login-magic-public">Join to Add a Quest</Link>
         </Title>
       )}
@@ -260,6 +271,28 @@ export default function Layout({ children }) {
     </>
   );
 }
+
+const HeroIconGrid = styled.div`
+  display: grid;
+  width: 800px;
+  margin: 0 auto;
+  grid-template-columns: 400px 400px;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  p {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    line-height: 22px;
+    padding-bottom: 10px;
+  }
+  .img {
+    text-align: center;
+    margin-top: 25px;
+  }
+`;
 
 const NavButton = styled.button``;
 
@@ -338,7 +371,6 @@ const Title = styled.div`
   // background-attachment: fixed;
   padding: 300px 0 173px 0;
   color: #000;
-
   a {
     text-align: center;
     display: block;
