@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { GiNinjaHeroicStance, GiMountedKnight } from "react-icons/gi";
 import { useRouter } from "next/router";
 import urlSlug from "url-slug";
+import Image from "next/image";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -228,14 +229,34 @@ const QuestCard = ({ quest }) => {
 
   const slug = urlSlug(quest.name);
 
+  const viewHero = (name, id) => {
+    const name1 = urlSlug(name);
+
+    router.push(`/hero/${name1}/${id}`);
+  };
+
   return (
-    <Card onClick={() => cardVisit(quest.name, quest._id)}>
+    <Card>
+      {/* <Card onClick={() => cardVisit(quest.name, quest._id)}> */}
       <h1>{quest?.name}</h1>
       <Link href={`quest-view/${slug}/${quest._id}`}>View Quest</Link>
       <h3>
         {quest.heros1.data.length > 0 && (
           <>
-            Heros <GiNinjaHeroicStance size={35} />: {quest.heros1.data.length}
+            <h2>Heros</h2>
+            <ImageWrap>
+              {quest?.heros1.data.map((item, i) => {
+                return (
+                  <Image
+                    onClick={() => viewHero(item?.name, item?._id)}
+                    key={i}
+                    src={item?.avatar}
+                    width="50"
+                    height="50"
+                  />
+                );
+              })}
+            </ImageWrap>
           </>
         )}
       </h3>
@@ -251,6 +272,22 @@ const QuestCard = ({ quest }) => {
     </Card>
   );
 };
+
+const ImageWrap = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  grid-column-gap: 20px;
+  margin: 0 auto;
+  div {
+    &:hover {
+      transition: ease-in-out all 0.5s;
+      transform: scale(1.2);
+    }
+  }
+  img {
+    border-radius: 50%;
+  }
+`;
 
 const QuestDummyJoin = styled.div`
   width: 500px;
