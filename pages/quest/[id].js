@@ -257,7 +257,7 @@ const QuestCard = ({ quest, knights, user }) => {
           </>
         )}
       </FollowTitle>
-      <DiscussionEmbed
+      {/* <DiscussionEmbed
         shortname="conundrum-quest"
         config={{
           url: `https://conundrum.quest/quest/${quest._id}`,
@@ -265,7 +265,7 @@ const QuestCard = ({ quest, knights, user }) => {
           title: `${quest?.name}`,
           language: "zh_TW", //e.g. for Traditional Chinese (Taiwan)
         }}
-      />
+      /> */}
     </Card>
   );
 };
