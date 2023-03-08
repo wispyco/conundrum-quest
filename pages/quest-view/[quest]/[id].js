@@ -20,7 +20,6 @@ import { FaTwitter } from "react-icons/fa";
 import { GiMountedKnight, GiNinjaHeroicStance } from "react-icons/gi";
 import ReactPlayer from "react-player";
 import Image from "next/image";
-import { DiscussionEmbed } from "disqus-react";
 import urlSlug from "url-slug";
 import { SiApplepodcasts } from "react-icons/si";
 
