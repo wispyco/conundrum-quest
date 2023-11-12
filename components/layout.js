@@ -19,6 +19,7 @@ import LogRocket from "logrocket";
 import { Waitlist } from "waitlistapi";
 import Cookies from "js-cookie";
 import Image from "next/image";
+import { Analytics } from '@vercel/analytics/react';
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -236,6 +237,8 @@ export default function Layout({ children }) {
         </Title>
       )}
       <Main>{children}</Main>
+      <Analytics />
+
       <Made>
         <Header2>
           Made for the <ImEarth /> and its <IoIosPeople />
